@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>21cake</title>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--内容部分-->
+		<link rel="stylesheet" href="myjs/maincenter.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<!--设置标题图标-->
+		<link rel="icon" href="iconfont/main.png" type="image/x-icon" />
+	</head>
+	<style>
+		/*.message_a_div:hover .spanmessage{
+
+		}*/
+		.nav-box-right .message_a:hover .message_a_div{
+			height: 88px;
+		}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+            				<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            				<!--<span class="spanmessage">江西</span>
+            				<span class="spanmessage">珠海</span>
+							<span class="spanmessage" id="a_exit">退出</span>-->
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--轮播图-->
+		<div class="div_Carousel">
+			<div class="layui-carousel" id="test1">
+			  <div carousel-item>
+			    <!--<div><img src="image-carousel/658d1cbbcdf0b8f078be3bc13adef5c9 (1).jpg" width="100%" height="100%"/></div>
+			    <div><img src="image-carousel/711a3a33600f08035553dc68fbdfce08.jpg" width="100%" height="100%"/></div>
+			    <div><img src="image-carousel/91d37253aee83bdaeb701ca4f615d317.jpg" width="100%" height="100%"/></div>
+			    <div><img src="image-carousel/e6d03cdb1bc0cfb55224a10a5b34c9b3.jpg" width="100%" height="100%"/></div>-->
+			    <div style="background-image: url(../images/66ef9535a9ac73ece1c0014870691a57.jpg);background-position: center center;width: 100%;height: 100%;" ></div>
+			    <div style="background-image: url(../images/94fc55f007fe7d6ed03f0dbb14bd5d40.jpg);background-position: center center;width: 100%;height: 100%;"></div>
+			    <div style="background-image: url(../images/3857deac5ed9d8d18e8383c82a03d873.jpg);background-position: center center;width: 100%;height: 100%;"></div>
+			    <div style="background-image: url(../images/cd45c9a6fcc3a1440dcbb9aab58ef88f.jpg);background-position: center center;width: 100%;height: 100%;"></div>
+			  </div>
+			</div>
+		</div>
+		<!--轮播图-->
+		<!--内容部分菜单-->
+		<div class="div_ContentMenu">
+			<a href="Main.html#newgoods"><img src="image-cakemenu/5f0d9f1270678f2f20cceab02f77ceb5.png" width="200px" height="100px"/></a>
+			<a href="Main.html#birthdaygoods"><img src="image-cakemenu/b6f731149b7076b524114c0d7c387da0.png" width="200px" height="100px"/></a>
+			<a href="Main.html#childrengoods"><img src="image-cakemenu/0b331caf72a856549a98cf94d22cf3b3.png" width="200px" height="100px"/></a>
+			<a href="Main.html#partgoods"><img src="image-cakemenu/78c8a0592d41612c1f01ebe226d8b399.png" width="200px" height="100px"/></a>
+			<a href="Main.html#portgoods"><img src="image-cakemenu/82e473d51470b7151981ba05c81f5b6d.png" width="200px" height="100px"/></a>
+			
+		</div>
+		<!--内容部分菜单-->
+		<!--内容部分-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">新品</span><span>/</span>
+					<a name="newgoods">
+						<span class="div_Conent_top_span2">专区</span>
+					</a></p>
+				<img class="div_Conent_top_img lazy" data-original="image-cakeContent-top/3376272e5601247de6e274863f6b841d.jpg" src="image-cakeContent-top/3376272e5601247de6e274863f6b841d.jpg" width="1100px" height="250px"/>
+				<div class="div_Conent_div" id="div_newgoods">
+					<!--<a href="goodsinformation.html">-->
+					<!--<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/4742490f422c4f88e466c822aa86958b.png" src="image-cakeContent-bottom/4742490f422c4f88e466c822aa86958b.png" width="263px" height="230px"/>
+						<h3>黑白巧克力慕斯（千阳号）</h3>
+						<p class="div_Conent_div_Conetent_p1">21cake x One Piece"千阳号”浮出水面</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>儿童</span>    ></a>
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥358.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					&lt;!&ndash;</a>&ndash;&gt;
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/135ea72cf379349b2cbfe135b3ad8377.png" src="image-cakeContent-bottom/135ea72cf379349b2cbfe135b3ad8377.png" width="263px" height="230px"/>
+						<h3>芒果慕斯</h3>
+						<p class="div_Conent_div_Conetent_p1">优质芒果的三种姿态，与青柠酸乳酪夹心</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>儿童</span>    ></a>
+							<a href="#"><span>聚会</span>    ></a>
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/1701acce601543c9300b85bdd8951eaa.png" src="image-cakeContent-bottom/1701acce601543c9300b85bdd8951eaa.png" width="263px" height="230px"/>
+						<h3>浅草</h3>
+						<p class="div_Conent_div_Conetent_p1">绿茶与海南绿的结合</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>人气</span>    ></a>
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/ae01d315764c0b406e256c30e03fdbc9.png" src="image-cakeContent-bottom/ae01d315764c0b406e256c30e03fdbc9.png" width="263px" height="230px"/>
+						<h3>清境</h3>
+						<p class="div_Conent_div_Conetent_p1">当薄荷的清新，遇上青柠的淡香</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>聚会</span>    ></a>
+							<a href="#"><span>结婚</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>-->
+					
+				</div>
+			</div>
+		</div>
+		<!--内容部分-->
+		<!--以下也为内容部分1-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">生日</span><span>/</span>
+					<a name="birthdaygoods">
+						<span class="div_Conent_top_span2">专区</span>
+					</a></p>
+				<img class="div_Conent_top_img lazy" data-original="image-cakeContent-top/84f0375298ea7fe876ae1447c2911400.jpg" src="image-cakeContent-top/84f0375298ea7fe876ae1447c2911400.jpg" width="1100px" height="250px"/>
+				<div class="div_Conent_div" id="div_birthdaygoods">
+					<!--<div class="div_Conent_div_Conetent">
+						<img src="image-cakeContent-bottom/8983c1dedc0001cc364841e353fc0b3e.png" width="263px" height="230px"/>
+						<h3>冻慕斯与焗芝士</h3>
+						<p class="div_Conent_div_Conetent_p1">新鲜奶油慕斯，轻盐味，丰富甜</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>低温</span>    ></a>
+							<a href="#"><span>生日</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/75ede283d8c7ed1f7beb85ca47bf377d.png" src="image-cakeContent-bottom/75ede283d8c7ed1f7beb85ca47bf377d.png" width="263px" height="230px"/>
+						<h3>朗姆芝士</h3>
+						<p class="div_Conent_div_Conetent_p1">酒香，微苦，清新的柠檬</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>白色情人节</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/4db75cd0b4630c3f556734ff230d4788.png" src="image-cakeContent-bottom/4db75cd0b4630c3f556734ff230d4788.png" width="263px" height="230px"/>
+						<h3>(撒粉生日)黑白巧克力慕斯</h3>
+						<p class="div_Conent_div_Conetent_p1">happy birthday，你的生日专属</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>聚会</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/67439225f529fb6397a942bd3151b8cd.png" src="image-cakeContent-bottom/67439225f529fb6397a942bd3151b8cd.png" width="263px" height="230px"/>
+						<h3>黑白巧克力慕斯</h3>
+						<p class="div_Conent_div_Conetent_p1">冰凉细腻，慕斯的甜与巧克力酱的苦</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>人气</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>-->
+					
+				</div>
+			</div>
+		</div>
+		<!--以下也为内容部分1-->
+		<!--以下也为内容部分2-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">儿童</span><span>/</span>
+					<a name="childrengoods">
+						<span class="div_Conent_top_span2">专区</span>
+					</a></p>
+				<img class="div_Conent_top_img lazy" data-original="image-cakeContent-top/a85037c288546b3c691192dfad2bb16a.jpg" src="image-cakeContent-top/a85037c288546b3c691192dfad2bb16a.jpg" width="1100px" height="250px"/>
+				<div class="div_Conent_div" id="div_childrengoods">
+					<!--<div class="div_Conent_div_Conetent">
+						<img class="lazy" datam-original="image-cakeContent-bottom/a4963701c435f3140947c43c8e702018.png" src="image-cakeContent-bottom/a4963701c435f3140947c43c8e702018.png" width="263px" height="230px"/>
+						<h3>黑白巧克力慕斯 彼尔德（Party）</h3>
+						<p class="div_Conent_div_Conetent_p1">“ 孩子的世界，简单到非黑即白。”</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>儿童</span>    ></a>
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥<span>298.00</span>/<span>2.0</span>磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>-->
+					<!--<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/6bc820b91c8438eafcad8b0a0936ee73.png" src="image-cakeContent-bottom/6bc820b91c8438eafcad8b0a0936ee73.png" width="263px" height="230px"/>
+						<h3>芒果奶油蛋糕</h3>
+						<p class="div_Conent_div_Conetent_p1">21cake配方芒果百香果慕斯夹心</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>儿童</span>    ></a>
+							<a href="#"><span>聚会</span>    ></a>
+							<a href="#"><span>人气</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥198.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/c5587f98e4a28253696ee285611932d8.png" src="image-cakeContent-bottom/c5587f98e4a28253696ee285611932d8.png" width="263px" height="230px"/>
+						<h3>百香果酸乳酪慕斯（木糖醇）</h3>
+						<p class="div_Conent_div_Conetent_p1">冰淇淋口感，不同层次的酸与冰凉</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>低温</span>    ></a>
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>儿童</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/1670e3f1102098f21e6ec22009e3f831.png" src="image-cakeContent-bottom/1670e3f1102098f21e6ec22009e3f831.png" width="263px" height="230px"/>
+						<h3>心语心愿</h3>
+						<p class="div_Conent_div_Conetent_p1">椰子香气，蛋糕坯的颗粒感平衡奶油的软滑，烛光</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>儿童</span>    ></a>
+							<a href="#"><span>结婚</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>-->
+					
+				</div>
+			</div>
+		</div>
+		<!--以下也为内容部分2-->
+		<!--以下也为内容部分3-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">聚会</span><span>/</span>
+					<a name="partgoods">
+						<span class="div_Conent_top_span2">专区</span>
+					</a></p>
+				<img class="div_Conent_top_img lazy" data-original="image-cakeContent-top/4f5fdcf4d2b26b0400372f90b8fac191.jpg" src="image-cakeContent-top/4f5fdcf4d2b26b0400372f90b8fac191.jpg" width="1100px" height="250px"/>
+				<div class="div_Conent_div" id="div_partgoods">
+					<!--<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/5d08d69d9cf2cc02deb76db701efa10b.png" src="image-cakeContent-bottom/5d08d69d9cf2cc02deb76db701efa10b.png" width="263px" height="230px"/>
+						<h3> 6口味切块</h3>
+						<p class="div_Conent_div_Conetent_p1">多口味，精装小份</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>生日</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥198.00/6个（6种口味）</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img src="image-cakeContent-bottom/161718545e360174d46bb271111ef289.png" width="263px" height="230px"/>
+						<h3>黑方</h3>
+						<p class="div_Conent_div_Conetent_p1">法国白兰地的味道，更衬纯黑巧克力的香醇</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>聚会</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥298.00/2.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/47d16d180b7716a3de81d8e1af76317c.png" src="image-cakeContent-bottom/47d16d180b7716a3de81d8e1af76317c.png" width="263px" height="230px"/>
+						<h3>深艾尔</h3>
+						<p class="div_Conent_div_Conetent_p1">深色烈性艾尔啤酒风味慕斯</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>情侣</span>    ></a>
+							<a href="#"><span>低温</span>    ></a>
+							<a href="#"><span>新品</span>    ></a>
+							<a href="#"><span>相识</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥268.00/1.0磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>
+					<div class="div_Conent_div_Conetent">
+						<img class="lazy" data-original="image-cakeContent-bottom/f950317bc1ae5a31f2f49df8e6d0d6bf.png" src="image-cakeContent-bottom/f950317bc1ae5a31f2f49df8e6d0d6bf.png" width="263px" height="230px"/>
+						<h3>桂圆冰淇淋蛋糕</h3>
+						<p class="div_Conent_div_Conetent_p1">白兰地让人分神，有些记忆与酒有关</p>
+						<div class="div_Conent_div_Conetent_radiodiv">
+							<a href="#"><span>低温</span>    ></a>
+							<a href="#"><span>人气</span>    ></a>
+						</div>
+						<div class="div_Conent_div_Conetent_bottom">
+							<span class="Spec">¥198.00/1.0磅磅</span>
+							<a class="insetCar">加入购物车</a>
+						</div>
+						<div class="div_Conent_div_Content_display">
+							<div class="div_Conent_div_Content_display_div div_1">
+								<span>￥298.00/2.0磅</span>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_2">
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+								<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+							</div>
+							<div class="div_Conent_div_Content_display_div div_3">
+								<div class="div_3_div div_3_div_input1">立即购买</div>
+								<div class="div_3_div div_3_div_input2">加入购物车</div>
+							</div>
+						</div>
+					</div>-->
+					
+				</div>
+			</div>
+		</div>
+		<!--以下也为内容部分3-->
+		<!--以下也为内容部分4-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">活动门</span><span>/</span>
+					<a name="portgoods">
+						<span class="div_Conent_top_span2">是被吸引了吧</span>
+					</a>
+					<a href="#" class="div_Content_look">查看更多></a>
+				</p>
+				<div class="div_Content_other">
+					<div class="div_Content_imgContent">
+						<img class="lazy" data-original="image-cakeContent-bottom/810af7fb1f079477c8aec960d11fa4df.jpg" src="image-cakeContent-bottom/810af7fb1f079477c8aec960d11fa4df.jpg" width="542px" height="253px"/>
+					</div>
+					<div class="div_Content_imgContent">
+						<img class="lazy" data-original="image-cakeContent-bottom/810af7fb1f079477c8aec960d11fa4df.jpg" src="image-cakeContent-bottom/810af7fb1f079477c8aec960d11fa4df.jpg" width="542px" height="253px"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--以下也为内容部分4-->
+		<!--以下也为内容部分5-->
+		<div class="div_Content_Main">
+			<div class="div_Content">
+				<p class="div_Conent_top"><span class="div_Conent_top_span1">甘一科</span><span>/</span>
+					<a name="portgoods">
+						<span class="div_Conent_top_span2">文章</span>
+					</a>
+					<a href="#" class="div_Content_look">查看更多></a>
+				</p>
+				<div class="div_Content_other">
+					<div class="div_Content_imgContent">
+						<img class="lazy" data-original="image-cakeContent-bottom/a6e7f6613a769ad63bb6798b08fd9bc4.jpg" src="image-cakeContent-bottom/a6e7f6613a769ad63bb6798b08fd9bc4.jpg" width="542px" height="253px"/>
+						<h2 style="margin-top: 10px;margin-bottom: 5px;">春季刊 · 茶</h2>
+						<p class="div_Content_other_readall"><a href="#">阅读全文>></a>></p>
+					</div>
+					<div class="div_Content_imgContent">
+						<img class="lazy" data-original="image-cakeContent-bottom/7874cdea7ca4ab963c3e23571531bd51.jpg" src="image-cakeContent-bottom/7874cdea7ca4ab963c3e23571531bd51.jpg" width="542px" height="253px"/>
+						<h2 style="margin-top: 10px;margin-bottom: 5px;">春季刊·私享 </h2>
+						<p class="div_Content_other_readall"><a href="#">阅读全文>></a>></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--以下也为内容部分5-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<!--分享-->
+		<!--aside-->
+		<!--<aside id="misc">
+			<div class="content">
+				<ul class="sns">
+					<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+					<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+				</ul>
+				<div class="passport"><a href="/cn/passport/"><img src="img/Picture/misc_passport.png" alt="MUJI passport"></a></div>
+			</div>
+		</aside>-->
+
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<!--导入main.js-->
+		<script src="myjs/main.js"></script>
+		<!--动态实现-->
+		<script>
+            /*通过正则获取url中的参数*/
+            //获得值应该在到达窗体就加载，而不是加载完成
+            /*function getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)
+                    return decodeURI(r[2]);
+                return null;
+            };
+			var rPhone=getUrlParam("rPhone");
+			$("#span_users").html(rPhone);*/
+            $.ajax({
+				url:'UserRegsistMainServlet/getPhone',
+				type:'get'
+			}).done(function (result) {
+				$("#span_users").html(result);
+            });
+			var app={
+			    selectCakeInformation:function(){
+                    $.ajax({
+                        url:'CakeMainServlet/selectCakeInformation',
+                        type:'post'
+                    }).done(function (result) {
+                        var str="";
+                        $.each(result,function (i,obj) {
+                            str+="<div class='div_Conent_div_Conetent'>";
+                            str+="<a href='goodsinformation.html?cId="+obj.cId+"'>";
+                            str+="<img class='lazy' data-original='../images/"+obj.cPicture+"' src='../images/"+obj.cPicture+"' width='263px' height='230px'/>";
+                            str+="</a>";
+                            str+="<h3>"+obj.cName+"</h3>";
+                            str+="<p class='div_Conent_div_Conetent_p1'>"+obj.cDecription+"</p>";
+                            str+="<div class='div_Conent_div_Conetent_radiodiv' id='1"+obj.cId+"'>";
+                            $.ajax({
+                                url:'CakeMainServlet/selectSmallTypeformationByCId',
+                                type:'post',
+                                data:{cId:obj.cId}
+                            }).done(function (result) {
+                                var strs="";
+                                $.each(result,function (i,obj) {
+                                    strs+="<a href='#'><span>"+obj.smallCakeType.stName+"</span>    ></a>";
+                                });
+                                $("#1"+obj.cId).html(strs);
+                            });
+                            str+="</div>";
+                            str+="<div class='div_Conent_div_Conetent_bottom'>";
+                            str+="<span class='Spec' id='2"+obj.cId+"'></span>";
+                            str+="<a class='insetCar'>加入购物车</a>";
+                            str+="</div>";
+                            str+="<div class='div_Conent_div_Content_display'>";
+                            str+="<div class='div_Conent_div_Content_display_div div_1'>";
+                            str+="<span id='3"+obj.cId+"'></span>";
+                            str+="</div>";
+                            str+="<div class='div_Conent_div_Content_display_div div_2' id='4"+obj.cId+"'>";
+                            $.ajax({
+                                url:'CakeMainServlet/selectPricePoundageByCId',
+                                type:'post',
+                                data:{cId:obj.cId}
+                            }).done(function (result) {
+                                var strs3="";
+                                $.each(result,function (i,obj) {
+                                    strs3+="<div class='div_2_div'><div><i class='layui-icon'>&#xe605;</i></div><span data-price='"+obj.ppPrice+"'>"+obj.ppPoundage+"磅</span></div>";
+                                });
+                                $("#2" + obj.cId).html("¥" + result[0].ppPrice + "/" + result[0].ppPoundage + "磅");
+                                $("#3" + obj.cId).html("¥" + result[0].ppPrice + "/" + result[0].ppPoundage + "磅");
+                                $("#4"+obj.cId).html(strs3);
+                            });
+                            str+="</div>";
+                            str+="<div class='div_Conent_div_Content_display_div div_3'>";
+                            str+="<div class='div_3_div div_3_div_input1' data-cId='"+obj.cId+"'>立即购买</div>";
+                            str+="<div class='div_3_div div_3_div_input2' data-cId='"+obj.cId+"'>加入购物车</div>";
+                            str+="</div>";
+                            str+="</div>";
+                            str+="</div>";
+                        });
+                        $("#div_newgoods").html(str);
+                    });
+                    var arr=["儿童","聚会","生日"];
+                    var types="";
+                    for(var j=0;j<arr.length;j++){
+                        types=arr[j];
+                        $.ajax({
+                            url:'CakeMainServlet/selectCakeInformationAll',
+                            type:'post',
+                            data:{stName:arr[j]}
+                        }).done(function (result) {
+                            types=result[0].smallCakeType.stName;
+                            var str="";
+                            $.each(result,function (i,obj) {
+                                str+="<div class='div_Conent_div_Conetent'>";
+                                str+="<a href='goodsinformation.html?cId="+obj.cakeInformation.cId+"'>";
+                                str+="<img class='lazy' data-original='../images/"+obj.cakeInformation.cPicture+"' src='../images/"+obj.cakeInformation.cPicture+"' width='263px' height='230px'/>";
+                                str+="</a>";
+                                str+="<h3>"+obj.cakeInformation.cName+"</h3>";
+                                str+="<p class='div_Conent_div_Conetent_p1'>"+obj.cakeInformation.cDecription+"</p>";
+                                str+="<div class='div_Conent_div_Conetent_radiodiv' id='1"+obj.stiId+""+j+"'>";
+                                $.ajax({
+                                    url:'CakeMainServlet/selectSmallTypeformationByCId',
+                                    type:'post',
+                                    data:{cId:obj.cakeInformation.cId}
+                                }).done(function (result) {
+                                    var strs="";
+                                    $.each(result,function (i,obj) {
+                                        strs+="<a href='#'><span>"+obj.smallCakeType.stName+"</span>    ></a>";
+                                    });
+                                    $("#1"+obj.stiId+""+j).html(strs);
+                                });
+                                str+="</div>";
+                                str+="<div class='div_Conent_div_Conetent_bottom'>";
+                                str+="<span class='Spec' id='2"+obj.stiId+""+j+"'></span>";
+                                str+="<a class='insetCar'>加入购物车</a>";
+                                str+="</div>";
+                                str+="<div class='div_Conent_div_Content_display'>";
+                                str+="<div class='div_Conent_div_Content_display_div div_1'>";
+                                str+="<span id='3"+obj.stiId+""+j+"' class='span_cPrice'></span>";
+                                str+="</div>";
+                                str+="<div class='div_Conent_div_Content_display_div div_2' id='4"+obj.stiId+""+j+"'>";
+								$.ajax({
+                                    url:'CakeMainServlet/selectPricePoundageByCId',
+                                    type:'post',
+                                    data:{cId:obj.cakeInformation.cId}
+                                }).done(function (result) {
+                                    var strs3="";
+                                    $.each(result,function (i,obj) {
+                                        strs3+="<div class='div_2_div'><div><i class='layui-icon'>&#xe605;</i></div><span data-price='"+obj.ppPrice+"'>"+obj.ppPoundage+"磅</span></div>";
+                                    });
+                                    $("#2"+obj.stiId+""+j).html("¥"+result[0].ppPrice+"/"+result[0].ppPoundage+"磅");
+                                    $("#3"+obj.stiId+""+j).html("¥"+result[0].ppPrice+"/"+result[0].ppPoundage+"磅");
+                                    $("#4"+obj.stiId+""+j).html(strs3);
+                                });
+                                str+="</div>";
+                                str+="<div class='div_Conent_div_Content_display_div div_3'>";
+                                str+="<div class='div_3_div div_3_div_input1' data-cId='"+obj.cakeInformation.cId+"'>立即购买</div>";
+                                str+="<div class='div_3_div div_3_div_input2' data-cId='"+obj.cakeInformation.cId+"'>加入购物车</div>";
+                                str+="</div>";
+                                str+="</div>";
+                                str+="</div>";
+                            });
+                            if(types=="儿童") {
+                                $("#div_childrengoods").html(str);
+                            }else if(types=="聚会"){
+                                $("#div_partgoods").html(str);
+							}else if(types=="生日"){
+                                $("#div_birthdaygoods").html(str);
+							}
+                        });
+					};
+				},
+				click:function(){
+                    /*加入购物车动画*/
+                    $(".div_Conent_div").on("click",".insetCar",function(){
+                        $(".div_Conent_div_Content_display").css("bottom","-121px");
+                        $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("bottom","59px");
+                        $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("height","148px");
+                        $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("overflow","visible");
+                        var div2_div=$(this).parent().next().find(".div_2_div")[0];
+                        //console.log($(this).parent().next().find(".div_2_div")[0]);
+                        $(".div_2_div div").css("display","none");
+                        $(".div_2_div").css("border","");
+                        $(".div_2_div").css("line-height","30px");
+                        $(div2_div).children().css("display","block");
+                        $(div2_div).css("border","1px solid red");
+                        $(div2_div).css("line-height","10px");
+                    });
+                    $(".div_Conent_div").on("click",".div_2_div",function(){
+                       $(".div_2_div div").css("display","none");
+                        $(".div_2_div").css("border","");
+                        $(".div_2_div").css("line-height","30px");
+                        $(this).children().css("display","block");
+                        $(this).css("border","1px solid red");
+                        $(this).css("line-height","10px");
+                        //console.log($(this).parent().prev().find("span").html("7777"));
+                        //console.log($(this).parent().prev().find("span").html());
+                        //点击时获取磅数,价格(记住这里的磅数后面带了一个字)
+						var poundage=$(this).find("span").html();//磅数
+						var price=$(this).find("span").data("price");//价格
+                        $(this).parent().prev().find("span").html("¥"+price+"/"+poundage);
+                    });
+                    $("#a_exit").click(function () {
+						window.location.href="login.html";
+                    });
+                    //加入商品到购物车
+                    $("#div_newgoods,#div_partgoods,#div_childrengoods,#div_birthdaygoods").on("click",".div_3_div_input2",function () {
+                        var cId=$(this).data("cid");
+                        var pricePoundage=$(this).parent().prev().prev().children().html();
+                        var sPoundage=pricePoundage.split("/")[1].slice(0,1);
+                        var sPrice=pricePoundage.split("/")[0].slice(1);
+                        $.ajax({
+                            url:'UserRegsistMainServlet/insertShopping',
+                            type:'post',
+                            data:{cId:cId,sPrice:sPrice,sPoundage:sPoundage}
+                        }).done(function (result) {
+                            layer.msg(result);
+                        });
+                    });
+                    //立即购买
+                    $("#div_newgoods,#div_partgoods,#div_childrengoods,#div_birthdaygoods").on("click",".div_3_div_input1",function () {
+                        var cId=$(this).data("cid");
+                        var pricePoundage=$(this).parent().prev().prev().children().html();
+                        var sPoundage=pricePoundage.split("/")[1].slice(0,1);
+                        var sPrice=pricePoundage.split("/")[0].slice(1);
+                        $.ajax({
+                            url:'UserRegsistMainServlet/insertShopping',
+                            type:'post',
+                            data:{cId:cId,sPrice:sPrice,sPoundage:sPoundage}
+                        }).done(function (result) {
+                            layer.msg(result);
+                            location.href="ShoppingCar.html";
+                        });
+                    });
+				},
+			    init:function () {
+					app.selectCakeInformation();
+					app.click();
+                }
+			};
+			app.init();
+
+			$("#myOrdering").click(function () {
+				location.href="myOrdering.html";
+            });
+		</script>
+	</body>
+</html>

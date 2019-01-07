@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IcakeDao"><!--接口名-->
+    <!--查询所有管理员-->
+    <select id="selectAllRegsistAdmin" resultType="RegsistAdmin">
+        select *from regsistAdmin
+    </select>
+    <!--登录(根据账号，密码查询管理员)-->
+    <select id="selectRegsistAdminByUserAndPassword" resultType="RegsistAdmin">
+        select *from regsistAdmin
+        <where>
+            <if test="raName !=null and raName !=''">
+                raName=#{raName}
+            </if>
+            <if test="raPassword !=null and raPassword !=''">
+                and raPassword=#{raPassword}
+            </if>
+        </where>
+    </select>
+    <!--查询，根据其权限进行查询-->
+    <select id="selectRegsistAdminByRole" resultType="RegsistAdmin">
+        select *from regsistAdmin
+        <where>
+            <if test="raRole=='超级管理员'">
+
+            </if>
+            <if test="raRole=='普通管理员'">
+                raName=#{raName}
+            </if>
+        </where>
+    </select>
+    <!--查询，分页-->
+    <select id="selectAdminByPage" resultType="RegsistAdmin">
+        select *from regsistAdmin
+        <where>
+            <if test="raRole=='超级管理员'">
+
+            </if>
+            <if test="raRole=='普通管理员'">
+                raName=#{raName}
+            </if>
+            <if test="raName !=null and raName !='' and raRole !='普通管理员'">
+                raName like '%${raName}%'
+            </if>
+        </where>
+        limit ${page},${limit}
+    </select>
+    <!--查询数量-->
+    <select id="selectAdminCount" resultType="int">
+        select count(*) from regsistAdmin
+        <where>
+            <if test="raRole=='超级管理员'">
+
+            </if>
+            <if test="raRole=='普通管理员'">
+                raName=#{raName}
+            </if>
+            <if test="raName !=null and raName !='' and raRole !='普通管理员'">
+                raName like '%${raName}%'
+            </if>
+        </where>
+    </select>
+    <!--注销-->
+    <update id="updateState" parameterType="RegsistAdmin">
+        update regsistAdmin set raState=#{raState} where raId=#{raId}
+    </update>
+    <!--添加管理员-->
+    <insert id="insertRegsistAdmin" parameterType="RegsistAdmin">
+        insert into regsistAdmin(raName,raPhone,raEmail,raPassword,raRole) values(#{raName},#{raPhone},#{raEmail},#{raPassword},#{raRole})
+    </insert>
+    <!--修改管理员-->
+    <update id="updateRegsistAdmin" parameterType="RegsistAdmin">
+        update regsistAdmin set raName=#{raName},raPhone=#{raPhone},raEmail=#{raEmail},raRole=#{raRole} where raId=#{raId}
+    </update>
+    <!--多项重置密码-->
+    <update id="updateRegsistAdminPassword" parameterType="int">
+        update regsistAdmin set raPassword='670b14728ad9902aecba32e22fa4f6bd'
+        <foreach collection="list" open=" where raId in(" separator="," close=")" item="raId">
+            #{raId}
+        </foreach>
+    </update>
+    <!--判断登录名是否被注册-->
+    <select id="selectAdminByNameIfRegsist" resultType="int">
+        select count(*) from regsistAdmin
+        <where>
+            <if test="raName !=null and raName !=''">
+                raName=#{raName}
+            </if>
+        </where>
+    </select>
+    <!--根据名字查找地位-->
+    <select id="selectAdminByNameOfRole" resultType="RegsistAdmin">
+        select *from regsistAdmin
+        <where>
+            <if test="raName !=null and raName !=''">
+                raName=#{raName}
+            </if>
+        </where>
+    </select>
+</mapper>
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    .layui-row input{
+        width: 150px;
+        float: left;
+        padding-left: 10px;margin-right: 5px;margin-bottom: 21px;
+    }
+    .layui-row a{
+        float: right;margin-right: 6px;margin-top:11px;
+    }
+</style>
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <marquee style="color:yellowgreen">将数据库多余数据进行迁移吧。。</marquee>
+    </div>
+    <xblock>
+        <button class="layui-btn" onclick="delAll()"><i class="layui-icon"></i>查询迁移数据</button>
+        <button class="layui-btn" id="btnAddAdmin" onclick="x_admin_show()"><i class="layui-icon"></i>立即迁移</button>
+        <span class="x-right" style="line-height:40px">共有数据：<span id="span_number"></span> 条</span>
+    </xblock>
+    <table class="layui-table" id="dataTable">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>编号</th>
+            <th>迁移时间</th>
+            <th>迁移数量</th>
+            <th>状态</th>
+            <th>迁移人</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <!--分页-->
+    <div id="demo11"></div>
+</div>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+    /*----------------------------------------*/
+    /*打开界面后的一个提示，提示是否需要迁移*/
+    var numbers=0;
+    $.ajax({
+        url:'DatabaseBackupServlet/selectShoppingStateCount',
+        type:'post'
+    }).done(function (result) {
+        numbers=result;
+        layui.use('layer',function () {
+          var layer=layui.layer;
+            if(result>0){
+                layer.msg("你有数据待迁移了..");
+            }else{
+                layer.msg("暂时没有待迁移的数据..");
+            }
+        });
+    });
+    //分页
+    function selectRegsistAdmir() {
+        /*查询所有*/
+        var number = "";
+        $.ajax({
+            url:'DatabaseBackupServlet/selectHistoryDiaryCount',
+            type:'post',
+            contentType: 'application/json;charset=UTF-8'
+        }).done(function (result) {
+            number=result;
+            $("#span_number").html(number);
+            /*分页查询*/
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage
+                    , layer = layui.layer;
+                laypage.render({
+                    elem: 'demo11'
+                    , count: number //数据总数
+                    , limit: 4
+                    , curr: location.hash.replace('#!fenye=','')//获取起始页
+                    ,hash:'fenye'
+                    , jump: function (objs) {
+                        page = objs.curr;
+                        limit = objs.limit;
+                        var objectList = [];
+                        objectList.push(page);
+                        objectList.push(limit);
+                        /*得到返回结果*/
+                        /*先清除数据*/
+                        $("tbody tr").remove();
+                        $.ajax({
+                            url: 'DatabaseBackupServlet/selectHistoryShoppingDiary',
+                            type: 'post',
+                            data: JSON.stringify(objectList),
+                            contentType: 'application/json;charset=UTF-8'
+                        }).done(function (result) {
+                            console.log(result);
+                            var str = "";
+                            $.each(result, function (i, obj) {
+                                str += "<tr>";
+                                str += "<td>";
+                                str += "<div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div>";
+                                str += "</td>";
+                                str += "<td>" + obj.hdId + "</td>";
+                                str += "<td>" + new Date(obj.htTime).toLocaleString() + "</td>";
+                                str += "<td>" + obj.htCount + "</td>";
+                                str += "<td>" + obj.htState + "</td>";
+                                str += "<td>" + obj.htAdmir + "</td>";
+                                str += "</tr>";
+                            });
+                            $("tbody").html(str);
+                        });
+                    }
+                });
+            });
+        });
+    }
+    selectRegsistAdmir();
+    /*立即迁移*/
+    function x_admin_show() {
+        if(numbers>0){
+            $.ajax({
+                url:'DatabaseBackupServlet/insertHistoryShoppingDiary',
+                type:'post'
+            }).done(function (result) {
+                layer.msg(result);
+                selectRegsistAdmir();
+            });
+        }else{
+            layer.msg("没有数据待迁移！");
+        }
+
+    };
+
+</script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

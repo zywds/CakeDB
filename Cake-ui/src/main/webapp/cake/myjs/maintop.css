@@ -1,0 +1,53 @@
+		/*头部*/
+		html,body,div,ul,li,a,span,img,i{padding: 0;margin: 0;}
+		.div_Main{width: 100%;height: 80px;top: 0;left: 0;position: fixed;
+		box-shadow: 0 2px 2px 0 rgba(195,195,195,0.50);z-index: 999;/*display: block;*/;background: white;}
+		.header-logo{text-decoration: none;display: block;width: 120px;height: 44px; margin-top: 18px;cursor: pointer;
+		float: left;background: white;}
+		img,a{border: none;}
+		.header-nav{margin: 0 auto;max-width: 1200px;min-width: 760px;height: 80px;display: block;}
+		.nav-box{list-style-type: none;display: block;float: left;
+		    position: relative;line-height: 80px;height: 80px;margin-left: 30px;}
+		.nav-box li{float: left;margin: 0 15px;font-size: 14px;position: relative;}
+		.nav-box li a:hover{color: yellowgreen;cursor: pointer;}
+		.nav-box-right{display: block;float: right;height: 80px;position: relative;}
+		.nav-box-right .dowload_a{height: 80px;display: block;float: left;position: relative;line-height: 80px;
+		;margin-right: 20px;}
+		.nav-box-right .city_a{width: 84px;height: 80px;float: left;line-height: 80px;position: relative;
+		display: block;text-align: center;}
+		.nav-box-right .message_a{display: block;width: 50px;height: 80px;line-height: 80px;
+		position: relative;float: left;text-align: center;}
+		.nav-box-right .login_a{float: left;display: block;width: 28px;height: 80px;line-height: 80px;
+		text-align: center;}
+		.nav-box-right .regsist_a{float: left;display: block;width: 28px;height: 80px;line-height: 80px;
+		text-align: center;}
+		.nav-box-right .line_a{float: left;display: block;width: 10px;height: 80px;line-height: 80px;
+		text-align: center;}
+		.nav-box-right .shoppingcar_a{float: left;display: block;width: 40px;height: 80px;line-height: 80px;
+		text-align: center;padding-left: 15px;padding-right: 6px;}
+		.nav-box-right .dowload_div{width: 115px;height: 0px;position: absolute;top: 70px;left: -27px;
+		z-index: 30;transition: height 0.5s linear;box-shadow: 1px 1px 3px blueviolet;overflow: hidden;background: white;
+		}
+		.nav-box-right .dowload_a:hover .dowload_div{height: 120px;}
+		.dowload_div_img{width: 90px;height: 90px;
+		display: block;float: left;margin-left: 14px;margin-top: 8px;
+		}
+		.dowload_div_span{display:inline-block;float:left;
+		color: black;font-size: 14px;width: 90px;height: 10px;line-height: 10px;margin-top: 7px;margin-left: 14px;
+		}
+		.city_a .city_a_div{position: absolute;width: 100px;height:0px;background: gray;margin-left: -8px;margin-top: -10px;
+		overflow: hidden;background: white;box-shadow: 1px 1px 3px blueviolet;transition: height 1s linear;}
+		.city_a_div .spancity{float: left;display: block;width: 100px;height: 20px;line-height: 20px;margin-top: 3px;
+		color: gainsboro;
+		}
+		.nav-box-right .city_a:hover .city_a_div{color: black;height:170px;}
+		.spancity:hover{color: black;}
+		.message_a .message_a_div{position: absolute;width: 100px;height:0px;background: gray;margin-left: -24px;margin-top: -10px;
+		overflow: hidden;background: white;box-shadow: 1px 1px 3px blueviolet;transition: height 0.4s linear;
+		}
+		.message_a_div .spanmessage{float: left;display: block;width: 100px;height: 20px;line-height: 20px;margin-top: 6px;
+		color: gainsboro;
+		}
+		.nav-box-right .message_a:hover .message_a_div{color: black;height:60px;}
+		.spanmessage:hover{color: black;}
+		/*头部*/

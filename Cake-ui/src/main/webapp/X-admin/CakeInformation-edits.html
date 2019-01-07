@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--富文本-->
+    <script src="js/RichTextBox/kindeditor-all-min.js"></script>
+    <script src="js/RichTextBox/lang/zh-CN.js"></script>
+</head>
+<style>
+    .span_cake{display: inline-block;margin-right: 10px;margin-left: 40px;}
+</style>
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="cName" class="layui-form-label">
+                <span class="x-red">*</span>商品名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="cName" name="cName" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-upload-drag" id="test10" style="margin-left: 410px;margin-top: 20px;background-repeat: no-repeat;background-size: 100% 100%">
+            <i class="layui-icon"></i>
+            <p>点击上传，或将文件拖拽到此处</p>
+        </div>
+        <div class="layui-form-item" style="margin-top: -155px;">
+            <label for="cNameEnglish" class="layui-form-label">
+                <span class="x-red"></span>商品英文名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="cNameEnglish" name="cNameEnglish" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red"></span>
+            </div>
+        </div>
+        <span class="span_cake">商品类型</span>
+        <div class="layui-input-inline" style="width: 190px">
+            <select name="contrller" style="height: 39px;" id="ctName">
+                <option value="">商品类型</option>
+            </select>
+        </div><br>
+        <span class="span_cake">商品口味</span>
+        <div class="layui-input-inline" style="width: 190px;margin-top: 15px">
+            <select name="contrller" style="height: 39px;" id="mtName">
+                <option value="">商品口味</option>
+            </select><br>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label for="cDecription" class="layui-form-label">
+                描述
+            </label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" id="cDecription" name="cDecription" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>商品小类型</label>
+            <div class="layui-input-block" id="checkValue">
+
+            </div>
+        </div>
+        <!--富文本-->
+        <div style="margin-left: 25px">
+            <textarea cols="80" rows="10" id="details" style="display:inline-block;width:815px;height:300px;margin-bottom: 15px"></textarea>
+        </div>
+        <div class="layui-form-item" style="margin-left: -40px">
+            <label for="L_repasss" class="layui-form-label">
+            </label>
+            <button  class="layui-btn" lay-filter="add" lay-submit="">
+                修改
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    /*通过正则获取url中的参数*/
+    //获得值应该在到达窗体就加载，而不是加载完成
+    function getUrlParam(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)
+            return decodeURI(r[2]);
+        return null;
+    }
+    var cId=getUrlParam("cId");
+    var cName=getUrlParam("cName");
+    var cNameEnglish=getUrlParam("cNameEnglish");
+    var cDecription=getUrlParam("cDecription");
+    var cPicture=getUrlParam("cPicture");
+    var cDesc="";
+    var ctId=getUrlParam("ctId");
+    var mtId=getUrlParam("mtId");
+    console.log(cId+","+cName+","+cNameEnglish+","+cDecription+","+cPicture+","+cDesc+","+ctId+","+mtId);
+
+    /*富文本*/
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('#details',{
+            uploadJson : 'js/RichTextBox/jsp/upload_json.jsp',  //上传程序
+            fileManagerJson : 'js/RichTextBox/jsp/file_manager_json.jsp',  //文件管理
+            allowFileManager : true  //是否允许上传
+            ,zIndex:100
+        });  //创建一个富文本编辑器
+    });
+    /*$("#btnok").click(function () {
+        $("#div_richtext").html(editor.html());
+    });*/
+    /*---------------------*/
+    //上传图片
+    var gpicture="";
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        upload.render({
+            elem: '#test10'
+            ,url: 'CakeMainServlet/fileSave'
+            ,method:'post'
+            ,done: function(res){
+                $("#test10").css("backgroundImage","url(../images/"+res.data+")");
+                gpicture=res.data;
+            }
+        });
+    });
+    /*---------------------*/
+    //查询商品类型和商品口味,蛋糕小类型
+    ;(function () {
+        /*$.ajax({
+            url:'CakeMainServlet/selectSmallTypeInformation',
+            type:'post',
+            data:{"cId":cId}
+        }).done(function (results) {
+
+        });*/
+        $.ajax({
+            url:'CakeMainServlet/selectCakeTypeAndMouseTypeToSelect2',
+            type:'post',
+            data:{"cId":cId}
+            //data:JSON.stringify(objectId),
+            //contentType:'application/json;charset=utf8'
+        }).done(function (result) {
+            console.log(result);
+            $.each(result.smallCakeType,function (i,obj) {
+                $("#checkValue").append($("<input type='checkbox' name='like1[read]' lay-skin='primary' title='"+obj.stName+"'/>"));
+            });
+            $.each(result.cakeType,function (i,obj) {
+                $("#ctName").append($("<option value='"+obj.ctId+"'/>").html(obj.ctName));
+            });
+            $.each(result.mouseType,function (i,obj) {
+                $("#mtName").append($("<option value='"+obj.mtId+"'/>").html(obj.mtName));
+            });
+            $.each(result.smallTypeInformation,function (i,obj) {
+                console.log(obj.stId);
+                $("input[type=checkbox]")[obj.stId-1].checked=true;
+            });
+            $.each(result.cakeInformation,function (i,obj) {
+                cDesc=obj.cDesc;
+            });
+            $("#cName").val(cName);$("#cNameEnglish").val(cNameEnglish);
+            $("#cDecription").val(cDecription);editor.html(cDesc);
+            $("#test10").css("backgroundImage","url(../images/"+cPicture+")");
+            $("#ctName").val(ctId);
+            $("#mtName").val(mtId);
+        });
+
+    })();
+    /*----------------------*/
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //监听提交
+        form.on('submit(add)', function(data){
+            var cName=$("#cName").val();//中文名
+            var cNameEnglish=$("#cNameEnglish").val();//英文名
+            var cDecription=$("#cDecription").val();//小描述
+            var ctId=$("#ctName").val();//类型
+            var mtId=$("#mtName").val();//口味
+            var cDesc=editor.html();
+            var objectList=new Array();
+            if(gpicture!=""){
+                cPicture=gpicture;
+            }
+            objectList.push({
+                cName:cName,
+                cNameEnglish:cNameEnglish,
+                cDecription:cDecription,
+                cPicture:cPicture,
+                cDesc:cDesc,
+                ctId:ctId,
+                mtId:mtId,
+                cId:cId
+            });
+            var stName="";
+            $("input[type=checkbox]:checked").each(function () {
+                stName+=$(this).attr("title")+",";
+            });
+            $.ajax({
+                url:'CakeMainServlet/updateCakeInformationAll',
+                type:'post',
+                data:JSON.stringify(objectList),
+                contentType:'application/json;charset=utf8'
+            }).done(function (result) {
+                $.ajax({
+                    url:'CakeMainServlet/updateSmallTypeInformation',
+                    type:'post',
+                    data:{stName:stName,cId:cId}
+                }).done(function (result) {
+                    layer.alert(result, {icon: 6},function () {
+                        if(result=="修改成功!"){
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //表格重载 就相当于 刷新父页面的表格-dataTable是父页面的表格ID属性
+                            //parent.layui.table.reload('dataTable');
+                            //添加成功后刷新数据dataTable指的是父窗体的表格
+                            parent.location.reload('dataTable');
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        }
+                    });
+                });
+
+            });
+            return false;
+        });
+
+
+    });
+</script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    console.log("---------");
+    console.log(s);
+    console.log(hm);
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

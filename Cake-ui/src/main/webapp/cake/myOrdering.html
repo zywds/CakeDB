@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>微信支付</title>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<!--内容部分-->
+		<link rel="stylesheet" href="myjs/maincenter.css"/>
+		<link rel="icon" href="iconfont/cakeType.png" type="image/x-icon" />
+	</head>
+	<style>
+		.div_center{width: 1200px;
+			overflow: hidden;display: block;margin: 0 auto;position: relative;
+			top: 130px;margin-bottom: 150px;
+		}
+		.order-tab-list {
+			height: 15px;
+			font-size: 15px;
+			color: #D5BFA7;
+			text-align: center;
+			overflow: hidden;
+			margin-top: 44px;
+		}ol, ul {
+			 list-style: none;
+		 }.order-tab-list li.active {
+			  color: #442818;
+			  border-color: #442818;
+		  }
+		.order-tab-list li {
+			float: left;
+			width: 100px;
+			line-height: 15px;
+			border-left: 2px solid #EFEFEF;
+			border-left-color: rgb(239, 239, 239);
+			cursor: pointer;
+		}.order-tab-list li {
+			 float: left;
+			 width: 100px;
+			 line-height: 15px;
+			 border-left: 2px solid #EFEFEF;
+			 cursor: pointer;
+		 }.order-tab-list li {
+			  float: left;
+			  width: 100px;
+			  line-height: 15px;
+			  border-left: 2px solid #EFEFEF;
+			  cursor: pointer;
+		  }.order-list-box > li {
+			   font-size: 13px;
+			   margin-top: 20px;
+		   }.order-list-box .order-title {
+				background: #FAFAFA;
+				border: 1px solid #E1E1E1;
+				height: 44px;
+				line-height: 44px;
+				overflow: hidden;
+			}a:visited, a:link, a {
+				 color: #684029;
+				 text-decoration: none;
+				 outline: none;
+				 cursor: pointer;
+				 -webkit-tap-highlight-color: rgba(0,0,0,0);
+				 -webkit-tap-highlight-color: transparent;
+			 }.order-list-box .order-num {
+				  width: 270px;
+				  padding-left: 30px;
+				  margin-right: 95px;
+			  }
+		.order-list-box .order-num, .order-list-box .order-time {
+			float: left;
+		}.order-list-box .order-time {
+			 width: 190px;
+			 text-align: center;
+		 }.order-list-box .order-product {
+			  height: 80px;
+			  padding: 28px 0;
+			  background: #fff;
+			  border: 1px solid #E1E1E1;
+			  border-top-color: rgb(225, 225, 225);
+			  border-top-style: solid;
+			  border-top-width: 1px;
+			  border-top: none;
+		  }.order-list-box .order-product {
+			   height: 80px;
+			   padding: 28px 0;
+			   background: #fff;
+			   border: 1px solid #E1E1E1;
+			   border-top-color: rgb(225, 225, 225);
+			   border-top-style: solid;
+			   border-top-width: 1px;
+			   border-top: none;
+		   }.order-list-box .order-product li {
+				float: left;
+				line-height: 80px;
+				text-align: center;
+			}
+		.order-list-box .product-list {
+			width: 270px;
+			padding-left: 30px;
+			overflow: hidden;
+			margin-right: 95px;
+			height: 80px;
+			overflow: hidden;
+		}.product-list a {
+			 display: block;
+			 border: 1px solid #EFEFEF;
+			 height: 78px;
+			 width: 78px;
+			 float: left;
+			 margin-left: 10px;
+		 }
+		a:visited, a:link, a {
+			color: #684029;
+			text-decoration: none;
+			outline: none;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-tap-highlight-color: transparent;
+		}.product-list img {
+			 display: block;
+			 margin: 0 auto;
+			 max-width: 100%;
+			 max-height: 100%;
+		 }
+		img, a {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+		}.order-product .pay-method {
+			 width: 190px;
+		 }.order-product .order-status {
+			  width: 120px;
+			  color: #FF4C4C;
+			  margin-left: 40px;
+		  }.order-product .order-price {
+			   width: 220px;
+		   }.order-product .order-handle {
+				width: 96px;
+				margin-left: 40px;
+				font-size: 12px;
+				display: inline-block;
+				vertical-align: middle;
+			}.order-product .order-handle .go-pay {
+				 width: 96px;
+				 height: 28px;
+				 background: #442818;
+				 border-radius: 2px;
+				 color: #fff;
+				 margin-bottom: 5px;
+				 line-height: 28px;
+				 display: block;
+			 }.order-product .order-handle a {
+				  display: block;
+				  color: #D5BFA7;
+				  line-height: 20px;
+			  }.order-product .order-handle a {
+				   display: block;
+				   color: #D5BFA7;
+				   line-height: 20px;
+			   }
+		a:visited, a:link, a {
+			color: #684029;
+			text-decoration: none;
+			outline: none;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-tap-highlight-color: transparent;
+		}
+		img, a {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+		}
+		.order-title a:hover{
+			color: #D5BFA7;
+		}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+							<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<!--<a href="#" class="line_a">,</a>
+            		<a href="regsist.html" class="regsist_a">欢迎您</a>-->
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--主体-->
+		<div class="div_center">
+			<ul class="order-tab-list">
+				<li data-type="unfinished" id="order-li1" class="active">待付款
+					(<span id="order-1">0</span>)
+				</li>
+				<li data-type="all" id="order-li2">已完成
+					(<span id="order-2">0</span>)
+				</li>
+				<li data-type="older" class="" id="order-li3">已取消
+					(<span id="order-3">0</span>)
+				</li>
+			</ul>
+			<div id="div_OrderingAll">
+				<!--<ul class="order-list-box">
+					<li>
+						<div class="order-title"><a href="/member/order/detail/20181221085035.html">
+							<div class="order-num">订单编号：SH20181221085035【2个商品】</div>
+							<div class="order-time">下单时间：2018-12-21 08:44</div></a>
+						</div>
+						<ul class="order-product">
+							<li class="product-list">
+								<a href="/goods-1.html">
+									<img src="//static.21cake.com/public/images/98/12/19/56d3db07af6a395b9bffcb985f9f5971.jpg">
+								</a>
+								<a href="/goods-952.html">
+									<img src="//static.21cake.com/public/images/be/46/86/c6fe91045af3a193641b3bc38c84f80b.jpg">
+								</a>
+							</li>
+							<li class="pay-method">微信支付</li>
+							<li class="order-status">待付款</li>
+							<li class="order-price">￥298.000</li>
+							<li data-id="SH20181221085035">
+								<div class="order-handle"><a class="go-pay" href="/pay-20181221085035.do">付款  0 : 0</a>
+									<a href="/member/order/detail/20181221085035.html">查看/编辑</a>
+									<a class="order-cancel" data-id="20181221085035">取消订单</a>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>-->
+			</div>
+			<!--<ul class="order-list-box">
+				<li>
+				<div class="order-title"><a href="/member/order/detail/20181221085035.html">
+					<div class="order-num">订单编号：SH20181221085035【2个商品】</div>
+					<div class="order-time">下单时间：2018-12-21 08:44</div></a>
+				</div>
+					<ul class="order-product">
+						<li class="product-list">
+							<a href="/goods-1.html">
+								<img src="//static.21cake.com/public/images/98/12/19/56d3db07af6a395b9bffcb985f9f5971.jpg">
+							</a>
+							<a href="/goods-952.html">
+								<img src="//static.21cake.com/public/images/be/46/86/c6fe91045af3a193641b3bc38c84f80b.jpg">
+							</a>
+						</li>
+						<li class="pay-method">微信支付</li>
+						<li class="order-status">待付款</li>
+						<li class="order-price">￥298.000</li>
+						<li data-id="SH20181221085035">
+							<div class="order-handle"><a class="go-pay" href="/pay-20181221085035.do">付款  0 : 0</a>
+								<a href="/member/order/detail/20181221085035.html">查看/编辑</a>
+								<a class="order-cancel" data-id="20181221085035">取消订单</a>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="order-list-box">
+				<li>
+					<div class="order-title"><a href="/member/order/detail/20181221085035.html">
+						<div class="order-num">订单编号：SH20181221085035【2个商品】</div>
+						<div class="order-time">下单时间：2018-12-21 08:44</div></a>
+					</div>
+					<ul class="order-product">
+						<li class="product-list">
+							<a href="/goods-1.html">
+								<img src="//static.21cake.com/public/images/98/12/19/56d3db07af6a395b9bffcb985f9f5971.jpg">
+							</a>
+							<a href="/goods-952.html">
+								<img src="//static.21cake.com/public/images/be/46/86/c6fe91045af3a193641b3bc38c84f80b.jpg">
+							</a>
+						</li>
+						<li class="pay-method">微信支付</li>
+						<li class="order-status">待付款</li>
+						<li class="order-price">￥298.000</li>
+						<li data-id="SH20181221085035">
+							<div class="order-handle"><a class="go-pay" href="/pay-20181221085035.do">付款  0 : 0</a>
+								<a href="/member/order/detail/20181221085035.html">查看/编辑</a>
+								<a class="order-cancel" data-id="20181221085035">取消订单</a>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>-->
+		</div>
+		<!--分页-->
+		<div id="demo11" style="margin-left: 970px"></div>
+		<!--主体-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<!--导入main.js-->
+		<script src="myjs/main.js"></script>
+		<script>
+			//根据时间改变状态
+			/*$.ajax({
+				url:'OrderingServlet/selectOrderingoTime',
+				type:'get'
+			}).done(function (result) {
+				//alert(result);
+            });*/
+            //获取url中的值
+            //获得值应该在到达窗体就加载，而不是加载完成
+            /*function getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)
+                    return decodeURI(r[2]);
+                return null;
+            };*/
+			//获得电话号码
+            $.ajax({
+                url:'UserRegsistMainServlet/getPhone',
+                type:'get'
+            }).done(function (result) {
+                $("#span_users").html(result);
+            });
+			/*点击获得选中类型*/
+			var oState=1;
+			$("#order-li1").click(function () {
+                oState=0;
+			    $(".order-tab-list li").removeClass("active");
+				$(this).addClass("active");selectOrderingAll();
+            });
+            $("#order-li2").click(function () {
+                oState=1;
+                $(".order-tab-list li").removeClass("active");
+                $(this).addClass("active");selectOrderingAll();
+
+            });
+            $("#order-li3").click(function () {
+                oState=2;
+                $(".order-tab-list li").removeClass("active");
+                $(this).addClass("active");selectOrderingAll();
+
+
+            });
+            /*渲染数据*/
+			function selectOrderingAll() {
+                /*查询所有*/
+                var number = "";
+                $.ajax({
+                    url:'OrderingServlet/selectOrdingCount',
+                    type:'post',
+                    data:{oState:oState}
+                }).done(function (result) {
+					number=result;
+					if(oState==0){
+					    $("#order-1").html(number);
+					}else if(oState==1){
+                        $("#order-2").html(number);
+					}else if(oState==2){
+                        $("#order-3").html(number);
+					}
+                    /*分页查询*/
+                    layui.use(['laypage', 'layer'], function() {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'demo11'
+                            , count: number //数据总数
+                            , limit: 4
+                            , curr: location.hash.replace('#!fenye=', '')//获取起始页
+                            , hash: 'fenye'
+                            , jump: function (objs) {
+                                page = objs.curr;
+                                limit = objs.limit;
+                                $.ajax({
+                                    url:'OrderingServlet/selectOrderingAllByRId',
+                                    type:'post',
+                                    data:{oState:oState,page:page,limit:limit}
+                                }).done(function (result) {
+                                    if(oState==0 && result.length==0){
+                                        $("#order-1").html(0);
+                                    }else if(oState==1 && result.length==0){
+                                        $("#order-2").html(0);
+                                    }else if(oState==2 && result.length==0){
+                                        $("#order-3").html(0);
+                                    }
+                                    var str="";
+                                    $.each(result,function (i,obj){
+                                        str+="<ul class='order-list-box'>";
+                                        str+="<li>";
+                                        str+="<div class='order-title'><a href='myOrderingDesc.html?oId="+obj.oId+"'>";
+                                        str+="<div class='order-num'>订单编号："+obj.oNo+"【<span id='3"+obj.oId+"'></span>个商品】</div>";
+                                        str+="<div class='order-time'>下单时间："+new Date(obj.oTime).toLocaleString()+"</div></a>";
+                                        str+="</div>";
+                                        str+="<ul class='order-product'>";
+                                        str+="<li class='product-list' id='1"+obj.oId+"'>";
+
+                                        str+="</li>";
+                                        str+="<li class='pay-method'>"+obj.oPayAction+"</li>";
+                                        var oStates="";
+                                        if(obj.ostate==0){
+                                            str+="<li class='order-status'>待付款</li>";
+                                        }else if(obj.ostate==1){
+                                            str+="<li class='order-status'>已完成</li>";
+                                        }else if(obj.ostate==2){
+                                            str+="<li class='order-status'>已取消</li>";
+                                        }
+
+                                        str+="<li class='order-price' id='2"+obj.oId+"'></li>";
+                                        str+="<li>";
+                                        if(obj.ostate==0){
+                                            str+="<div class='order-handle'><a class='go-pay' id='go-pay' data-oId='"+obj.oId+"' data-oNo='"+obj.oNo+"'>付款</a>";
+                                        }
+                                        /!*----*!/
+                                        var strImage="";
+                                        var sumPrice=0;
+                                        var sumNumber=0;
+                                        $.ajax({
+                                            url:'OrderingServlet/selectOrderingDescByOId',
+                                            type:'post',
+                                            data:{oId:obj.oId}
+                                        }).done(function (result) {
+                                            $.each(result,function (i,obj) {
+                                                strImage+="<a href='#'>";
+                                                strImage+="<img src='../images/"+obj.cakeInformation.cPicture+"'>";
+                                                strImage+="</a>";
+                                                sumPrice+=obj.odSumPrice;
+                                                sumNumber+=obj.odNumber;
+                                            });
+                                            $("#1"+obj.oId).html(strImage);
+                                            $("#2"+obj.oId).html("￥"+sumPrice);
+                                            $("#3"+obj.oId).html(sumNumber);
+                                        });
+
+                                        str+="<a href='myOrderingDesc.html?oId="+obj.oId+"'>查看/编辑</a>";
+                                        if(obj.ostate==0){
+                                            str+="<a class='order-cancel' data-oId='"+obj.oId+"'>取消订单</a>";
+                                        }else if(obj.ostate==1){
+                                            str+="<a class='order-cancel1'>取消订单</a>";
+                                        }else if(obj.ostate==2){
+                                            str+="<a class='order-cancel1'>取消订单</a>";
+                                        }
+                                        str+="</div>";
+                                        str+="</li>";
+                                        str+="</ul>";
+                                        str+="</li>";
+                                        str+="</ul>";
+                                    });
+                                    $("#div_OrderingAll").html(str);
+                                });
+                            }
+                        });
+                    });
+                });
+				/*$.ajax({
+					url:'OrderingServlet/selectOrderingAllByRId',
+					type:'post',
+					data:{oState:oState}
+				}).done(function (result) {
+					var str="";
+					$.each(result,function (i,obj){
+                    	str+="<ul class='order-list-box'>";
+                        str+="<li>";
+                        str+="<div class='order-title'><a href='#'>";
+                        str+="<div class='order-num'>订单编号："+obj.oNo+"【<span id='3"+obj.oId+"'></span>个商品】</div>";
+                        str+="<div class='order-time'>下单时间："+new Date(obj.oTime).toLocaleString()+"</div></a>";
+                        str+="</div>";
+                        str+="<ul class='order-product'>";
+                        str+="<li class='product-list' id='1"+obj.oId+"'>";
+
+                        str+="</li>";
+                        str+="<li class='pay-method'>"+obj.oPayAction+"</li>";
+                        var oStates="";
+                        if(obj.ostate==0){
+                            str+="<li class='order-status'>待付款</li>";
+						}else if(obj.ostate==1){
+                            str+="<li class='order-status'>已完成</li>";
+						}else if(obj.ostate==2){
+                            str+="<li class='order-status'>已取消</li>";
+						}
+
+                        str+="<li class='order-price' id='2"+obj.oId+"'></li>";
+                        str+="<li>";
+                        if(obj.ostate==0){
+                            str+="<div class='order-handle'><a class='go-pay' href='#'>付款</a>";
+                        }
+                        /!*----*!/
+						var strImage="";
+						var sumPrice=0;
+						var sumNumber=0;
+						$.ajax({
+							url:'OrderingServlet/selectOrderingDescByOId',
+							type:'post',
+							data:{oId:obj.oId}
+						}).done(function (result) {
+						    $.each(result,function (i,obj) {
+                                strImage+="<a href='#'>";
+                                strImage+="<img src='../images/"+obj.cakeInformation.cPicture+"'>";
+                                strImage+="</a>";
+                                sumPrice+=obj.odSumPrice;
+                                sumNumber+=obj.odNumber;
+                            });
+                            $("#1"+obj.oId).html(strImage);
+                            $("#2"+obj.oId).html(sumPrice);
+                            $("#3"+obj.oId).html(sumNumber);
+                        });
+
+						str+="<a href='#'>查看/编辑</a>";
+                        str+="<a class='order-cancel'>取消订单</a>";
+                        str+="</div>";
+                        str+="</li>";
+                        str+="</ul>";
+                        str+="</li>";
+                        str+="</ul>";
+                    });
+					$("#div_OrderingAll").html(str);
+                });*/
+            };
+            selectOrderingAll();
+            $("#div_OrderingAll").on("click",".order-cancel1",function () {
+				layer.msg("已不可取消！")
+            });
+            //付款
+			$("#div_OrderingAll").on("click","#go-pay",function () {
+				var oId=$(this).data("oid");var oNo=$(this).data("ono");
+				var sumPrice=$(this).parent().parent().prev().html();
+                location.href="wxAction.html?oId="+oId+"&oNo="+oNo+"&odSumPrice="+sumPrice;
+            });
+            $("#div_OrderingAll").on("click",".order-cancel",function () {
+                var oId=$(this).data("oid");
+                layer.alert("是否要取消订单?",function () {
+					$.ajax({
+						url:'OrderingServlet/updateOrdingStateByOId',
+						type:'post',
+						data:{oId:oId}
+					}).done(function (result) {
+						layer.msg(result);
+						selectOrderingAll();
+					});
+                });
+            });
+            $("#myOrdering").click(function () {
+                location.href="myOrdering.html";
+            });
+		</script>
+	</body>
+</html>

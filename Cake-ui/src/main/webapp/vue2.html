@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Title</title>
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <style>
+        #div1 a{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <table class="table table-hover">
+            <caption style="text-align: center;font-size: 20px">Vue</caption>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(goodsitem,index) in goods">
+                <td>{{goodsitem.gId}}</td>
+                <td>{{goodsitem.gName}}</td>
+                <td>￥{{goodsitem.gPrice}}</td>
+                <td>
+                    <button class="btn btn-default" type="button" style="width: 40px;" @click="reduceNumber(goodsitem.gId,index)">-</button>
+                    <input type="text" class="form-control" style="width: 100px;display: inline-block" v-model="goodsitem.gNumber">
+                    <button class="btn btn-default" type="button" style="width: 40px;" @click="addNumber(goodsitem.gId)">+</button>
+                </td>
+                <td>￥{{goodsitem.gSumPrice}}</td>
+                <td>
+                    <a>删除</a>   <a @click="edit(index)">编辑</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right">{{total}}</td>
+            </tr>
+        </table>
+        <fieldset>
+            <legend>数据操作</legend>
+            <div class="form-group" style="width: 200px;">
+                <label for="shopname">名称:</label>
+                <input type="text" class="form-control" id="shopname" v-model="gName">
+            </div>
+            <div class="form-group" style="width: 200px;">
+                <label for="shopprice">价格:</label>
+                <input type="text" class="form-control" id="shopprice" v-model="gPrice">
+            </div>
+            <div class="form-group" style="width: 200px;">
+                <label for="shopnumber">数量:</label>
+                <input type="number" class="form-control" id="shopnumber" v-model="gNumber">
+            </div>
+            <button class="btn btn-default" type="button" @click="add()">添加</button>
+            <button class="btn btn-default" type="button" @click="update()">修改</button>
+        </fieldset>
+    </div>
+    <script src="js/jquery-1.11.3.js"></script>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        Vue.filter("currency",function (val) {
+            if(!val){
+                return "";
+            }
+            return val.toFixed(2);
+        });
+        var div1=new Vue({
+            el:'#div1',
+            data:{
+                goods:[],
+                gId:'',
+                gName:'',
+                gPrice:'',
+                gNumber:''
+            },
+            //计算属性计算总金额
+            computed:{
+                total:function () {
+                    var totalPrice=0;
+                    for (var i=0;i<this.goods.length;i++){
+                        totalPrice+=this.goods[i].gSumPrice;
+                    }
+                    return "￥"+totalPrice;
+                }
+            },
+            methods:{
+                //渲染数据
+                selectAllgoMall:function () {
+                    $.ajax({
+                        url:'GoMallServlet/selectAllgoMall',
+                        type:'get',
+                        contentType:'application/json;charset=utf8'
+                    }).done(function (result) {
+                        div1.goods=result;
+                    });
+                },
+                //数量减少
+                reduceNumber:function (gId,index) {
+                    if(this.goods[index].gNumber<=0){
+                        this.gNumber=0;return false;
+                    }
+                    $.ajax({
+                        url:'GoMallServlet/updategoMallNumberRemove',
+                        type:'post',
+                        data:{gId:gId}
+                    }).done(function (result) {
+                        div1.selectAllgoMall();
+                    });
+                },
+                //数量增加
+                addNumber:function (gId) {
+                    $.ajax({
+                        url:'GoMallServlet/updategoMallNumberAdd',
+                        type:'post',
+                        data:{gId:gId}
+                    }).done(function (result) {
+                        div1.selectAllgoMall();
+                    });
+                },
+                //数据添加
+                add:function () {
+                    $.ajax({
+                        url:'GoMallServlet/insertgoMall',
+                        type:'post',
+                        data:{gName:this.gName,gPrice:this.gPrice,gNumber:this.gNumber}
+                    }).done(function (result) {
+                        alert(result);
+                        div1.selectAllgoMall();
+                    });
+                },
+                //编辑
+                edit:function (index) {
+                    this.gName=this.goods[index].gName;
+                    this.gPrice=this.goods[index].gPrice;
+                    this.gNumber=this.goods[index].gNumber;
+                }
+            }
+        });
+        div1.selectAllgoMall();
+    </script>
+</body>
+</html>

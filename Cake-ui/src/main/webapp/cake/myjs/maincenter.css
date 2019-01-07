@@ -1,0 +1,56 @@
+		/*轮播图*/
+		.div_Carousel{width: 100%;height: 560px;margin: 0 auto;position: relative;top: 0px;}
+		/*轮播图*/
+		/*内容部分菜单*/
+		.div_ContentMenu{width: 1150px;overflow: hidden;position: relative;margin: 0 auto;margin-top: 30px;}
+		.div_ContentMenu img{float: left;margin-right: 1px;margin-left: 24px;}
+		/*内容部分菜单*/
+		/*内容部分*/
+		.div_Content_Main{width: 1100px;overflow: hidden;position: relative;margin: 0 auto;margin-top: 60px;}
+		.div_Content{width: 1100px;/*height: 400px;*/overflow:hidden;display: block;}
+		.div_Conent_top{height: 80px;line-height: 80px;display: block;float: left;width: 1100px;}
+		.div_Conent_top_span1{font-size: 25px;display: inline-block;margin-right: 8px;}
+		.div_Conent_top_span2{display: inline-block;margin-left: 6px;}
+		.div_Conent_top_img{display: block;float: left;}
+		.div_Conent_div{width: 1120px;overflow: hidden;display: block;float: left;margin-top: 20px;}
+		.div_Conent_div_Conetent{width: 263px;height: 370px;float: left;margin-right: 16px;/*margin-bottom: 15px;*/overflow: hidden;}
+		.div_Conent_div_Conetent:hover{cursor: pointer;}
+		.div_Conent_div_Conetent img{display: block;float: left;margin-bottom: 4px;background: #fafafa;;}
+		/*.div_Conent_div_Conetent h4,p{display: block;}*/
+		.div_Conent_div_Conetent_p1{color: #616161;margin-top: 5px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+		.div_Conent_div_Conetent_radiodiv{overflow: hidden;float: left;display: block;width: 263px;
+		}
+		.div_Conent_div_Conetent_radiodiv a{display: inline-block;margin-top: 5px;/*width: 40px;*/
+		    border: 1px solid #D5BFA7;border-radius: 100px; padding: 0 6px 0 8px;color: #D5BFA7;margin: 8px 3px;font-size: 12px;}
+		.div_Conent_div_Conetent_bottom{/*height: 62px;*/height:44px;width: 263px;margin-top: 6px;display: block;
+		float: left;line-height: 62px;border-top: 1px dashed deepskyblue;position: absolute;margin-top: 40px;}
+		.Spec{color: #BB9772;}
+		.insetCar{display: inline-block;float: right;border: 1px solid red;color: white;background: #643E28;height: 20px;line-height: 20px;
+		margin-top: 18px;}
+		/*{display: inline-block;float: right;border: 1px solid red;color: white;background: #643E28;height: 20px;line-height: 20px;
+			margin-top: 18px;
+		}*/
+		/*.insertCar_1{display: inline-block;margin-left: 20px}*/
+		/*内容部分*/
+		/*下面活动部分*/
+		.div_Content_other{width: 1200px;overflow: hidden;display: block;float: left;}
+		.div_Content_imgContent{width: 542px;overflow: hidden;float: left;margin-right: 16px;display: block;}
+		.div_Content_look{display: inline-block;float: right;color: #8E5D43;}
+		.div_Content_other_readall{color: #8E5D43;cursor: pointer;}
+		/*加入购物车动画*/
+		.div_Conent_div_Content_display{width: 263px;/*height: 148px;*/background: #fafafa;position: relative;
+		 display: block;bottom: -121px;transition: bottom 1s linear;height: 0px;overflow: hidden;}
+		 .div_Conent_div_Content_display_div{display: block;margin-top: 0px;height: 30px;line-height: 30px;
+		 margin-top: 10px;position: relative;}
+		 .div_2{height: 40px;line-height: 40px;position: relative;margin-top: 46px;}
+		 .div_1 span{display: inline-block;position: absolute;left: 9px;}
+		 .div_2 .div_2_div{width: 55px;height: 30px;float: left;margin-right: 3px;margin-left: 5px;color: #7A5844;border: 1px solid #D0C3BB;
+		 position: relative;display: block;margin-top: -29px;text-align: center;line-height: 30px;}
+		 /*.div_2 .div_2_div:hover{border: 1px solid red;}*/
+		 .div_3_div{height: 30px;text-align: center;margin-left: 10px;display: block;float: left;
+		 margin-right: 4px;width: 114px;line-height: 30px;margin-top: -20px;}
+		 .div_3_div_input1{background: #fff;color: #7A5844;cursor: pointer;}
+		 .div_3_div_input2{background: red;color: white;cursor: pointer;}
+		 .div_2_div div{width: 10px;height: 10px;background: red;display:none;}
+		 .div_2_div div i{font-size: 10px;color: white;position: absolute;left: 0px;top: -1px;}
+		 /*加入购物车动画*/

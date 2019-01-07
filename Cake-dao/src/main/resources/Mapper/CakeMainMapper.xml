@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IcakeMainDao"><!--接口名-->
+    <!--查询蛋糕有关的一切信息(多对多)-->
+    <resultMap id="selectCakeInformationAllResultMap" type="SmallTypeInformation">
+        <id property="stiId" column="stiId"></id>
+        <result property="cId" column="cId"></result>
+        <result property="stId" column="stId"></result>
+        <collection property="cakeInformation" ofType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+           <association property="cakeType" javaType="CakeType">
+                <id property="ctId" column="ctId"></id>
+                <result property="ctName" column="ctName"></result>
+            </association>
+            <association property="mouseType" javaType="MouseType">
+                <id property="mtId" column="mtId"></id>
+                <result property="mtName" column="mtName"></result>
+            </association>
+        </collection>
+        <collection property="smallCakeType" ofType="SmallCakeType">
+            <id property="stId" column="stId"></id>
+            <result property="stName" column="stName"></result>
+        </collection>
+    </resultMap>
+    <!--查询蛋糕有关的一切信息(多对多)-->
+    <select id="selectCakeInformationAll" resultMap="selectCakeInformationAllResultMap">
+        select *from smallTypeInformation sti inner join cakeInformation c on sti.cId=c.cId inner join smallCakeType st on sti.stId=st.stId
+        inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId
+    </select>
+    <!--查询所有的商品-->
+    <select id="selectInformation" resultType="CakeInformation">
+        select *from cakeInformation
+    </select>
+    <!--查询蛋糕类别，蛋糕口味和蛋糕信息表结合-->
+    <resultMap id="selectCaAndCaAndMoResultMap" type="CakeInformation">
+        <id property="cId" column="cId"></id>
+        <result property="cName" column="cName"></result>
+        <result property="cNameEnglish" column="cNameEnglish"></result>
+        <result property="cDecription" column="cDecription"></result>
+        <result property="cPicture" column="cPicture"></result>
+        <result property="cState" column="cState"></result>
+        <result property="cDesc" column="cDesc"></result>
+        <result property="ctId" column="ctId"></result>
+        <result property="mtId" column="mtId"></result>
+        <association property="cakeType" javaType="CakeType">
+            <id property="ctId" column="ctId"></id>
+            <result property="ctName" column="ctName"></result>
+        </association>
+        <association property="mouseType" javaType="MouseType">
+            <id property="mtId" column="mtId"></id>
+            <result property="mtName" column="mtName"></result>
+        </association>
+    </resultMap>
+    <select id="selectCaAndCaAndMo" resultMap="selectCaAndCaAndMoResultMap">
+        select *from cakeInformation c inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId
+        <where>
+            <if test="cName !=null and cName !=''">
+                c.cName like '%${cName}%'
+            </if>
+            <if test="ctName !=null and ctName !=''">
+                and ct.ctName=#{ctName}
+            </if>
+            <if test="mtName !=null and mtName !=''">
+                and mt.mtName=#{mtName}
+            </if>
+            <if test="cState !=null and cState !=''">
+                and c.cState=#{cState}
+            </if>
+        </where>
+        order by cId desc limit ${page},${limit}
+    </select>
+    <!--查询商品口味和商品类型-->
+    <select id="selectCaAndCaAndMoNoPage" resultMap="selectCaAndCaAndMoResultMap">
+        select *from cakeInformation c inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId
+    </select>
+    <!--查询蛋糕类别，蛋糕口味和蛋糕信息表结合数量-->
+    <select id="selectCaAndCaAndMoCount" resultType="int">
+        select count(*)from cakeInformation c inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId
+        <where>
+            <if test="cName !=null and cName !=''">
+                c.cName like '%${cName}%'
+            </if>
+            <if test="ctName !=null and ctName !=''">
+                and ct.ctName=#{ctName}
+            </if>
+            <if test="mtName !=null and mtName !=''">
+                and mt.mtName=#{mtName}
+            </if>
+            <if test="cState !=null and cState !=''">
+                and c.cState=#{cState}
+            </if>
+        </where>
+    </select>
+    <!--修改蛋糕状态-->
+    <update id="updateCakeInformation" parameterType="int">
+        update cakeInformation set cState=#{cState} where cId=#{cId}
+    </update>
+    <!--查询商品口味-->
+    <select id="selectCakeInformationMouseType" resultType="MouseType">
+        select *from mouseType
+    </select>
+    <!--查询商品类型-->
+    <select id="selectCakeInformationCakeType" resultType="CakeType">
+        select *from cakeType
+    </select>
+    <!--添加数据到蛋糕信息表-->
+    <insert id="insertCakeInformation" parameterType="CakeInformation">
+        insert into cakeInformation(cName,cNameEnglish,cDecription,cPicture,cDesc,ctId,mtId) values(#{cName},#{cNameEnglish},#{cDecription},#{cPicture},#{cDesc},#{ctId},#{mtId})
+    </insert>
+    <!--修改蛋糕信息-->
+    <update id="updateCakeInformationAll" parameterType="CakeInformation">
+        update cakeInformation set cName=#{cName},cNameEnglish=#{cNameEnglish},cDecription=#{cDecription},cPicture=#{cPicture},cDesc=#{cDesc},ctId=#{ctId},mtId=#{mtId} where cId=#{cId}
+    </update>
+
+    <!--修改蛋糕与蛋糕小类型对应表-->
+    <update id="updateSmallTypeInformation" parameterType="SmallTypeInformation">
+        update smallTypeInformation set stId=#{stId} where cId=#{cId}
+    </update>
+    <!--添加数据到蛋糕与蛋糕小类型对应表-->
+    <insert id="insertSmallTypeInformation" parameterType="SmallTypeInformation">
+        insert into smallTypeInformation(cId,stId) values(#{cId},stId);
+    </insert>
+    <!--添加数据到蛋糕与蛋糕小类型对应表(多添加)-->
+    <insert id="insertSmallTypeInformationSome" parameterType="java.util.List">
+        insert into smallTypeInformation(cId,stId) values
+        <foreach collection="list" separator="," item="smallList">
+        (#{smallList.cId},#{smallList.stId})
+        </foreach>
+    </insert>
+    <!--获得最后一条数据的ID-->
+    <select id="selectLastId" resultType="CakeInformation">
+        select * from cakeInformation
+    </select>
+    <!--查询蛋糕小类型表-->
+    <select id="selectSmallCakeType" resultType="SmallCakeType">
+        select *from smallCakeType
+    </select>
+    <!--根据蛋糕id查出蛋糕与蛋糕下类型对应表-->
+    <select id="selectSmallTypeInformation" resultType="SmallTypeInformation" parameterType="int">
+        select *from smallTypeInformation where cId=#{cId}
+    </select>
+    <!--根据id查询详情-->
+    <select id="selectCakeInformationDescById" resultType="CakeInformation">
+        select *from cakeInformation where cId=#{cId}
+    </select>
+    <!--根据ID删除蛋糕与小类型对应表中的数据-->
+    <delete id="deleteSmallTypeInformationbyId" parameterType="int">
+        delete from smallTypeInformation where cId=#{cId}
+    </delete>
+    <!--插入数据到图片表-->
+    <!--插入数据到磅数表 -->
+</mapper>
+

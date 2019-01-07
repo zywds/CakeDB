@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    table{
+        text-align: center;
+    }
+    tr{
+        height: 40px;
+        line-height: 40px;
+    }
+    tr:hover{
+        background: #eeeeee;
+    }
+    td input{
+        background: transparent;
+        width: 40px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0;
+        border:none;
+        outline:none;
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+        text-align: center;
+    }
+    td button{
+        width: 20px;
+        height: 22px;
+        border: 1px solid gray;
+        border-left: none;
+        cursor: pointer;
+        outline:none;
+        margin-left: -4px;
+    }
+    #reduce{
+        border-right: none;
+        border-left:1px solid gray;
+        margin-right: -5px;
+    }
+    span{
+        color: red;
+        font-size: 22px;
+    }
+    a{
+        text-decoration: none;
+        column-rule: red;
+    }
+    input[type=button]:hover,a:hover{
+        cursor: pointer;
+    }
+</style>
+<body>
+<div ng-app="shop" ng-controller="shopping">
+    <table border="1" cellspacing="0" cellpadding="0" width="100%">
+        <caption style="font-size: 28px">Vue</caption>
+        <tr>
+            <th>序号</th>
+            <th>名称</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="item in good">
+            <td>{{item.gId}}</td>
+            <td>{{item.gName}}</td>
+            <td>{{item.gPrice}}</td>
+            <td>
+                <input type="button" value="+" ng-click="addNumber(item.gId)">
+                <input type="text" ng-model="item.gNumber" disabled="disabled"/>
+                <input type="button" value="-" ng-click="reduceNumber(item.gId)">
+            </td>
+            <td>{{item.gSumPrice}}</td>
+            <td>
+                <a ng-click="a_update($index,item.gId)"> 修改 </a>   <a ng-click="a_del(item.gId)"> 删除 </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" align="right"><span ng-bind="total()"></span></td>
+        </tr>
+    </table>
+    <fieldset>
+        <legend>添加/修改</legend>
+        <p>
+            <label for="shopname">名称：</label>
+            <input type="text" id="shopname" placeholder="名称" ng-model="gNames"/>
+        </p>
+        <p>
+            <label for="shopprice">价格：</label>
+            <input type="text" id="shopprice" placeholder="价格" ng-model="gPrices"/>
+        </p>
+        <p>
+            <label for="shopsum">数量：</label>
+            <input type="text" id="shopsum" placeholder="数量" ng-model="gNumbers"/>
+        </p>
+        <p>
+            <button type="button" ng-click="btnAdd()">添加</button>
+            <button type="button" ng-click="btnUpdate()">修改</button>
+        </p>
+    </fieldset>
+</div>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/angular.min.js"></script>
+<script>
+    var app = angular.module('shop', []);
+    app.controller('shopping', function($scope) {
+        $scope.good=[];
+        $scope.gNames='';
+        $scope.gPrices='';
+        $scope.gNumbers='';
+        $scope.gIds='';
+        //查询所有商品
+        function getAllgoMall() {
+            $.ajax({
+                url:'GoMallServlet/selectAllgoMall',
+                type:'get',
+                contentType:'application/json;charset=utf8'
+            }).done(function (result) {
+                $scope.good=result;$scope.$apply();
+            });
+        };getAllgoMall();
+        //计算总数
+        $scope.total=function(){
+            var sumPrice=0;
+            for(var i=0;i<this.good.length;i++){
+                sumPrice+=this.good[i].gSumPrice;
+            }
+            return sumPrice;
+        };
+        /*添加商品*/
+        $scope.btnAdd=function () {
+            $.ajax({
+                url:'GoMallServlet/insertgoMall',
+                type:'post',
+                data:{gName:$scope.gNames,gPrice:$scope.gPrices,gNumber:$scope.gNumbers}
+            }).done(function (result) {
+                alert(result);
+                getAllgoMall();
+            });
+        };
+        //删除商品
+        $scope.a_del=function (i) {
+            $.ajax({
+                url:'GoMallServlet/deletegoMallById',
+                type:'post',
+                data:{gId:i}
+            }).done(function (result) {
+                alert(result);
+                getAllgoMall();
+            });
+        };
+        //编辑
+        $scope.a_update=function (i,index) {
+            $scope.gNames=$scope.good[i].gName;
+            $scope.gPrices=$scope.good[i].gPrice;
+            $scope.gNumbers=$scope.good[i].gNumber;
+            $scope.gIds=index;
+        };
+        //修改
+        $scope.btnUpdate=function () {
+            $.ajax({
+                url:'GoMallServlet/updategoMall',
+                type:'post',
+                data:{gName:$scope.gNames,gPrice:$scope.gPrices,gNumber:$scope.gNumbers,gId:$scope.gIds}
+            }).done(function (result) {
+                alert(result);
+                getAllgoMall();
+            });
+        };
+        //增加数
+        $scope.addNumber=function (i) {
+            $.ajax({
+                url:'GoMallServlet/updategoMallNumberAdd',
+                type:'post',
+                data:{gId:i}
+            }).done(function (result) {
+                getAllgoMall();
+            });
+        };
+        //减少数
+        $scope.reduceNumber=function (i) {
+            $.ajax({
+                url:'GoMallServlet/updategoMallNumberRemove',
+                type:'post',
+                data:{gId:i}
+            }).done(function (result) {
+                getAllgoMall();
+            });
+        }
+    });
+</script>
+</body>
+</html>

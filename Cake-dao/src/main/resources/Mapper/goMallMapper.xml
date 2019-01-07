@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IgoMall"><!--接口名-->
+    <!--查询所有的商品-->
+    <select id="selectAllgoMall" resultType="GoMall">
+        select *from goMall
+    </select>
+    <!--删除商品根据编号-->
+    <delete id="deletegoMallById" parameterType="int">
+        delete from goMall where gId=#{gId}
+    </delete>
+    <!--添加商品-->
+    <insert id="insertgoMall" parameterType="GoMall">
+        insert into goMall(gName,gPrice,gNumber,gSumPrice) values(#{gName},#{gPrice},#{gNumber},#{gSumPrice})
+    </insert>
+    <!--修改商品-->
+    <update id="updategoMall" parameterType="GoMall">
+        update goMall set gName=#{gName},gPrice=#{gPrice},gNumber=#{gNumber},gSumPrice=gPrice*gNumber where gId=#{gId}
+    </update>
+    <!--修改数量加一-->
+    <update id="updategoMallNumberAdd" parameterType="int">
+        update goMall set gNumber=gNumber+1,gSumPrice=gPrice*gNumber where gId=#{gId}
+    </update>
+    <!--修改数量减一-->
+    <update id="updategoMallNumberRemove" parameterType="int">
+        update goMall set gNumber=gNumber-1,gSumPrice=gPrice*gNumber where gId=#{gId}
+    </update>
+</mapper>
+

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--富文本-->
+    <script src="js/RichTextBox/kindeditor-all-min.js"></script>
+    <script src="js/RichTextBox/lang/zh-CN.js"></script>
+</head>
+<style>
+    .span_cake{display: inline-block;margin-right: 10px;margin-left: 40px;}
+</style>
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="ppPrice" class="layui-form-label">
+                <span class="x-red"></span>价格
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppPrice" name="ppPrice" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-upload-drag" id="test10" style="margin-left: 410px;margin-top: 20px;background-repeat: no-repeat;background-size: 100%,100%;">
+            <i class="layui-icon"></i>
+            <p>点击上传，或将文件拖拽到此处</p>
+        </div>
+        <div class="layui-form-item" style="margin-top: -155px;">
+            <label for="ppPoundage" class="layui-form-label">
+                <span class="x-red"></span>磅数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppPoundage" name="ppPoundage" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label for="ppSizeLeft" class="layui-form-label">
+                <span class="x-red"></span>蛋糕宽
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppSizeLeft" name="ppSizeLeft" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="ppSizeRight" class="layui-form-label">
+                <span class="x-red"></span>蛋糕高
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppSizeRight" name="ppSizeRight" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="ppMinPeople" class="layui-form-label">
+                <span class="x-red"></span>最低分享人数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppMinPeople" name="ppMinPeople" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="ppMaxPeople" class="layui-form-label">
+                <span class="x-red"></span>最多分享人数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppMaxPeople" name="ppMaxPeople" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label for="ppTableWare" class="layui-form-label">
+                <span class="x-red"></span>餐具数量
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppTableWare" name="ppTableWare" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label for="ppTime" class="layui-form-label">
+                <span class="x-red"></span>最早配送时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="ppTime" name="ppTime" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label for="L_repasss" class="layui-form-label">
+            </label>
+            <button  class="layui-btn" lay-filter="add" lay-submit="">
+                添加
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    /*通过正则获取url中的参数*/
+    //获得值应该在到达窗体就加载，而不是加载完成
+    function getUrlParam(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)
+            return decodeURI(r[2]);
+        return null;
+    };
+    var cId=getUrlParam("cId");
+    //上传图片
+    var gpicture="";
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        upload.render({
+            elem: '#test10'
+            ,url: 'CakeMainServlet/fileSave'
+            ,method:'post'
+            ,done: function(res){
+                $("#test10").css("backgroundImage","url(../images/"+res.data+")");
+                gpicture=res.data;
+            }
+        });
+    });
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //监听提交
+        form.on('submit(add)', function(data){
+            var ppPrice=$("#ppPrice").val();
+            var ppPoundage=$("#ppPoundage").val();
+            var ppSizeLeft=$("#ppSizeLeft").val();
+            var ppSizeRight=$("#ppSizeRight").val();
+            var ppMinPeople=$("#ppMinPeople").val();
+            var ppMaxPeople=$("#ppMaxPeople").val();
+            var ppTableWare=$("#ppTableWare").val();
+            var ppTime=$("#ppTime").val();
+            var objectList=new Array();
+            objectList.push({
+                ppPrice:ppPrice,
+                ppPoundage:ppPoundage,
+                ppPicture:gpicture,
+                ppSizeLeft:ppSizeLeft,
+                ppSizeRight:ppSizeRight,
+                ppMinPeople:ppMinPeople,
+                ppMaxPeople:ppMaxPeople,
+                ppTableWare:ppTableWare,
+                ppTime:ppTime,
+                cId:cId
+            });
+            $.ajax({
+                url:'PricePoundageServlet/insertPricePoundage',
+                type:'post',
+                data:JSON.stringify(objectList),
+                contentType:'application/json;charset=utf8'
+            }).done(function (result) {
+                    layer.alert(result, {icon: 6},function () {
+                        if(result=="添加成功!"){
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //表格重载 就相当于 刷新父页面的表格-dataTable是父页面的表格ID属性
+                            //parent.layui.table.reload('dataTable');
+                            //添加成功后刷新数据dataTable指的是父窗体的表格
+                            parent.location.reload('dataTable');
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        }
+                    });
+            });
+            return false;
+        });
+    });
+</script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    console.log("---------");
+    console.log(s);
+    console.log(hm);
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

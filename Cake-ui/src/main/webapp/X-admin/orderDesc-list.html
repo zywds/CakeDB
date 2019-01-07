@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>欢迎页面-X-admin2.0</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./css/font.css">
+  <link rel="stylesheet" href="./css/xadmin.css">
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/jquery-1.11.3.js"></script>
+  <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="./js/xadmin.js"></script>
+  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+  <!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<style>
+  .layui-row input{
+    width: 150px;
+    float: left;
+    padding-left: 10px;margin-right: 5px;margin-bottom: 21px;
+  }
+  .layui-row a{
+    float: right;margin-right: 6px;margin-top:11px;
+  }
+  select option{text-align: center}
+</style>
+<body>
+<div class="x-body">
+  <!--<span class="x-right" style="line-height:40px">共有数据：<span id="span_number"></span> 条</span>-->
+  <table class="layui-table" id="dataTable">
+    <thead>
+    <tr>
+      <th>
+        <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+      </th>
+      <th>编号</th>
+      <th>名称</th>
+      <th>图片</th>
+      <th>单价</th>
+      <th>磅数</th>
+      <th>商品数量</th>
+      <th>餐具数量</th>
+      <th>总价</th>
+      <th>操作</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+  <!--分页-->
+  <div id="demo11"></div>
+
+</div>
+<script>
+    /*通过正则获取url中的参数*/
+    //获得值应该在到达窗体就加载，而不是加载完成
+    function getUrlParam(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)
+            return decodeURI(r[2]);
+        return null;
+    };
+    var oId=getUrlParam("oId");
+    //var odSumPrice=getUrlParam("odSumPrice");
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+    //分页
+    var tablePrices=0;
+    function selectInformation() {
+        /*查询所有*/
+        $.ajax({
+            url:'AdmirOrdering/selectAllOrdingDescByrIdPageCount',
+            type:'post',
+            data:{oId:oId}
+        }).done(function (result) {
+            number=result;
+            /*$("#span_number").html(number);*/
+            /*分页查询*/
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage
+                    , layer = layui.layer;
+                laypage.render({
+                    elem: 'demo11'
+                    , count: number //数据总数
+                    , limit: 2
+                    , curr: location.hash.replace('#!fenye=','')//获取起始页
+                    ,hash:'fenye'
+                    , jump: function (objs) {
+                        page = objs.curr;
+                        limit = objs.limit;
+                        $("tbody tr").remove();
+                        $.ajax({
+                            url: 'AdmirOrdering/selectAllOrdingDescByrIdPage',
+                            type: 'post',
+                            data: {oId:oId,page:page,limit:limit}
+                        }).done(function (result) {
+                            var str = "";
+                           // var sumprices=0;
+                            $.each(result, function (i, obj) {
+                               // sumprices+=obj.odSumPrice;
+                                str += "<tr>";
+                                str += "<td>";
+                                str += "<div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div>";
+                                str += "</td>";
+                                str += "<td>" + obj.odId + "</td>";
+                                str += "<td>" + obj.cakeInformation.cName + "</td>";
+                                str += "<td><img src='../images/"+obj.cakeInformation.cPicture+"'/></td>";
+                                str += "<td>" + obj.odPrice + "</td>";
+                                str += "<td>" + obj.odPoundage + "</td>";
+                                str += "<td>" + obj.odNumber + "</td>";
+                                str += "<td>" + obj.odTableWare + "</td>";
+                                str += "<td>" + obj.odSumPrice + "</td>";
+                                str += "<td class='td-manage'>";
+                                //str += "<a title='编辑'  onclick=\"x_admin_show('编辑',900,450)\" href='javascript:;'>";
+                                //str += "<i class='layui-icon'>&#xe642;</i>";
+                                //str += "</a>";
+                                str+="<a onclick='x_admin_show(\"编辑详情\",\"admin-password.html\",900,350)' title='编辑详情' href='javascript:;'>";
+                                str+="<i class='layui-icon'>&#xe631;</i>";
+                                str+="</a>";
+                                str += "</td>";
+                                str += "</tr>";
+                            });
+                            if(page>(number/2)) {
+                                str += "<tr>";
+                                str += "<td colspan='10' align='right' id='odSumPrice'></td>";
+                                str += "</tr>";
+                            }
+                            //tablePrices+=sumprices;
+                            //查询总价
+                            $.ajax({
+                                url:'AdmirOrdering/selectOrderingDescSumPrice',
+                                type:'post',
+                                data:{oId:oId}
+                            }).done(function (result) {
+                                $("#odSumPrice").html("总价："+result+"￥");
+                            });
+                            $("tbody").html(str);
+
+                        });
+                    }
+                });
+            });
+        });
+    };
+    selectInformation();
+    /*商品状态修改*/
+    function member_stop(obj,id){
+        /*var share="确定要"+$(obj).attr('title')+"吗?";
+        layer.confirm(share,function(index){
+            var raState="";
+            if($(obj).attr('title')=="下架"){
+                raState=0;
+            }else{
+                raState=1;
+            }
+            $.ajax({
+                url:'CakeMainServlet/updateCakeInformation',
+                type:'post',
+                data:{cId:id,cState:raState}
+            }).done(function (result) {
+                layer.msg(result);
+                selectInformation();
+            });
+        });*/
+    }
+</script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

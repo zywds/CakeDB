@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var car={
+            voice(){
+                console.log("车载叫");
+            }
+        };
+        var newCar={
+            voice(){
+                super.voice();
+                console.log("新车再叫");
+            }
+
+        };
+        Object.setPrototypeOf(newCar,car);
+        newCar.voice();
+    </script>
+</body>
+</html>

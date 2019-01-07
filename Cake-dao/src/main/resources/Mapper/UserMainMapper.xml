@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IuserMainDao"><!--接口名-->
+    <!--查询蛋糕有关的一切信息(多对多)-->
+    <resultMap id="selectCakeInformationAllResultMap" type="SmallTypeInformation">
+        <id property="stiId" column="stiId"></id>
+        <result property="cId" column="cId"></result>
+        <result property="stId" column="stId"></result>
+        <collection property="cakeInformation" ofType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+            <association property="cakeType" javaType="CakeType">
+                <id property="ctId" column="ctId"></id>
+                <result property="ctName" column="ctName"></result>
+            </association>
+            <association property="mouseType" javaType="MouseType">
+                <id property="mtId" column="mtId"></id>
+                <result property="mtName" column="mtName"></result>
+            </association>
+        </collection>
+        <collection property="smallCakeType" ofType="SmallCakeType">
+            <id property="stId" column="stId"></id>
+            <result property="stName" column="stName"></result>
+        </collection>
+    </resultMap>
+    <!--查询蛋糕有关的一切信息(多对多)(一次只查四个)-->
+    <select id="selectCakeInformationAll" resultMap="selectCakeInformationAllResultMap" parameterType="String">
+        select *from smallTypeInformation sti inner join cakeInformation c on sti.cId=c.cId inner join smallCakeType st on sti.stId=st.stId
+        inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId where st.stName=#{stName} and ct.ctName='蛋糕' and c.cState=1 limit 0,4
+    </select>
+    <!--查询所有商品（多对多）,不用分页，根据商品别和口味进行查询-->
+    <select id="selectCakeInfomrationAllByctNameAndmtName" resultMap="selectCakeInformationAllResultMap">
+        select *from smallTypeInformation sti inner join cakeInformation c on sti.cId=c.cId inner join smallCakeType st on sti.stId=st.stId
+        inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId
+        <where>
+            cState=1
+            <if test="ctId !=null and ctId !='' and ctId !='0'">
+                and ct.ctId=#{ctId}
+            </if>
+            <if test="mtId !=null and mtId !='' and ctId !='0'">
+                and mt.mtId=#{mtId}
+            </if>
+        </where>
+        order by c.cId desc
+    </select>
+    <!--查询所有商品-->
+    <select id="selectCakeInformation" resultType="CakeInformation">
+        select *from cakeInformation where ctId=1 and cState=1 order by cId desc limit 0,4
+    </select>
+    <!--根据id查询出商品-->
+    <select id="selectCakeInformationByCId" resultType="CakeInformation" parameterType="int">
+        select *from cakeInformation where cId=#{cId}
+    </select>
+    <!--根据商品id查出小类型-->
+    <select id="selectSmallTypeformationByCId" resultMap="selectCakeInformationAllResultMap" parameterType="int">
+        select *from smallTypeInformation sti inner join cakeInformation c on sti.cId=c.cId inner join smallCakeType st on sti.stId=st.stId
+        inner join cakeType ct on c.ctId=ct.ctId inner join mouseType mt on c.mtId=mt.mtId where c.cId=#{cId}
+    </select>
+    <!--根据id查出磅数-->
+    <select id="selectPricePoundageByCId" resultType="PricePoundage">
+        select *from pricePoundage where cId=#{cId}
+    </select>
+    <!--根据id查出图片-->
+    <select id="selectCakepicture" resultType="CakePicture" parameterType="int">
+        select *from cakePicture where cId=#{cId}
+    </select>
+    <!--查询商品口味-->
+    <select id="selectCakeInformationMouseType" resultType="MouseType">
+        select *from mouseType
+    </select>
+    <!--查询商品类型-->
+    <select id="selectCakeInformationCakeType" resultType="CakeType">
+        select *from cakeType
+    </select>
+    <!--查询蛋糕小类型表-->
+    <select id="selectSmallCakeType" resultType="SmallCakeType">
+        select *from smallCakeType
+    </select>
+    <!--查询出所有商品，根据类型和口味-->
+    <select id="selectCakeInformationByctIdAndmtId" resultType="CakeInformation">
+        select *from cakeInformation
+        <where>
+            cState=1
+            <if test="ctId !=null and ctId !='' and ctId !=0">
+                and ctId=#{ctId}
+            </if>
+            <if test="mtId !=null and mtId !='' and mtId !=0">
+                and mtId=#{mtId}
+            </if>
+        </where>
+        order by cId desc
+    </select>
+</mapper>
+

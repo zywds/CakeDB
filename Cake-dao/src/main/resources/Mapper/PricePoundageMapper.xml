@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IpricePoundageDao"><!--接口名-->
+    <!--查询所有商品-->
+    <select id="selectCakeInformationAll" resultType="CakeInformation">
+        select *from cakeInformation where ctId=1
+    </select>
+    <!--查询商品所对应的价格磅数-->
+    <select id="selectPricePoundageById" resultType="PricePoundage">
+        select *from pricePoundage where cId=#{cId} limit ${page},${limit}
+    </select>
+    <!--查询商品所对应的价格磅数数量-->
+    <select id="selectPricePoundageByIdCount" resultType="int" parameterType="int">
+        select count(*)from pricePoundage where cId=#{cId}
+    </select>
+    <!--添加价格与磅数-->
+    <insert id="insertPricePoundage" parameterType="PricePoundage">
+        insert into pricePoundage(ppPrice,ppPoundage,ppPicture,ppSizeLeft,ppSizeRight,ppMinPeople,ppMaxPeople,ppTableWare,ppTime,cId) values(#{ppPrice},#{ppPoundage},#{ppPicture},#{ppSizeLeft},#{ppSizeRight},#{ppMinPeople},#{ppMaxPeople},#{ppTableWare},#{ppTime},#{cId});
+    </insert>
+    <!--删除价格磅数，根据价格磅数id和磅数(磅数唯一)-->
+    <delete id="deletePricePoundageByIdAndPoundage">
+        delete from pricePoundage where ppId=#{ppId}
+    </delete>
+    <!--修改价格磅数表，根据价格磅数id-->
+    <update id="updatePricePoundageByIdAndPoundage" parameterType="PricePoundage">
+        update pricePoundage set ppPrice=#{ppPrice},ppPoundage=#{ppPoundage},ppPicture=#{ppPicture},ppSizeLeft=#{ppSizeLeft},ppSizeRight=#{ppSizeRight},ppMinPeople=#{ppMinPeople},ppMaxPeople=#{ppMaxPeople},ppTableWare=#{ppTableWare},ppTime=#{ppTime} where ppId=#{ppId}
+    </update>
+</mapper>
+

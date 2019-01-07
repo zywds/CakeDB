@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>支付方式</title>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<!--内容部分-->
+		<link rel="stylesheet" href="myjs/maincenter.css"/>
+		<link rel="icon" href="iconfont/cakeType.png" type="image/x-icon" />
+	</head>
+	<style>
+		.div_center{width: 1200px;
+			overflow: hidden;;display: block;margin: 0 auto;position: relative;
+			top: 130px;margin-bottom: 60px;
+		}
+		.h2_1{font-size: 16px;color: #383838;line-height: 22px;font-weight: bold;}
+		.order-info{height: 22px;margin-top: 6px;}
+		.order-unmber{float: left;font-size: 14px;color: #BDBDBD;display: block;line-height: 22px;}
+		.order-money{float: right;font-size: 16px;color: #383838;font-weight: bold;}
+		.pay-warys{margin-top: 16px;background: #FBFBFB;border: 1px solid #E1E1E1;height: 44px;width: 1168px;
+			line-height: 44px;font-size: 14px;padding: 0 15px;}
+		.pay-warys-list{border: 1px solid #E1E1E1;
+			width: 1198px;
+			overflow: hidden;
+			margin-top: 20px;list-style: none;}
+		.pay-warys-list li{float: left;
+			margin-left: 24px;
+			height: 120px;
+			line-height: 120px;
+			width: 150px;line-height: 120px;}
+		.pay-warys-list input{height: 18px;
+			width: 18px;
+			display: inline-block;
+			vertical-align: middle;}
+		.pay-warys-list image{display: inline-block;
+			vertical-align: middle;
+			height: 42px;
+			margin-left: 10px;}
+		.pay-button{
+			margin-top: 20px;
+			margin-bottom: 342px;
+		}
+		.pay-button a{background: #684029;
+			width: 150px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			color: #fff;
+			display: block;
+			font-size: 14px;
+			float: right;}
+		.pay-button a:hover{
+			outline: none;
+			cursor: pointer;
+		}
+		.pay-button .surplus-time{
+			float: right;
+			line-height: 40px;
+			margin-right: 20px;line-height: 40px;color: #FF714D;
+		}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+							<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<!--<a href="#" class="line_a">,</a>
+            		<a href="regsist.html" class="regsist_a">欢迎您</a>-->
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--主体-->
+		<div class="div_center">
+			<h2 class="h2_1">选择支付方式</h2>
+			<div class="order-info">
+				<span class="order-unmber">订单号：<span id="span_ordingNo"></span></span>
+				<span class="order-money">您需支付：<span id="sumPrice">￥298.00</span></span>
+			</div>
+			<div class="pay-warys">支付方式</div>
+			<ul class="pay-warys-list">
+				<li>
+					<label>
+						<input type="radio" name="channel" value="支付宝">
+
+						<img src="../images/zfb-3.png" alt="支付宝">
+						<!-- <img src="/themes/site/img/pay-zhifubao.png"/> -->
+						<span>支付宝</span>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="channel" value="微信" checked="">
+
+						<img src="../images/wx-1.png" alt="微信">
+						<!-- <img src="/themes/site/img/login-weixin.png"/> -->
+						<span>微信</span>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="channel" value="京东支付">
+
+						<img src="../images/jd.png" alt="京东支付">
+						<!-- <img src="/themes/site/img/pay-jdonline.png"/> -->
+						<span>京东支付</span>
+					</label>
+				</li>
+			</ul>
+			<div class="pay-button">
+				<a href="#" id="pay-direct">立即支付</a>
+				<span class="surplus-time">30分时结束付款：<span id="time-remain"></span></span>
+			</div>
+		</div>
+		<!--主体-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<!--导入main.js-->
+		<script src="myjs/main.js"></script>
+		<script>
+            //获取url中的值
+            //获得值应该在到达窗体就加载，而不是加载完成
+            function getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)
+                    return decodeURI(r[2]);
+                return null;
+            };
+            function add0(m){return m<10?'0'+m:m }
+            function format(shijianchuo)
+            {
+				//shijianchuo是整数，否则要parseInt转换
+                var time = new Date(shijianchuo);
+                var y = time.getFullYear();
+                var m = time.getMonth()+1;
+                var d = time.getDate()+1;
+                var h = time.getHours()+1;
+                var mm = time.getMinutes()+1;
+                var s = time.getSeconds()+1;
+                return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+            }
+
+            var oId=getUrlParam("oId");
+            var odSumPrice=getUrlParam("odSumPrice");
+            var oNo="";
+            //根据oId查出订单号
+            $("#sumPrice").html(odSumPrice);
+            $.ajax({
+                url:'OrderingServlet/selectONoByOId',
+                type:'post',
+				data:{oId:oId}
+            }).done(function (result) {
+                oNo=result[0].oNo;
+                $("#span_ordingNo").html(result[0].oNo);
+				var start=result[0].oTime;
+				var end=new Date();
+                var date1=end.getTime()-start;  //时间差的毫秒数
+				var date3=Math.abs(date1);
+                    //计算出相差天数
+                    var days = Math.floor(date3 / (24 * 3600 * 1000));
+                    //计算出小时数
+                    var leave1 = date3 % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+                    var hours = Math.floor(leave1 / (3600 * 1000));
+                    //计算相差分钟数
+                    var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
+                    var minutes = Math.floor(leave2 / (60 * 1000));
+                    //计算相差秒数
+                    var leave3 = leave2 % (60 * 1000);     //计算分钟数后剩余的毫秒数
+                    var seconds = Math.round(leave3 / 1000);
+                    /*function s() {
+					if(seconds<60){
+					    seconds++;
+					}else if(seconds==60){
+					    minutes++;
+					}
+                };
+				setInterval(s(),1000);
+                alert(minutes+","+seconds);*/
+                    if(minutes<=30) {
+                        var s = setInterval(function () {
+                            if (seconds < 60) {
+                                seconds++;
+                                $("#time-remain").html(minutes + "分" + seconds + "秒");
+                            } else if (seconds == 60) {
+                                minutes++;
+                                seconds = 1;
+                                $("#time-remain").html(minutes + "分" + seconds + "秒");
+                            }
+                            if (minutes == 30) {
+                                clearInterval(s);
+                                $("#time-remain").html("00分00秒");
+                                $.ajax({
+                                    url:'OrderingServlet/updateOrdingStateByOId',
+                                    type:'post',
+                                    data:{oId:oId}
+                                }).done(function (result) {
+                                    layer.msg(result);
+                                    location.href="myOrdering.html";
+                                });
+                            }
+                        }, 1000);
+                    }else{
+                        $("#time-remain").html("00分00秒");
+                        $.ajax({
+                            url:'OrderingServlet/updateOrdingStateByOId',
+                            type:'post',
+                            data:{oId:oId}
+                        }).done(function (result) {
+                            layer.msg(result);
+                            location.href="myOrdering.html";
+                        });
+					}
+            });
+
+            /*alert(oId+","+odSumPrice);*/
+			$("#sumPrice").html(odSumPrice);
+			//获得电话号码
+            $.ajax({
+                url:'UserRegsistMainServlet/getPhone',
+                type:'get'
+            }).done(function (result) {
+               /* alert(result);*/
+                $("#span_users").html(result);
+            });
+			$("#pay-direct").click(function () {
+				var oPayAction=$("input[name=channel]:checked").val();
+				//修改支付方式
+                $.ajax({
+                    url:'OrderingServlet/updatePayAction',
+                    type:'post',
+                    data:{oId:oId,oPayAction:oPayAction}
+                }).done(function (result) {
+                    location.href="wxAction.html?oId="+oId+"&oNo="+oNo+"&odSumPrice="+odSumPrice;
+                });
+            });
+            $("#myOrdering").click(function () {
+                location.href="myOrdering.html";
+            });
+		</script>
+	</body>
+</html>

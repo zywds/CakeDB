@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IuserRegsistMainDao"><!--接口名-->
+    <!--用户注册-->
+    <insert id="insertRegsist" parameterType="Regsist">
+        insert into regsist(rPhone,rPassword) values (#{rPhone},#{rPassword})
+    </insert>
+    <!--用户登录-->
+    <select id="selectRegsist" parameterType="Regsist" resultType="int">
+        select count(*)from regsist where rState=1 and rPhone=#{rPhone} and rPassword=#{rPassword}
+    </select>
+    <!--根据电话号码进行登录-->
+    <select id="selectRegsistByrPhone" resultType="int" parameterType="String">
+        select count(*)from regsist where rState=1 and rPhone=#{rPhone}
+    </select>
+    <!--根据电话号码查询用户的编号-->
+    <select id="selectRegsistId" resultType="int" parameterType="String">
+        select rId from regsist where rPhone=#{rPhone}
+    </select>
+    <!--以下为购物车，订单的一些操作-->
+    <!--加入购物车-->
+    <insert id="insertShopping" parameterType="Shopping">
+        insert into shopping(cId,sPrice,sPoundage,sSumPrice,sBoard,rId) values (#{cId},#{sPrice},#{sPoundage},#{sSumPrice},#{sBoard},#{rId})
+    </insert>
+    <!--查询购物车用户卖相同商品的数量(注意状态)-->
+    <select id="selectCidState" resultType="int" parameterType="Shopping">
+        select count(*)from shopping where cId=#{cId} and sState=1 and rId=#{rId} and sPoundage=#{sPoundage}
+    </select>
+    <!--根据商品编号，磅数，购物车状态修改数量和总价-->
+    <update id="updateSumPrice" parameterType="Shopping">
+        update shopping set sNumber=sNumber+1,sSumPrice=sSumPrice*sNumber where cId=#{cId} and sState=1 and rId=#{rId} and sPoundage=#{sPoundage}
+    </update>
+    <resultMap id="selectShoppingByCidAndSstateResultMap" type="Shopping">
+        <id property="sId" column="sId"></id>
+        <result property="cId" column="cId"></result>
+        <result property="sPrice" column="sPrice"></result>
+        <result property="sPoundage" column="sPoundage"></result>
+        <result property="sNumber" column="sNumber"></result>
+        <result property="sSumPrice" column="sSumPrice"></result>
+        <result property="sState" column="sState"></result>
+        <result property="sBoard" column="sBoard"></result>
+        <result property="rId" column="rId"></result>
+        <association property="cakeInformation" javaType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+        </association>
+        <association property="regsist" javaType="Regsist">
+            <id property="rId" column="rId"></id>
+            <result property="rPhone" column="rPhone"></result>
+            <result property="rPassword" column="rPassword"></result>
+            <result property="rBirthday" column="rBirthday"></result>
+            <result property="rState" column="rState"></result>
+        </association>
+    </resultMap>
+    <!--查询购物车中的信息(根据用户编号和购物车状态)-->
+    <select id="selectShoppingByCidAndSstate" resultMap="selectShoppingByCidAndSstateResultMap" parameterType="int">
+        select *from shopping s inner join cakeInformation c on s.cId=c.cId inner join regsist r on s.rId=r.rId where r.rId=#{rId} and s.sState=1
+    </select>
+    <!--查询赠送餐具数-->
+    <select id="selectPricePoundageByCidAndPoundage" resultType="int">
+        select ppTableWare from pricePoundage where cId=#{cId} and ppPoundage=#{ppPoundage}
+    </select>
+    <!--数量减一-->
+    <update id="updateSnumberJian" parameterType="int">
+        update shopping set sNumber=sNumber-1,sSumPrice=sPrice*sNumber where sId=#{sId}
+    </update>
+    <!--数量加一-->
+    <update id="updateSnumberJia" parameterType="int">
+        update shopping set sNumber=sNumber+1,sSumPrice=sPrice*sNumber where sId=#{sId}
+    </update>
+    <!--删除一条-->
+    <delete id="deleteShopping" parameterType="int">
+        delete from shopping where sId=#{sId}
+    </delete>
+    <!--查询商品总额,当前用户，购物车状态，-->
+    <select id="selectShoppingSumPrice" resultType="String">
+        select sum(sSumPrice)from shopping where rId=#{rId} and sState=1
+    </select>
+    <!--添加用户（一个对应多个）-->
+    <insert id="insertNewUserInformation" parameterType="NewUserInformation">
+        insert into newUserInformation(nName,nPhone,nSen,nCity,nSite,nDesc,rId) values(#{nName},#{nPhone},#{nSen},#{nCity},#{nSite},#{nDesc},#{rId})
+    </insert>
+    <!--查询所有用户所对应的用户-->
+    <resultMap id="selectNewUserInformationResultMap" type="NewUserInformation">
+        <id property="nId" column="nId"></id>
+        <result property="nName" column="nName"></result>
+        <result property="nPhone" column="nPhone"></result>
+        <result property="nSen" column="nSen"></result>
+        <result property="nCity" column="nCity"></result>
+        <result property="nSite" column="nSite"></result>
+        <result property="nDesc" column="nDesc"></result>
+        <result property="rId" column="rId"></result>
+        <result property="nState" column="nState"></result>
+        <association property="regsist" javaType="Regsist">
+            <id property="rId" column="rId"></id>
+            <result property="rPhone" column="rPhone"></result>
+            <result property="rPassword" column="rPassword"></result>
+            <result property="rBirthday" column="rBirthday"></result>
+            <result property="rState" column="rState"></result>
+        </association>
+    </resultMap>
+    <select id="selectNewUserInformation" resultMap="selectNewUserInformationResultMap" parameterType="int">
+        select *from newUserInformation nu inner join regsist r on nu.rId=r.rId where r.rId=#{rId}
+    </select>
+    <!--修改新增用户状态变为1-->
+    <update id="updateNewUserInformation" parameterType="int">
+        update newUserInformation set nState=1 where nId=#{nId}
+    </update>
+    <!--修改新增用户状态全部变为0-->
+    <update id="updateNewUserInformation2" parameterType="int">
+        update newUserInformation set nState=0 where rId=#{rId}
+    </update>
+    <!--根据状态查询用户信息-->
+    <select id="selectNewUserInformationByNstate" parameterType="int" resultType="NewUserInformation">
+        select *from newUserInformation where nState=1 and rId=#{rId}
+    </select>
+    <!--根据状态查询用户信息2-->
+    <select id="selectNewUserInformationByNstate2" parameterType="int" resultType="NewUserInformation">
+        select *from newUserInformation where rId=#{rId}
+    </select>
+</mapper>
+

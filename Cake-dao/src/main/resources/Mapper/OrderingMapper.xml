@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.Iordering"><!--接口名-->
+    <!--生成一条订单-->
+    <insert id="insertOrding" parameterType="Ording">
+        insert into ordering(oNo,oPTime,oAction,oDesc,oName,oPhone,oAddress,rId) values(#{oNo},#{oPTime},#{oAction},#{oDesc},#{oName},#{oPhone},#{oAddress},#{rId})
+    </insert>
+    <!--一条订单对应多条数据-->
+    <insert id="insertOrdingDesc" parameterType="OrderingDesc">
+        insert into orderingDesc(odPrice,odPoundage,odTableWare,odSumPrice,odNumber,oId,cId) values
+        <foreach collection="list" separator="," item="listOrder">
+        (#{listOrder.odPrice},#{listOrder.odPoundage},#{listOrder.odTableWare},#{listOrder.odSumPrice},#{listOrder.odNumber},#{listOrder.oId},#{listOrder.cId})
+        </foreach>
+    </insert>
+    <!--查询新增的订单号-->
+    <select id="selectOrdingAddOId" resultType="int">
+        select max(oId)from ordering
+    </select>
+    <!--修改状态为已完成-->
+    <update id="updateOrderingStateSuccess" parameterType="int">
+        update ordering set ostate=1 where oId=#{oId}
+    </update>
+    <!--修改状态为已取消-->
+    <update id="updateOrderingStateCancel" parameterType="int">
+        update ordering set ostate=2 where oId=#{oId}
+    </update>
+    <resultMap id="selectOrdingResultMap" type="Ording">
+        <id property="oId" column="oId"></id>
+        <result property="oNo" column="oNo"></result>
+        <result property="oTime" column="oTime"></result>
+        <result property="oPTime" column="oPTime"></result>
+        <result property="oAction" column="oAction"></result>
+        <result property="oDesc" column="oDesc"></result>
+        <result property="ostate" column="ostate"></result>
+        <result property="oAstate" column="oAstate"></result>
+        <result property="oName" column="oName"></result>
+        <result property="oPhone" column="oPhone"></result>
+        <result property="oAddress" column="oAddress"></result>
+        <result property="oPayAction" column="oPayAction"></result>
+        <result property="rId" column="rId"></result>
+        <association property="regsist" javaType="Regsist">
+            <id property="rId" column="rId"></id>
+            <result property="rPhone" column="rPhone"></result>
+            <result property="rPassword" column="rPassword"></result>
+            <result property="rBirthday" column="rBirthday"></result>
+            <result property="rState" column="rState"></result>
+        </association>
+    </resultMap>
+    <resultMap id="selectOrdingDescResultMap" type="OrderingDesc">
+        <id property="odId" column="odId"></id>
+        <result property="odPrice" column="odPrice"></result>
+        <result property="odPoundage" column="odPoundage"></result>
+        <result property="odTableWare" column="odTableWare"></result>
+        <result property="odSumPrice" column="odSumPrice"></result>
+        <result property="odNumber" column="odNumber"></result>
+        <result property="oId" column="oId"></result>
+        <result property="cId" column="cId"></result>
+        <association property="ording" javaType="Ording">
+            <id property="oId" column="oId"></id>
+            <result property="oNo" column="oNo"></result>
+            <result property="oTime" column="oTime"></result>
+            <result property="oPTime" column="oPTime"></result>
+            <result property="oAction" column="oAction"></result>
+            <result property="oDesc" column="oDesc"></result>
+            <result property="ostate" column="ostate"></result>
+            <result property="oAstate" column="oAstate"></result>
+            <result property="oName" column="oName"></result>
+            <result property="oPhone" column="oPhone"></result>
+            <result property="oAddress" column="oAddress"></result>
+            <result property="oPayAction" column="oPayAction"></result>
+            <result property="rId" column="rId"></result>
+        </association>
+        <association property="cakeInformation" javaType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+        </association>
+    </resultMap>
+    <!--查询一个订单中的所有商品-->
+    <select id="selectAllOrdingDescByrId" resultMap="selectOrdingDescResultMap" parameterType="int">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on od.cId=c.cId where o.oId=#{oId}
+    </select>
+    <!--根据oId查出订单号和时间-->
+    <select id="selectONoByOId" resultType="Ording" parameterType="int">
+        select * from ordering where oId=#{oId}
+    </select>
+    <!--修改支付方式-->
+    <update id="updatePayAction" parameterType="Ording">
+        update ordering set oPayAction=#{oPayAction} where oId=#{oId}
+    </update>
+    <!--根据用户改变购物车中的状态-->
+    <update id="updateShoppingState" parameterType="int">
+        update shopping set sState=0 where rId=#{rId}
+    </update>
+    <!--查询订单详细表-->
+    <select id="selectOrderingDescAll" resultMap="selectOrdingDescResultMap">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on c.cId=od.cId where rId=#{rId} and ostate=#{oState}
+    </select>
+    <!--查询所有的订单,根据用户编号，和订单状态-->
+    <select id="selectOrderingAllByRId" resultType="Ording">
+        select *from ordering where rId=#{rId} and ostate=#{oState} limit ${page},${limit}
+    </select>
+    <!--根据用户编号，和订单状态查询数量-->
+    <select id="selectOrdingCount" resultType="int">
+        select count(*)from ordering where rId=#{rId} and ostate=#{oState}
+    </select>
+    <!--查询订单详细表，更据订单号-->
+    <select id="selectOrderingDescByOId" parameterType="int" resultMap="selectOrdingDescResultMap">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on c.cId=od.cId where o.oId=#{oId}
+    </select>
+    <!--根据订单编号修改地址-->
+    <update id="updateAddressByoId" parameterType="Ording">
+        update ordering set oName=#{oName},oPhone=#{oPhone},oAddress=#{oAddress} where oId=#{oId}
+    </update>
+    <!--根据订单编号改变订单状态2-->
+    <update id="updateOrdingStateByOId" parameterType="int">
+        update ordering set ostate=2 where oId=#{oId}
+    </update>
+    <!--根据订单编号改变订单状态3-->
+    <update id="updateOrdingStateByOId2" parameterType="int">
+        update ordering set ostate=1 where oId=#{oId}
+    </update>
+    <!--根据订单号查询订单状态-->
+    <select id="selectOrderingOstateByOId" resultType="Ording" parameterType="int">
+        select *from ordering where oId=#{oId}
+    </select>
+    <!--根据订单号查询出订单详细表-->
+    <!--<select id="selectOrderingDescByOId" resultType="OrderingDesc" parameterType="int">
+        select *from orderingDesc where oId=#{oId}
+    </select>-->
+    <!--取消重订后添加商品到购物车(多添加)-->
+    <insert id="insertShoppingFromOrderingDesc" parameterType="Shopping">
+        insert into shopping(cId,sPrice,sPoundage,sNumber,sSumPrice,sState,sBoard,rId) values
+        <foreach collection="list" separator="," item="shoppingList">
+            (#{shoppingList.cId},#{shoppingList.sPrice},#{shoppingList.sPoundage},#{shoppingList.sNumber},#{shoppingList.sSumPrice},#{shoppingList.sState},#{shoppingList.sBoard},#{shoppingList.rId})
+        </foreach>
+    </insert>
+    <!--查询所有的订单-->
+    <select id="selectAllOrding" resultMap="selectOrdingResultMap">
+        select *from ordering o inner join regsist r on o.rId=r.rId
+        <where>
+            <if test="oNo!='' and oNo!=null">
+                oNo=#{oNo}
+            </if>
+            <if test="ostate!='' and ostate!=null">
+                and ostate=#{ostate}
+            </if>
+            <if test="oAstate!='' and oAstate!=null">
+                and oAstate=#{oAstate}
+            </if>
+            <if test="oPayAction!='' and oPayAction!=null">
+                and oPayAction=#{oPayAction}
+            </if>
+        </where>
+        limit ${page},${limit}
+    </select>
+    <!--查询出所有订单的数量-->
+    <select id="selectAllOrderingCount" resultType="int">
+        select count(*)from ordering
+        <where>
+            <if test="oNo!='' and oNo!=null">
+                oNo=#{oNo}
+            </if>
+            <if test="ostate!='' and ostate!=null">
+                and ostate=#{ostate}
+            </if>
+            <if test="oAstate!='' and oAstate!=null">
+                and oAstate=#{oAstate}
+            </if>
+            <if test="oPayAction!='' and oPayAction!=null">
+                and oPayAction=#{oPayAction}
+            </if>
+        </where>
+    </select>
+    <!--根据管理员改变的状态改变-->
+    <update id="updateOrderingoAstateByOid" parameterType="Ording">
+        update ordering set oAstate=#{oAstate} where oId=#{oId}
+    </update>
+    <!--查询一个订单中的所有商品分页-->
+    <select id="selectAllOrdingDescByrIdPage" resultMap="selectOrdingDescResultMap">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on od.cId=c.cId where o.oId=#{oId} limit ${page},${limit}
+    </select>
+    <!--查询一个订单中的所有商品分页数量-->
+    <select id="selectAllOrdingDescByrIdPageCount" resultType="int" parameterType="int">
+        select count(*)from orderingDesc where oId=#{oId}
+    </select>
+    <!--查询总价-->
+    <select id="selectOrderingDescSumPrice" resultType="String" parameterType="int">
+        select sum(odSumPrice) from orderingDesc where oId=#{oId}
+    </select>
+</mapper>
+

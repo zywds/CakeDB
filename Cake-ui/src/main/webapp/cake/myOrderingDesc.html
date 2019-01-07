@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>微信支付</title>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<!--内容部分-->
+		<link rel="stylesheet" href="myjs/maincenter.css"/>
+		<link rel="icon" href="iconfont/cakeType.png" type="image/x-icon" />
+	</head>
+	<style>
+		body {
+			font-family: 'PingFang SC','Heiti SC','微软雅黑',Helvetica,Arial;
+			font-size: 12px;
+			color: #684029;
+		}
+		.div_center{width: 1200px;
+			overflow: hidden;display: block;margin: 0 auto;position: relative;
+			top: 130px;margin-bottom: 150px;
+		}.order-status {
+			 width: 900px;
+			 padding: 20px 150px;
+			 background: #F8F8F8;
+			 overflow: hidden;
+			 margin-top: 30px;
+		 }ol, ul {
+			  list-style: none;
+		  }.order-status li {
+			   position: relative;
+			   height: 60px;
+			   width: 225px;
+			   float: left;
+			   text-align: center;
+		   }.order-status li {
+				text-align: center;
+			}.order-status li i {
+				 position: absolute;
+				 display: inline-block;
+				 top: 23px;
+				 left: 0;
+				 height: 2px;
+				 width: 225px;
+				 background: #e1e1e1;
+				 z-index: 1;
+			 }.order-status li.step1 span{
+				  background-image: url(../images/1-1.png);
+			  }
+		.order-status li.step2 span{
+			background-image: url(../images/2-1.png);
+		}
+		.order-status li.step3 span{
+			background-image: url(../images/3-1.png);
+		}
+		.order-status li.step4 span{
+			background-image: url(../images/4-1.png);
+		}
+		.order-status li span {
+				   display: block;
+				   height: 15px;
+				   padding-top: 45px;
+				   background: no-repeat top center;
+				   background-image: none;
+				   z-index: 2;
+				   position: relative;
+			   }
+
+
+		.order-info {
+			border: 1px solid #E1E1E1;
+			font-size: 13px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}.about-order {
+			 overflow: hidden;
+			 padding: 30px 20px;
+		 }.about-order > li {
+			  float: left;
+			  width: 322px;
+			  line-height: 18px;
+			  margin-right: 30px;
+		  }.about-order h5 {
+			   font-size: 14px;
+			   font-weight: bold;
+			   height: 34px;
+			   border-bottom: 1px solid #e1e1e1;
+			   line-height: 34px;
+		   }.about-list {
+				padding-top: 15px;
+			}.about-list li {
+				 padding: 6px 0;
+			 }.about-order label {
+				  color: #B3B3B3;
+			  }.about-order > li {
+				   line-height: 18px;
+			   }.about-order span {
+					display: inline-block;
+					vertical-align: middle;
+					margin-top: -3px;
+				}.about-list .cancel-order, .goods-table tr.amount button.cancel {
+					 background: #fff;
+					 border: 1px solid #979797;
+				 }
+		.about-list button, .about-list .go-pay {
+			border-radius: 2px;
+			width: 70px;
+			height: 24px;
+			float: right;
+			margin-right: 30px;
+			font-size: 12px;
+			text-align: center;
+			line-height: 24px;
+		}.about-list .cancel-order-pay, .about-list .reorderOrder-button, .goods-table tr.amount button.submit-memo {
+			 background: #442818;
+			 color: #fff;
+		 }.about-list .go-pay {
+			  background: #FFB042;
+			  color: #fff;
+		  }.pay-tax-box li {
+			   float: left;
+			   width: 160px;
+		   }
+		.about-list li {
+			padding: 6px 0;
+		}.tax-box-fl li {
+			 float: left;
+			 width: 255px;
+		 }
+		.about-list li {
+			padding: 6px 0;
+		}.about-list .edit-a, .goods-table .edit-a {
+			 color: #AE8C73;
+			 display: inline-block;
+			 vertical-align: middle;
+			 margin-left: 15px;
+			 margin-top: -3px;
+		 }
+		a:visited, a:link, a {
+			color: #684029;
+			text-decoration: none;
+			outline: none;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-tap-highlight-color: transparent;
+		}.about-list .address {
+			 display: inline-block;
+			 max-width: 300px;
+			 overflow: hidden;
+			 text-overflow: ellipsis;
+			 white-space: nowrap;
+			 vertical-align: middle;
+		 }
+		.about-order span {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: -3px;
+		}button {
+			 border: none;
+			 cursor: pointer;
+		 }
+		.tax-box-fl {
+			width: 600px;
+		}
+		.about-list {
+			padding-top: 15px;
+		}.about-list .edit-a i, .goods-table .edit-a i {
+			 display: inline-block;
+			 vertical-align: middle;
+			 width: 0;
+			 height: 0;
+			 border-top: 5px solid transparent;
+			 border-left: 8px solid #AE8C73;
+			 border-bottom: 5px solid transparent;
+			 margin-top: -3px;
+		 }
+		.about-list button:hover{
+			background: lightgray;
+		}
+		.edit-a:hover{
+			color: black;
+		}.pmt-box {
+			 padding: 10px 0;
+		 }.pmt-box h5 {
+			  font-size: 14px;
+			  font-weight: bold;
+			  line-height: 16px;
+			  margin-bottom: 10px;
+		  }.pmt-box ul {
+			   background: #F8F8F8;
+			   padding: 5px 10px;
+		   }.pmt-box li {
+				margin: 5px 0;
+			}
+
+		/*table*/
+		{
+			padding: 0 20px;
+			margin-top: 20px;
+		}
+		.goods-table {
+			width: 100%;
+			text-align: center;
+			border: 1px solid #E1E1E1;
+			font-size: 13px;
+		}
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}.goods-table .gt-head {
+			 height: 48px;
+			 border: 1px solid #F1F1F1;
+			 background: #FAFAFA;
+		 }
+		_th, tr, td {
+			margin: 0;
+			padding: 0px;
+		}body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+			 margin: 0;
+			 padding: 0;
+		 }{
+			width: 360px;
+		}{
+			width: 150px;
+		}{
+			width: 300px;
+		}{
+			width: 20px;
+		}{
+			width: 20px;
+			border: none;
+		}.goods-table .goods-box {
+			 width: 360px;
+		 }
+		.goods-table td {
+			border-bottom: 2px dashed #E1E1E1;
+		}.goods-table td {
+			 border-bottom: 2px dashed #E1E1E1;
+		 }.goods-table td {
+			  border-bottom: 2px dashed #E1E1E1;
+		  }{
+			width: 20px;
+			border-bottom-color: #fff;
+		}/*.select-birthday {
+			 width: 226px;
+			 position: relative;
+			 margin: auto;
+			 text-align: left;
+		 }.select-birthday div {
+			  border: 1px solid #D5D5D5;
+			  width: 226px;
+			  height: 22px;
+			  color: #D8C3AD;
+			  outline: none;
+			  padding-left: 8px;
+			  position: relative;
+			  cursor: pointer;
+			  line-height: 22px;
+		  }*/{
+			width: 20px;
+			border: none;
+		}.goods-table .goods-box {
+			 width: 360px;
+		 }.goods-table .goods-box a {
+			  display: block;
+		  }
+		a:visited, a:link, a {
+			color: #684029;
+			text-decoration: none;
+			outline: none;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-tap-highlight-color: transparent;
+		}
+		:link, :visited, ins {
+			text-decoration: none;
+		}
+		img, a {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+		}.goods-table .goods-box span:first-child {
+			 height: 78px;
+			 width: 78px;
+			 margin: 20px 0;
+			 background: #FFF;
+			 border: 1px solid #EFEFEF;
+			 display: inline-block;
+			 float: left;
+		 }.goods-table .goods-box img {
+			  display: block;
+			  margin: 0 auto;
+			  max-height: 100%;
+			  max-width: 100%;
+		  }
+		img, a {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+		}.goods-table .goods-box h3 {
+			 text-overflow: ellipsis;
+			 overflow: hidden;
+			 font-size: 13px;
+			 margin-bottom: 6px;
+		 }
+		h1, h2, h3, h4, h5, h6 {
+			font-size: 100%;
+			font-weight: normal;
+		}.goods-table .goods-box span.label {
+			 display: inline-block;
+			 width: 40px;
+			 height: 20px;
+			 background: #D5BFA7;
+			 color: #fff;
+			 line-height: 20px;
+			 text-align: center;
+			 margin-right: 5px;
+		 }.goods-table .goods-box > div {
+			  text-align: left;
+		  }.goods-table .goods-box > div {
+			   float: left;
+			   margin-left: 20px;
+			   margin-top: 30px;
+			   margin-bottom: 20px;
+			   width: 240px;
+			   text-align: left;
+		   }.goods-table tr.amount td {
+				height: 120px;
+				border-bottom: 1px solid #E1E1E1;
+				text-align: left;
+			}.goods-table tr.amount td {
+				 height: 120px;
+				 border-bottom: 1px solid #E1E1E1;
+				 text-align: left;
+			 }.about-list .edit-a, .goods-table .edit-a {
+				  color: #AE8C73;
+				  display: inline-block;
+				  vertical-align: middle;
+				  margin-left: 15px;
+				  margin-top: -3px;
+			  }
+		a:visited, a:link, a {
+			color: #684029;
+			text-decoration: none;
+			outline: none;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-tap-highlight-color: transparent;
+		}
+		img, a {
+			border: none;
+			margin: 0px;
+			margin-top: 0px;
+			margin-left: 0px;
+			padding: 0px;
+		}.goods-table .edit-a i {
+			 margin-left: 3px;
+		 }
+		.about-list .edit-a i, .goods-table .edit-a i {
+			display: inline-block;
+			vertical-align: middle;
+			width: 0;
+			height: 0;
+			border-top: 5px solid transparent;
+			border-left: 8px solid #AE8C73;
+			border-bottom: 5px solid transparent;
+			margin-top: -3px;
+		}.goods-table tr.amount td {
+			 height: 120px;
+			 border-bottom: 1px solid #E1E1E1;
+			 text-align: left;
+		 }
+		.goods-table td {
+			border-bottom: 2px dashed #E1E1E1;
+		}.goods-table .price div {
+			 text-align: right;
+			 margin-right: 60px;
+			 color: #B3B3B3;
+			 font-size: 13px;
+		 }.goods-table .price div {
+			  text-align: right;
+			  margin-right: 60px;
+			  color: #B3B3B3;
+			  font-size: 13px;
+		  }.goods-table .price div span {
+			   font-size: 26px;
+			   color: #AE8C73;
+			   line-height: 33px;
+		   }
+		.edit-a:hover{
+			color: lightgrey;
+		}
+		/*修改地址*/
+		/*{
+			display: block;
+		}*/
+		.address-box, .invoice-show {
+			background: #F8F8F8;
+			padding-top: 15px;
+			/*display: none;*/
+		}.select-address {
+			 max-height: 270px;
+			 overflow: auto;
+		 }.select-address ul {
+			  overflow: hidden;
+			  margin: 0 auto;
+			  width: 1136px;
+			  padding: 0 15px;
+		  }
+		ol, ul {
+			list-style: none;
+		}.select-address ul li {
+			 float: left;
+		 }.select-address .left-info {
+			  background: #fff;
+			  border: 1px solid #E1E1E1;
+			  width: 315px;
+			  height: 94px;
+			  padding: 10px 20px;
+			  margin: 10px;
+			  cursor: pointer;
+		  }.left-info h3 {
+			   font-size: 16px;
+			   font-weight: bold;
+			   line-height: 22px;
+			   margin-bottom: 12px;
+		   }.left-info > span {
+				display: block;
+				line-height: 18px;
+				margin-bottom: 6px;
+			}.bottom-bar-button {
+				 height: 55px;
+				 width: 1150px;
+			 }.bottom-bar-button button:disabled {
+				  background: #e1e1e1;
+			  }
+		.bottom-bar-button button {
+			width: 80px;
+			height: 25px;
+			color: #fff;
+			background: #442818;
+			border-radius: 2px;
+			float: right;
+			font-size: 12px;
+			margin-left: 15px;
+			margin-top: 15px;
+		}
+		input, button, textarea, select {
+			*font-size: 100%;
+		}
+		button {
+			border: none;
+			cursor: pointer;
+		}
+		input, button, textarea, select, optgroup, option {
+			font-family: inherit;
+			font-size: inherit;
+			font-style: inherit;
+			font-weight: inherit;
+			outline: none;
+		}.bottom-bar-button button.cancel-button {
+			 background: #fff;
+			 border: 1px solid #442818;
+			 color: #442818;
+		 }
+		.bottom-bar-button button {
+			width: 80px;
+			height: 25px;
+			color: #fff;
+			background: #442818;
+			border-radius: 2px;
+			float: right;
+			font-size: 12px;
+			margin-left: 15px;
+			margin-top: 15px;
+		}
+		.cancel-button {
+			width: 420px;
+			margin: 0 auto;
+			margin-top: 0px;
+			margin-left: auto;
+			overflow: hidden;
+		}
+		input, button, textarea, select {
+			*font-size: 100%;
+		}
+		button {
+			border: none;
+			cursor: pointer;
+		}
+		input, button, textarea, select, optgroup, option {
+			font-family: inherit;
+			font-size: inherit;
+			font-style: inherit;
+			font-weight: inherit;
+			outline: none;
+		}.select-address ul li {
+			 float: left;
+		 }.left-info .address-default {
+			  display: none;
+		  }
+		.left-info h3 span {
+			display: inline-block;
+			font-size: 12px;
+			color: #FFF;
+			background: #D5BFA7;
+			line-height: 18px;
+			vertical-align: middle;
+			padding: 0 4px;
+			margin-left: 30px;
+			font-weight: normal;
+		}
+		.address-default {
+			display: none;
+		}
+		.box-div-hidden{
+			display: none;
+		}
+		/*修改地址*/
+		.bottom-bar-button button:hover{background: red;color: white}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+							<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<!--<a href="#" class="line_a">,</a>
+            		<a href="regsist.html" class="regsist_a">欢迎您</a>-->
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--主体-->
+		<div class="div_center">
+			<ul class="order-status">
+				<li class="step1"><i></i><span class="selected">已下单</span></li>
+				<li class="step2"><i></i><span>待付款</span></li>
+				<li class="step3"><i></i><span>待配送</span></li>
+				<li class="step4"><i></i><span>已收货</span></li>
+			</ul>
+			<div class="order-info" id="order-info">
+				<!--<ul class="about-order">
+					<li>
+						<h5 class="title">订单详情</h5>
+						<ul class="about-list">
+							<li>
+								<label>订单号：</label>
+								<span class="order-id">20181221108515</span>
+								<button class="cancel-order" data-id="20181221108515">取消订单</button>
+							</li>
+							<li>
+								<label>订单金额：</label>
+								<span>￥298.00</span>
+								<button class="cancel-order-pay">取消并重订</button>
+							</li>
+							<li>
+								<label>订单状态：</label>
+								<span>待付款<span class="time">&nbsp;&nbsp;(27 : 32)</span></span>
+								<a class="go-pay" href="/pay-20181221108515.do">付款</a>
+							</li>
+						</ul>
+					</li>
+					<li style="width: 456px">
+						<h5 class="title">收货信息</h5>
+						<ul class="about-list">
+							<li><label>姓名：</label><span>老张</span></li>
+							<li><label>收货人电话：</label><span>14565457654</span></li>
+							<li>
+								<label>收货地址：</label>
+								<span class="address">上海市徐汇区肇嘉浜路789号均瑶国际广场32层(32会所)</span>
+								<a class="address-edit edit-a" id="editAddress1"> 修改地址 <i></i></a>
+							</li>
+						</ul>
+					</li>
+					<li style="width: 282px;">
+						<h5 class="title">配送方式</h5>
+						<ul class="about-list">
+							<li><label>配送方式：</label><span>21客快递</span></li>
+							<li><label>配送时间：</label><span>2018-12-28 11:00</span></li>
+							<li><label>运费：</label><span>0.00</span></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="address-box hidden-box box-div-hidden" id="div_Address1">
+					<div class="select-address">
+						<ul>
+							<li class="address-item" data-id="7340597">
+								<div class="left-info">
+									<h3>老张<span class="address-default">默认地址</span></h3>
+									<span class="phone-number"><i class="layui-icon layui-icon-cellphone" style="font-size: 10px;"></i>14565457654</span>
+									<span class="address"><i class="layui-icon layui-icon-location" style="font-size: 10px;"></i>上海市徐汇区肇嘉浜路789号均瑶国际广场32层(32会所)</span>
+								</div>
+							</li>
+						</ul>
+						<ul>
+						<li class="address-item" data-id="7340597">
+							<div class="left-info">
+								<h3>老张<span class="address-default">默认地址</span></h3>
+								<span class="phone-number"><i class="layui-icon layui-icon-cellphone" style="font-size: 10px;"></i>14565457654</span>
+								<span class="address"><i class="layui-icon layui-icon-location" style="font-size: 10px;"></i>上海市徐汇区肇嘉浜路789号均瑶国际广场32层(32会所)</span>
+							</div>
+						</li>
+					</ul>
+					</div>
+					<div class="bottom-bar-button">
+						<button id="submitAddress" disabled="">确定</button>
+						<button class="cancel-button">取消</button>
+					</div>
+				</div>
+
+				<ul class="about-order ">
+					<li>
+						<h5 class="title">付款方式</h5>
+						<ul class="about-list pay-tax-box">
+							<li><label>付款方式：</label><span>支付宝支付</span></li>
+							<li><label>配送费：</label><span>0.00</span></li>
+							<li><label>订单金额：</label><span>298.00</span></li>
+							<li><label>商品金额：</label><span>298.00</span></li>
+							<li><label>优惠券：</label><span>0.00</span></li>
+							<li><label>余额抵扣：</label><span>0.00</span></li>
+							<li><label>代金卡：</label><span>0.00</span></li>
+						</ul>
+					</li>
+					<li style="width: 770px">
+						<h5 class="title">发票信息</h5>
+						<ul class="about-list tax-box-fl">
+							<li><label>发票类型：</label><span></span></li>
+							<li><label>发票抬头：</label><span></span></li>
+							<li><label>纳税人识别号：</label>
+							</li>
+							<li><label>收票人手机号：</label><span></span></li>
+							<li><label>个人/公司：</label><span>
+                                                                              </span>
+								<a class="invoice-a edit-a"> 编辑 <i></i></a>
+							</li>
+							<li><label>收票人邮箱：</label><span></span></li>
+							<li><label>下载地址：</label><span><a href=""></a></span></li>
+						</ul>
+					</li>
+				</ul>-->
+			</div>
+			<div class="pmt-box">
+				<h5>已享受优惠</h5>
+				<ul>
+					<li> 全场单笔订单实付满200元，配送时间选择为12月8日起，即赠圣诞蜡烛1个（红/绿随机），数量有限，赠完即止。（注：与其它优惠活动不同享）</li>
+				</ul>
+			</div>
+			<table class="goods-table" style="padding:0 20px;margin-top: 20px;">
+				<thead>
+				<tr class="gt-head">
+					<th></th>
+					<th style="width:360px;">商品</th>
+					<th style="width:150px;">销售价</th>
+					<th>数量</th>
+					<th style="width:300px;">生日牌</th>
+					<th>小计</th>
+					<th style="width: 20px;"></th>
+				</tr>
+				</thead>
+				<tbody id="tbody">
+				<!--<tr class="product-tr">
+					<td style="width: 20px;border:none"></td>
+					<td class="goods-box">
+						<a href="/goods-1.html" target="_blank">
+							<span><img src="//static.21cake.com/public/images/98/12/19/56d3db07af6a395b9bffcb985f9f5971.jpg"></span>
+						</a>
+						<div>
+							<a href="/goods-1.html" target="_blank">
+								<h3>朗姆芝士（2.0磅）</h3>
+							</a>
+							<span class="label">标配</span><span>餐具套装10套</span>
+						</div>
+					</td>
+					<td>￥298.00</td>
+					<td>1</td>
+					<td>
+					</td>
+					<td>￥298.00</td>
+					<td style="width: 20px;border-bottom-color:#fff"></td>
+				</tr>
+				<tr class="product-tr">
+					<td style="width: 20px;border:none"></td>
+					<td class="goods-box">
+						<a href="/goods-952.html" target="_blank">
+							<span><img src="//static.21cake.com/public/images/be/46/86/c6fe91045af3a193641b3bc38c84f80b.jpg"></span>
+						</a>
+						<div>
+							<a href="/goods-952.html" target="_blank">
+								<h3>圣诞蜡烛1个（红/绿随机）（个）</h3>
+							</a>
+						</div>
+					</td>
+					<td>￥0.00</td>
+					<td>1</td>
+					<td>
+					</td>
+					<td>￥0.00</td>
+					<td style="width: 20px;border-bottom-color:#fff"></td>
+				</tr>-->
+
+				<!--<tr class="amount">
+					<td></td>
+					<td colspan="2">
+						订单留言：<span class="memo"></span>
+						&lt;!&ndash;<textarea></textarea>&ndash;&gt;&lt;!&ndash;<button class="cancel">取消</button><button class="submit-memo">确定</button>&ndash;&gt;
+						<a class="edit-a">编辑<i></i></a>
+					</td>
+					<td colspan="4" class="price">
+						<div>
+							商品金额：￥298.00                        &nbsp;配送费：￥0.00                        &nbsp;优惠金额：￥0.00                        &nbsp;余额抵扣：￥0.00                        &nbsp;代金卡：￥0.00                    </div>
+						<div>总金额：<span>￥298.00</span></div>
+					</td>
+				</tr>-->
+				</tbody>
+			</table>
+		</div>
+		<!--主体-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<!--导入main.js-->
+		<script src="myjs/main.js"></script>
+		<script>
+            //获取url中的值
+            //获得值应该在到达窗体就加载，而不是加载完成
+            function getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)
+                    return decodeURI(r[2]);
+                return null;
+            };
+            var oId=getUrlParam("oId");
+            var sumPrices=0;
+            var oNo="";
+			//获得电话号码
+            $.ajax({
+                url:'UserRegsistMainServlet/getPhone',
+                type:'get'
+            }).done(function (result) {
+                $("#span_users").html(result);
+            });
+			$("#order-info").on("click","#editAddress1",function () {
+				/*$("#div_Address1").css("display","block");*/
+				if($("#div_Address1").hasClass("box-div-hidden")){
+
+                    $("#div_Address1").removeClass("box-div-hidden");
+				}else{
+                    $("#div_Address1").addClass("box-div-hidden");
+				}
+            });
+			function selectOrderingAll() {
+                $.ajax({
+                    url: 'OrderingServlet/selectOrderingDescByOId',
+                    type: 'post',
+                    data: {oId:oId}
+                }).done(function (result) {
+                    var str="";
+                	str+="<ul class='about-order'>";
+                    str+="<li>";
+                    str+="<h5 class='title'>订单详情</h5>";
+                    str+="<ul class='about-list'>";
+                    str+="<li>";
+                    str+="<label>订单号：</label>";
+                    oNo=result[0].ording.oNo;
+                    str+="<span class='order-id'>"+result[0].ording.oNo+"</span>";
+                    if(result[0].ording.ostate==0){
+                        str+="<button class='cancel-order'>取消订单</button>";
+                    }else{
+                        str+="<button class='cancel-order' disabled='true'>取消订单</button>";
+                    }
+                    str+="</li>";
+                    str+="<li>";
+                    str+="<label>订单金额：</label>";
+                    str+="<span>￥298.00</span>";
+                    if(result[0].ording.ostate==0){
+                        str+="<button class='cancel-order-pay'>取消并重订</button>";
+                    }else{
+                        str+="<button class='cancel-order-pay' disabled='true'>取消并重订</button>";
+                    }
+                    str+="</li>";
+                    str+="<li>";
+                    str+="<label>订单状态：</label>";
+                    if(result[0].ording.ostate==0){
+                        str+="<span>待付款</span>";
+                        str+="<a class='go-pay' id='go-pay'>付款</a>";
+					}else if(result[0].ording.ostate==1){
+                        str+="<span>已完成</span>";
+                        str+="<a class='go-pay'>付款</a>";
+					}else if(result[0].ording.ostate==2){
+                        str+="<span>已取消</span>";
+                        str+="<a class='go-pay'>付款</a>";
+					}
+					str+="</li>";
+                    str+="</ul>";
+                    str+="</li>";
+                    str+="<li style='width: 456px'>";
+                    str+="<h5 class='title'>收货信息</h5>";
+                    str+="<ul class='about-list'>";
+                    str+="<li><label>姓名：</label><span>"+result[0].ording.oName+"</span></li>";
+                    str+="<li><label>收货人电话：</label><span>"+result[0].ording.oPhone+"</span></li>";
+                    str+="<li>";
+                    str+="<label>收货地址：</label>";
+                    str+="<span class='address'>"+result[0].ording.oAddress+"</span>";
+                    if(result[0].ording.ostate==0){
+                        str+="<a class='address-edit edit-a' id='editAddress1'> 修改地址 <i></i></a>";
+                    }else{
+                        str+="<a class='address-edit edit-a'> 修改地址 <i></i></a>";
+                    }
+
+                    str+="</li>";
+                    str+="</ul>";
+                    str+="</li>";
+                    str+="<li style='width: 282px;'>";
+                    str+="<h5 class='title'>配送方式</h5>";
+                    str+="<ul class='about-list'>";
+                    str+="<li><label>配送方式：</label><span>"+result[0].ording.oAction+"</span></li>";
+                    str+="<li><label>配送时间：</label><span>"+new Date(result[0].ording.oPTime).toLocaleString()+"</span></li>";
+                    str+="<li><label>运费：</label><span>0.00</span></li>";
+                    str+="</ul>";
+                    str+="</li>";
+                    str+="</ul>";
+
+                    str+="<div class='address-box hidden-box box-div-hidden' id='div_Address1'>";
+                    str+="<div class='select-address' id='newInformationAdd'>";
+                    $.ajax({
+                        url:'UserRegsistMainServlet/selectNewUserInformation',
+                        type:'post'
+                    }).done(function (result) {
+                        var strInformationAdd="";
+                        $.each(result,function (i,obj) {
+                            strInformationAdd+="<ul class='ul_newInformation'>";
+                            strInformationAdd+="<li class='address-item'>";
+                            strInformationAdd+="<div class='left-info' data-nName='"+obj.nName+"' data-nPhone='"+obj.nPhone+"' data-nAddress='"+obj.nSen+obj.nCity+obj.nSite+obj.nDesc+"'>";
+                            strInformationAdd+="<h3>"+obj.nName+"<span class='address-default'>默认地址</span></h3>";
+                            strInformationAdd+="<span class='phone-number'><i class='layui-icon layui-icon-cellphone' style='font-size: 10px;'></i>"+obj.nPhone+"</span>";
+                            strInformationAdd+="<span class='address'><i class='layui-icon layui-icon-location' style='font-size: 10px;'></i>"+obj.nSen+obj.nCity+obj.nSite+obj.nDesc+"</span>";
+                            strInformationAdd+="</div>";
+                            strInformationAdd+="</li>";
+                            strInformationAdd+="</ul>";
+                        });
+						$("#newInformationAdd").html(strInformationAdd);
+                    });
+
+
+                    /*str+="<ul>";
+                    str+="<li class='address-item' data-id='7340597'>";
+                    str+="<div class='left-info'>";
+                    str+="<h3>老张<span class='address-default'>默认地址</span></h3>";
+                    str+="<span class='phone-number'><i class='layui-icon layui-icon-cellphone' style='font-size: 10px;'></i>14565457654</span>";
+                    str+="<span class='address'><i class='layui-icon layui-icon-location' style='font-size: 10px;'></i>上海市徐汇区肇嘉浜路789号均瑶国际广场32层(32会所)</span>";
+                    str+="</div>";
+                    str+="</li>";
+                    str+="</ul>";*/
+
+                    str+="</div>";
+                    str+="<div class='bottom-bar-button'>";
+                    str+="<button id='submitAddress' class='sure-button'>确定</button>";
+                    str+="<button class='cancel-button' id='cancelAddress'>取消</button>";
+                    str+="</div>";
+                    str+="</div>";
+
+
+
+
+
+
+                    str+="<ul class='about-order '>";
+                    str+="<li>";
+                    str+="<h5 class='title'>付款方式</h5>";
+                    str+="<ul class='about-list pay-tax-box'>";
+                    str+="<li><label>付款方式：</label><span>"+result[0].ording.oPayAction+"</span></li>";
+                    str+="<li><label>配送费：</label><span></span></li>";
+                    str+="<li><label>订单金额：</label><span id='psPrice'>298.00</span></li>";
+                    str+="<li><label>商品金额：</label><span id='spPrice'></span></li>";
+                    str+="<li><label>优惠券：</label><span>0.00</span></li>";
+                    str+="<li><label>余额抵扣：</label><span>0.00</span></li>";
+                    str+="<li><label>代金卡：</label><span>0.00</span></li>";
+                    str+="</ul>";
+                    str+="</li>";
+                    str+="<li style='width: 770px'>";
+                    str+="<h5 class='title'>发票信息</h5>";
+                    str+="<ul class='about-list tax-box-fl'>";
+                    str+="<li><label>发票类型：</label><span></span></li>";
+                    str+="<li><label>发票抬头：</label><span></span></li>";
+                    str+="<li><label>纳税人识别号：</label>";
+                    str+="</li>";
+                    str+="<li><label>收票人手机号：</label><span></span></li>";
+                    str+="<li><label>个人/公司：</label><span>";
+                    str+="</span>";
+                    str+="<a class='invoice-a edit-a'> 编辑 <i></i></a>";
+                    str+="</li>";
+                    str+="<li><label>收票人邮箱：</label><span></span></li>";
+                    str+="<li><label>下载地址：</label><span><a href=''></a></span></li>";
+                    str+="</ul>";
+                    str+="</li>";
+                    str+="</ul>";
+                    $("#order-info").html(str);
+				});
+            };
+			selectOrderingAll();
+			//新增用户被点击时
+			var nName="";var nPhone="";var nAddress="";
+			$("#order-info").on("click",".left-info",function () {
+			    $(".left-info").css("border","none");
+				$(this).css("border","1px solid red");
+				nName=$(this).data("nname");nPhone=$(this).data("nphone");nAddress=$(this).data("naddress");
+            });
+			//确定修改地址
+			$("#order-info").on("click",".sure-button",function () {
+				if(nName=="" || nPhone=="" || nAddress==""){
+				    layer.msg("请先选择！");
+				}else{
+                    $.ajax({
+                        url:'OrderingServlet/updateAddressByoId',
+                        type:'post',
+						data:{oName:nName,oPhone:nPhone,oAddress:nAddress,oId:oId}
+                    }).done(function (result) {
+						layer.msg(result);selectOrderingAll();
+                    });
+				}
+            });
+			//取消修改地址
+            $("#order-info").on("click",".cancel-button",function () {
+                $("#div_Address1").addClass("box-div-hidden");
+			});
+            //查询渲染表格
+			function selectAllOrderingDesc() {
+                $.ajax({
+                    url:'OrderingServlet/selectAllOrdingDescByrId',
+                    type:'post',
+                    data:{oId:oId}
+                }).done(function (result) {
+                    var str="";
+                    $.each(result,function (i,obj) {
+                    	str+="<tr class='product-tr'>";
+                        str+="<td style='width: 20px;border:none'></td>";
+                        str+="<td class='goods-box'>";
+                        str+="<a href='goodsinformation.html?cId="+obj.cakeInformation.cId+"' target='blank'>";
+                        str+="<span><img src='../images/"+obj.cakeInformation.cPicture+"'></span>";
+                        str+="</a>";
+                        str+="<div>";
+                        str+="<a href='#' target='_blank'>";
+                        str+="<h3>"+obj.cakeInformation.cName+"("+obj.odPoundage+"磅)</h3>";
+                        str+="</a>";
+                        str+="<span class='label'>标配</span><span>餐具套装"+obj.odTableWare+"套</span>";
+                        str+="</div>";
+                        str+="</td>";
+                        str+="<td>￥"+obj.odPrice+"</td>";
+                        str+="<td>"+obj.odNumber+"</td>";
+                        str+="<td>";
+                        str+="</td>";
+                        str+="<td>￥"+obj.odSumPrice+"</td>";
+                        str+="<td style='width: 20px;border-bottom-color:#fff'></td>";
+                        str+="</tr>";
+                        sumPrices+=obj.odSumPrice;
+                    });
+                	str+="<tr class='amount'>";
+                    str+="<td></td>";
+                    str+="<td colspan='2'>";
+                    str+="订单留言：<span class='memo'></span>";
+                    //str+="<a class='edit-a'>编辑<i></i></a>";
+					str+="<input value='"+result[0].ording.oDesc+"' style='width: 291px;height: 60px;border: none;'/>";
+                    //str+="<a class='edit-a'>修改</a>";
+                    str+="</td>";
+                    str+="<td colspan='4' class='price'>";
+                    str+="<div>";
+                    str+="商品金额：￥<span>"+sumPrices+"</span>                        &nbsp;配送费：￥0.00                        &nbsp;优惠金额：￥0.00                        &nbsp;余额抵扣：￥0.00                        &nbsp;代金卡：￥0.00                    </div>";
+                    str+="<div>总金额：<span>￥"+sumPrices+"</span></div>";
+                    str+="</td>";
+                    str+="</tr>";$("#psPrice").html("￥"+sumPrices);$("#spPrice").html("￥"+sumPrices);
+                    $("#tbody").html(str);
+                });
+            };selectAllOrderingDesc();
+            //取消订单
+            $("#order-info").on("click",".cancel-order",function () {
+                layer.alert("是否要取消订单?",function () {
+                    $.ajax({
+                        url:'OrderingServlet/updateOrdingStateByOId',
+                        type:'post',
+                        data:{oId:oId}
+                    }).done(function (result) {
+                        layer.msg(result+"正在跳转...");
+                        selectOrderingAll();selectAllOrderingDesc();
+                        setInterval(function () {
+                            location.href="myOrdering.html";
+                        },1000);
+                    });
+				});
+			});
+            $("#order-info").on("click","#go-pay",function () {
+                location.href="wxAction.html?oId="+oId+"&oNo="+oNo+"&odSumPrice="+sumPrices;
+            });
+            $("#myOrdering").click(function () {
+                location.href="myOrdering.html";
+            });
+            //取消与重订
+            $("#order-info").on("click",".cancel-order-pay",function () {
+                layer.alert("是否要取消订单重新下单?",function () {
+                    //查询出订单中的所有商品，并将其添加到购物车
+                    $.ajax({
+                        url:'OrderingServlet/selectOrderingDescByOId',
+                        type:'post',
+                        data:{oId:oId}
+                    }).done(function (result) {
+                        //console.log(result);
+                        //添加到购物车,并取消订单
+                        var shoppingList=new Array();
+                        for(var i=0;i<result.length;i++){
+                            shoppingList.push({
+                                cId:result[i].cId,
+                                sPrice:result[i].odPrice,
+                                sPoundage:result[i].odPoundage,
+                                sNumber:result[i].odNumber,
+                                sSumPrice:result[i].odSumPrice,
+                                sState:result[i].oId
+                            });
+                        }
+                        $.ajax({
+                            url:'OrderingServlet/insertShoppingFromOrderingDesc',
+                            type:'post',
+                            data:JSON.stringify(shoppingList),
+                            contentType:'application/json;charset=utf8'
+                        }).done(function (result) {
+                            layer.msg(result);
+                            setTimeout(function () {
+                                //跳转到购物车
+                                location.href="ShoppingCar.html";
+                            },1000);
+                        });
+                    });
+				});
+            });
+		</script>
+	</body>
+</html>

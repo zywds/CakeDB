@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>移动端支付</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="stylesheet" href="suimobile/css/sm.min.css" />
+    <link rel="stylesheet" href="suimobile/css/sm-extend.min.css" />
+<style type="text/css">
+	*{margin:0}
+</style>
+</head>
+<body style="background: white">
+
+	<!-- <header class="bar bar-nav">
+	  <h1 class='title'>移动端支付界面</h1>
+	</header> -->
+	<div class="content">
+	  <!-- <div class="content-block-title">List block buttons</div> -->
+	  	<!--  放图片-->
+	  	<div>
+			<img id="payimg" style="position: relative;left: 90px;" alt="" src="../images/wechatpay.jpg">
+		</div>
+		
+	  <div class="list-block">
+	    <ul>
+	      <li class="item-link list-button">您的订单：<span id="dingdan"></span></li>
+	      <li class="item-link list-button">确认支付：<span id="qian"></span><span>元</span></li>
+	    </ul>
+	  </div>
+
+	  
+	  <div class="content-block-title">请选择</div>
+	  <div class="content-block">
+	    <div class="row">
+	      <div class="col-50"><a id="paycancel" href="#" class="button button-big button-fill button-danger">取消</a></div>
+	      <div class="col-50"><a id="payok" style="background: green"  class="button button-big button-fill button-success">支付</a></div>
+	    </div>
+	  </div>
+	</div>	
+	
+</body>
+
+<script type='text/javascript' src='suimobile/js/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='suimobile/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='suimobile/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='js/jquery-1.11.3.js' charset='utf-8'></script>
+<script type="text/javascript">
+    //获取url中的值
+    //获得值应该在到达窗体就加载，而不是加载完成
+    function getUrlParam(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)
+            return decodeURI(r[2]);
+        return null;
+    };
+    var oId=getUrlParam("oId");
+    var oSumPrice=getUrlParam("oSumPrice");
+    var oNo=getUrlParam("oNo");
+    $("#dingdan").html(oNo);$("#qian").html(oSumPrice);
+	$("#payok").click(function () {
+        $.ajax({
+            url:'OrderingServlet/updateOrdingStateByOId2',
+            type:'post',
+            data:{oId:oId}
+        }).done(function (result) {
+        	window.location.href="http://172.20.10.3:8080/cake/paysuccess2.html?oSumPrice="+oSumPrice+"&oId="+oId;
+        });
+    });
+</script>
+</html>

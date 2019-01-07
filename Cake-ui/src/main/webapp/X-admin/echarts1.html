@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.0</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <link rel="stylesheet" href="../cake/js/layui/css/layui.css" />
+    </head>
+    <style>
+        .div_bottom{
+            width: 1261px;
+            height: 685px;
+            background: transparent;
+            margin-left: 20px;
+            border: 1px solid #f8f8f8;
+        }
+        .div_bottom img{
+            margin-left: 21px;
+            margin-right: 20px;
+        }
+
+    </style>
+    <body>
+    <div class="x-body layui-anim layui-anim-up">
+        <fieldset class="layui-elem-field">
+            <legend>数据统计</legend>
+            <div class="layui-field-box">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                                <div carousel-item="">
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>商品总数</h3>
+                                                <p>
+                                                    <cite id="sumNumber">66</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>所售商品总数量</h3>
+                                                <p>
+                                                    <cite id="sallNumber"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>总销售额</h3>
+                                                <p>
+                                                    <cite id="sumSallPrice"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2" style="overflow: hidden" id="maxNameMain">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>销售最多商品</h3>
+                                                <p>
+                                                    <cite id="maxName" style="font-size: 14px"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2" style="overflow: hidden" id="minNameMain">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>销售最少商品</h3>
+                                                <p>
+                                                    <cite id="minName" style="font-size: 14px"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>管理员</h3>
+                                                <p>
+                                                    <cite id="admirName"></cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">选择时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test1-1" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <button class="layui-btn" style="margin-left: 52px" id="btnSort">正序排列</button>
+            <button class="layui-btn" id="btnResver">倒叙排列</button>
+            <button class="layui-btn" id="btnSelect">查询</button>
+        </div>
+
+    </div>
+    <div class="div_bottom" id="div_bottom">
+    </div>
+    <script src="../js/jquery-1.11.3.js"></script>
+    <script src="../cake/js/layui/layui.js"></script>
+    <script>
+        var maxName="";
+        var minName="";
+        //一开始加载加载上方所有数据
+        function showLookList() {
+            var time=$("#test1-1").val().split("-");
+            var year=time[0];var month=time[1];
+            var day=time[2];
+            $.ajax({
+                url:'AdmirOrderingLook/selectAdmirOrderingLook',
+                type:'get',
+                data:{year:year,month:month,day:day}
+            }).done(function (result) {
+                $("#sumNumber").html(result.sumNumber);
+                $("#sallNumber").html(result.sallNumber);
+                $("#sumSallPrice").html("￥"+result.sumSallPrice);
+                maxName=result.maxName;
+                minName=result.minName;
+                $("#maxName").html(result.maxName.split(",")[0]);
+                $("#minName").html(result.minName.split(",")[0]);
+                $("#admirName").html(result.admirName);
+            });
+        };
+        showLookList();
+        var sortId=0;
+        //查询所有销售商品的总价和数量
+        function showCakeInformationSumPriceAndNumber() {
+            showLookList();
+            var time=$("#test1-1").val().split("-");
+            var year=time[0];var month=time[1];
+            var day=time[2];
+            $.ajax({
+                url:'AdmirOrderingLook/selectOrderingDescSumPriceAndNumber',
+                type:'get',
+                data:{sortId:sortId,year:year,month:month,day:day}
+            }).done(function (result) {
+                var str="";
+                $.each(result,function (i,obj) {
+                    str+="<img src='../images/"+obj.picture+"' title='商品名称："+obj.name+"   销售总数："+obj.number+"   销售总额：￥"+obj.sumPrice+"' width='263px' height='230px'/>";
+                });
+                $("#div_bottom").html(str);
+            });
+        };
+        showCakeInformationSumPriceAndNumber();
+        $("#btnSort").click(function () {
+            sortId=1;showCakeInformationSumPriceAndNumber();
+        });
+        $("#btnResver").click(function () {
+            sortId=2;showCakeInformationSumPriceAndNumber();
+        });
+        $("#btnSelect").click(function () {
+           showCakeInformationSumPriceAndNumber();
+        });
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#test1-1'
+                ,lang: 'en'
+            });
+            //hover时
+            $("#maxNameMain").click(function () {
+                alert(maxName);
+            });
+            $("#minNameMain").click(function () {
+                alert(minName);
+            });
+        });
+    </script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.min.js" charset="utf-8"></script>
+       <!--<script type="text/javascript">
+       // 基于准备好的dom，初始化echarts实例
+       var myChart = echarts.init(document.getElementById('main'));
+       var _hmt = _hmt || [];
+       (function() {
+         var hm = document.createElement("script");
+         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+       })();
+       </script>-->
+   </body>
+</html>

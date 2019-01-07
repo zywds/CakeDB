@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-commons" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-entities" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-ui" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cake-ui/src/main/webapp/X-admin/image.html" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IadmirOrderingLook"><!--接口名-->
+    <resultMap id="selectOrdingDescResultMap" type="OrderingDesc">
+        <id property="odId" column="odId"></id>
+        <result property="odPrice" column="odPrice"></result>
+        <result property="odPoundage" column="odPoundage"></result>
+        <result property="odTableWare" column="odTableWare"></result>
+        <result property="odSumPrice" column="odSumPrice"></result>
+        <result property="odNumber" column="odNumber"></result>
+        <result property="oId" column="oId"></result>
+        <result property="cId" column="cId"></result>
+        <association property="ording" javaType="Ording">
+            <id property="oId" column="oId"></id>
+            <result property="oNo" column="oNo"></result>
+            <result property="oTime" column="oTime"></result>
+            <result property="oPTime" column="oPTime"></result>
+            <result property="oAction" column="oAction"></result>
+            <result property="oDesc" column="oDesc"></result>
+            <result property="ostate" column="ostate"></result>
+            <result property="oAstate" column="oAstate"></result>
+            <result property="oName" column="oName"></result>
+            <result property="oPhone" column="oPhone"></result>
+            <result property="oAddress" column="oAddress"></result>
+            <result property="oPayAction" column="oPayAction"></result>
+            <result property="rId" column="rId"></result>
+        </association>
+        <association property="cakeInformation" javaType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+        </association>
+    </resultMap>
+    <!--查询所有商品总数-->
+    <select id="selectSumNumber" resultType="int">
+        select count(*)from cakeInformation
+    </select>
+    <!--查询所售商品-->
+    <select id="selectAllOrderingDesc" resultType="int" resultMap="selectOrdingDescResultMap">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+    </select>
+    <!--查询所售商品更具年份和月份，查出所售商品数量-->
+    <select id="selectAllOrderingDescByYearAndMonth" resultMap="selectOrdingDescResultMap">
+        select *from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+    </select>
+    <!--查询出销售数量最多的商品-->
+    <select id="selectMaxName" resultMap="selectOrdingDescResultMap">
+        select cName from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c
+        on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+        group by c.cId
+        having sum(od.odNumber)=(select sum(od.odNumber) from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c
+        on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+        group by c.cId order by sum(od.odNumber) desc limit 0,1)
+    </select>
+    <!--查询出销售数量最少的商品-->
+    <select id="selectMinName" resultMap="selectOrdingDescResultMap">
+        select cName from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c
+        on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+        group by c.cId
+        having sum(od.odNumber)=(select sum(od.odNumber) from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c
+        on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+        group by c.cId order by sum(od.odNumber) asc limit 0,1)
+    </select>
+    <!--查询所有销售商品的总价和数量-->
+    <select id="selectOrderingDescSumPriceAndNumber" resultMap="selectOrdingDescResultMap">
+        select * from orderingDesc od inner join ordering o on od.oId=o.oId inner join cakeInformation c
+        on c.cId=od.cId where o.ostate=1
+        <if test="year !=null and year !=''">
+            and date_format(o.oTime,'%Y')=#{year}
+        </if>
+        <if test="month !=null and month!=''">
+            and date_format(oTime,'%c')=#{month}
+        </if>
+        <if test="day !=null and day !=''">
+            and date_format(oTime,'%e')=#{day}
+        </if>
+    </select>
+</mapper>
+

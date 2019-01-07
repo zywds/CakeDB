@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IuserDao"><!--接口名-->
+   <!--查询用户以及新增用户-->
+    <!--在这里用association和collection是一样的结果-->
+    <resultMap id="selectRegsistUserInformationResultMap" type="NewUserInformation">
+        <id property="nId" column="nId"></id>
+        <result property="nName" column="nName"></result>
+        <result property="nPhone" column="nPhone"></result>
+        <result property="nCity" column="nCity"></result>
+        <result property="nSite" column="nSite"></result>
+        <result property="nDesc" column="nDesc"></result>
+        <result property="rId" column="rId"></result>
+        <association property="regsist" javaType="Regsist">
+            <id property="rId" column="rId"></id>
+            <result property="rPhone" column="rPhone"></result>
+            <result property="rPassword" column="rPassword"></result>
+            <result property="rBirthday" column="rBirthday"></result>
+            <result property="rState" column="rState"></result>
+        </association>
+    </resultMap>
+    <!--查询用户以及新增用户-->
+    <select id="selectRegsistUserInformation" resultMap="selectRegsistUserInformationResultMap" parameterType="int">
+        select *from newUserInformation nu inner join regsist r on nu.rId=r.rId where r.rId=#{rId}
+    </select>
+    <!--查询所有用户-->
+    <select id="selectRegsist" resultType="Regsist">
+        select *from regsist
+        <where>
+            <if test="rPhone !=null and rPhone !=''">
+                rPhone=#{rPhone}
+            </if>
+        </where>
+        limit ${page},${limit}
+    </select>
+    <!--查询用户数量-->
+    <select id="selectRegsistCount" resultType="int">
+        select count(*)from regsist
+        <where>
+            <if test="rPhone !=null and rPhone !=''">
+                rPhone=#{rPhone}
+            </if>
+        </where>
+    </select>
+</mapper>
+

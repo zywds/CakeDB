@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    .layui-row input{
+        width: 150px;
+        float: left;
+        padding-left: 10px;margin-right: 5px;margin-bottom: 21px;
+    }
+    .layui-row a{
+        float: right;margin-right: 6px;margin-top:11px;
+    }
+</style>
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <!--<form class="layui-form layui-col-md12 x-so">-->
+        <div class="layui-input-inline">
+            <select name="contrller" style="height: 39px;" id="cName">
+                <!--<option value="">请选择商品</option>-->
+            </select>
+            <!--<div class="layui-upload">-->
+
+            <!--</div>-->
+        </div>
+        <button type="button" class="layui-btn layui-btn-normal" id="test2">选择文件</button>
+        <button type="button" class="layui-btn" id="test9">开始上传</button>
+        <!--</form>-->
+    </div>
+    <xblock>
+
+        <span class="x-right" style="line-height:40px">共有数据：<span id="span_number"></span> 条</span>
+    </xblock>
+    <table class="layui-table" id="dataTable">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>编号</th>
+            <th>商品名称</th>
+            <th>图片</th>
+            <th>标题</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<script>
+    //上传图片
+    var cId=1;
+    var cpPictures="";
+    var countid=0;
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        upload.render({
+            elem: '#test2'
+            ,url: 'ImageServlet/fileSave'
+            ,method:'post'
+            ,multiple: true
+            /*,auto:false
+            ,bindAction: '#test9'*/
+            ,done: function(res){
+                //alert("d");
+                //上传完毕
+                countid++;cpPictures+=res.data+",";
+                if(res.count+countid>4) {
+                    //layer.msg("图片已达到最大数量!");
+                }else{
+                    //layer.msg("上传成功!");
+                }
+            }
+
+        });
+
+    });
+    //查询所有商品（下拉框）
+    ;(function () {
+        $.ajax({
+            url:'ImageServlet/selectCakeInformation',
+            type:'post',
+            contentType:'application/json;charset=utf8'
+        }).done(function (result) {
+            console.log(result);
+            $.each(result,function (i,obj) {
+                $("#cName").append($("<option value='"+obj.cId+"'/>").html(obj.cName));
+            });
+            selectPicture();
+        });
+    })();
+    /*查询图片表数据*/
+    function selectPicture(){
+        countid=0;
+        cpPictures="";
+        //给cId进行赋值，以便于在添加时用到当前下拉框中的id
+        if($("#cName").val()!=0){
+            cId=$("#cName").val();
+        }
+        var cakePictureList=new Array();
+        cakePictureList.push({
+            cId:$("#cName").val(),
+            cpPicture:""
+        });
+        $.ajax({
+            url:'ImageServlet/selectCakePicture',
+            type:'post',
+            data:JSON.stringify(cakePictureList),
+            contentType:'application/json;charset=utf8'
+        }).done(function (result) {
+            console.log(result);
+            //判断返回的对象是否有,如果没有做其他操作
+            if(result!=""){
+                $("#cName").val(result[0].cId);
+            }
+            /*$("#cName").val(cId);*/
+            //$("#cName").val(result[0].cId);
+            //$("#cName").val(cId);
+            var str = "";
+            $.each(result, function (i, obj) {
+                str += "<tr>";
+                str += "<td>";
+                str += "<div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div>";
+                str += "</td>";
+                str += "<td>" + obj.cpId + "</td>";
+                str += "<td>" + obj.cakeInformation.cName + "</td>";
+                str += "<td><img src='../images/"+obj.cpPicture+"'/></td>";
+                str += "<td>" + obj.cpTitle + "</td>";
+                str += "<td class='td-manage'>";
+                str += "<a title='编辑'  onclick=\"x_admin_show('编辑','image-edit.html?cId="+obj.cId+"&cpTitle=" + obj.cpTitle + "&cpPicture=" + obj.cpPicture + "',900,350)\" href='javascript:;'>";
+                str+="<i class='layui-icon'>&#xe631;</i>";
+                str+="</a>";
+                str += "<a title='删除' onclick='member_del(this,"+obj.cId+")' data-id='"+obj.cpPicture+"' href='javascript:;'>";
+                str += "<i class='layui-icon'>&#xe640;</i>";
+                str += "</a>";
+                str += "</td>";
+                str += "</tr>";
+            });
+            $("tbody").html(str);
+        });
+    };
+    /*下拉框被改变*/
+    $("#cName").change(function () {
+        countid=0;
+        selectPicture();
+    });
+    //删除
+    function member_del(obj,id){
+        var pic=$(obj).attr("data-id");
+        layer.confirm("是否要删除?",function () {
+            $.ajax({
+                url: 'ImageServlet/deleteCakePictureById',
+                type: 'post',
+                data: {cId: id, cpPicture: pic}
+            }).done(function (result) {
+                cpPictures = "";
+                countid = 0;
+                layer.msg(result);
+                selectPicture();
+            });
+        });
+    };
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+        /*用户-注销*/
+        /*function member_del(id){
+            layer.msg("9");
+            var share="确定要"+$(obj).attr('title')+"吗?";
+            layer.confirm(share,function(index){
+                var raState="";
+                if($(obj).attr('title')=="注销"){
+                    raState=0;
+                }else{
+                    raState=1;
+                }
+                $.ajax({
+                    url:'CakeServlet/updateState',
+                    type:'post',
+                    data:{raId:id,raState:raState}
+                }).done(function (result) {
+                    layer.msg(result);
+                    selectRegsistAdmir();
+                });
+            });
+        }*/
+
+        //添加图片（更据id添加）
+            $("#test9").click(function () {
+                //alert(countid);
+                //alert(cpPictures);
+                if(cpPictures!="") {
+                    $.ajax({
+                        url: 'ImageServlet/insertCakePictureSome',
+                        type: 'post',
+                        data: {cpPicture: cpPictures, cId: cId, countId: countid}
+                    }).done(function (result) {
+                        //cId=1;
+                        cpPictures = "";
+                        countid = 0;
+                        layer.msg(result);
+                        selectPicture();
+                    });
+                }else{
+                    layer.msg("请先选择文件!");return false;
+                }
+            });
+    });
+
+</script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

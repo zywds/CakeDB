@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IdatabaseBackupDao"><!--接口名-->
+   <!--备份数据-->
+    <insert id="insertdatabaseBackup" parameterType="DatabaseBackup">
+        insert into databaseBackup(dpPath,dpFTime) values (#{dpPath},#{dpFTime})
+    </insert>
+    <!--查询备份数据-->
+    <select id="selectdatabaseBackup" resultType="DatabaseBackup">
+        select *from databaseBackup order by dpId desc
+        limit ${page},${limit}
+    </select>
+    <!--查询数量-->
+    <select id="selectdatabaseCount" resultType="int">
+        select count(*)from databaseBackup
+    </select>
+    <!--删除备份-->
+    <delete id="deletedatabaseBackup" parameterType="int">
+        delete from databaseBackup where dpId=#{dpId}
+    </delete>
+    <!--数据迁移-->
+    <!--查询购物车表中状态为0的数据的总数-->
+    <select id="selectShoppingStateCount" resultType="int">
+        select count(*)from shopping where sState=0
+    </select>
+    <!--删除购物车中被迁移的数据-->
+    <delete id="deleteShoppingSidIn">
+        delete from shopping where sId in(select sId from historyShopping where sId in(select sId from historyShopping where sState=0))
+    </delete>
+    <!--添加数据到迁移表-->
+    <insert id="insertShoppingSidIn">
+        insert into historyShopping select *from shopping where sState=0
+    </insert>
+    <!--添加数据到迁移记录表-->
+    <insert id="insertHistoryShoppingDiary" parameterType="HistoryShoppingDiary">
+        insert into historyShoppingDiary(htCount,htState,htAdmir) values (#{htCount},#{htState},#{htAdmir})
+    </insert>
+    <!--查询迁移记录表中的数据-->
+    <select id="selectHistoryShoppingDiary" resultType="HistoryShoppingDiary">
+        select *from historyShoppingDiary limit ${page},${limit}
+    </select>
+    <!--查询迁移记录表中的数量-->
+    <select id="selectHistoryDiaryCount" resultType="int">
+        select count(*)from historyShoppingDiary
+    </select>
+</mapper>
+

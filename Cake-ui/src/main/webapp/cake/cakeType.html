@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品类型</title>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<!--内容部分-->
+		<link rel="stylesheet" href="myjs/maincenter.css"/>
+		<link rel="icon" href="iconfont/cakeType.png" type="image/x-icon" />
+	</head>
+	<style>
+		.div_center{width: 1349px;overflow: hidden;display: block;margin: 0 auto;position: relative;
+			top: 80px;
+		}
+		.div_center_menu{width: 1100px;height: 118px;margin: 0 auto;margin-top: 20px;border-bottom: 1px solid #f2f2f2;
+		border-top: 1px solid #f2f2f2;}
+		.div_center_content{width: 1200px;overflow:hidden;margin: 0 auto;margin-top: 20px;}
+		.div_center_menu p{margin-top: 20px;height: 30px;line-height: 30px;display: block;}
+		.div_center_menu p a{margin-right: 20px;cursor: pointer;}
+		.div_Conent_div_Conetent img{background: white;}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+							<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<!--<a href="#" class="line_a">,</a>
+            		<a href="regsist.html" class="regsist_a">欢迎您</a>-->
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--主体-->
+		<div class="div_center">
+			<div class="div_center_menu">
+				<p id="p1">
+					<a class="div_center_menu_a">分类：</a><a class="a_cake" data-ctId="0">全部类型</a>
+				</p>
+				<p id="p2">
+					<a class="div_center_menu_a">口味：</a><a class="a_mouse" data-mtId="0">全部口味</a>
+				</p>
+			</div>
+			<div class="div_center_content">
+				<!--内容部分-->
+				<div class="div_Content_Main" style="margin-top: 0px;">
+					<div class="div_Content">
+						<div class="div_Conent_div" id="div_goods">
+								<!--<div class="div_Conent_div_Conetent">
+									<a href="goodsinformation.html">
+									<img class="lazy" data-original="image-cakeContent-bottom/4742490f422c4f88e466c822aa86958b.png" src="image-cakeContent-bottom/4742490f422c4f88e466c822aa86958b.png" width="263px" height="230px"/>
+									<h3>黑白巧克力慕斯（千阳号）</h3>
+									<p class="div_Conent_div_Conetent_p1">21cake x One Piece"千阳号”浮出水面</p>
+									&lt;!&ndash;<div class="div_Conent_div_Conetent_radiodiv">
+										<a href="#"><span>新品</span>    ></a>
+										<a href="#"><span>儿童</span>    ></a>
+										<a href="#"><span>生日</span>    ></a>
+										<a href="#"><span>相识</span>    ></a>
+									</div>&ndash;&gt;
+									<div class="div_Conent_div_Conetent_bottom">
+										<span class="Spec">¥358.00/2.0磅</span>
+										<a class="insetCar">加入购物车</a>
+									</div>
+									<div class="div_Conent_div_Content_display">
+										<div class="div_Conent_div_Content_display_div div_1">
+											<span>￥298.00/2.0磅</span>
+										</div>
+										<div class="div_Conent_div_Content_display_div div_2">
+											<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>1.0磅</span></div>
+											<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>2.0磅</span></div>
+											<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>3.0磅</span></div>
+											<div class="div_2_div"><div><i class="layui-icon">&#xe605;</i></div><span>5.0磅</span></div>
+										</div>
+										<div class="div_Conent_div_Content_display_div div_3">
+											<div class="div_3_div div_3_div_input1">立即购买</div>
+											<div class="div_3_div div_3_div_input2">加入购物车</div>
+										</div>
+									</div>
+									</a>
+								</div>-->
+						</div>
+					</div>
+				</div>
+				<!--内容部分-->
+			</div>
+		</div>
+		<!--主体-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<!--导入main.js-->
+		<script src="myjs/main.js"></script>
+		<script>
+            //获取url中的值
+            //获得值应该在到达窗体就加载，而不是加载完成
+            function getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)
+                    return decodeURI(r[2]);
+                return null;
+            };
+			//获得电话号码
+            $.ajax({
+                url:'UserRegsistMainServlet/getPhone',
+                type:'get'
+            }).done(function (result) {
+                $("#span_users").html(result);
+            });
+
+            var ctId=0;var mtId=0;
+            //查询商品类型和商品口味
+            ;(function () {
+                $.ajax({
+                    url:'CakeMainServlet/selectCakeTypeAndMouseTypeToSelect',
+                    type:'post',
+                    contentType:'application/json;charset=utf8'
+                }).done(function (result) {
+                    console.log(result);
+                    $.each(result.cakeType,function (i,obj) {
+                        $("#p1").append($("<a class='a_cake' data-ctId='"+(i+1)+"'></a>").html(obj.ctName));
+                    });
+                    $.each(result.mouseType,function (i,obj) {
+                        $("#p2").append($("<a class='a_mouse' data-mtId='"+(i+1)+"'></a>").html(obj.mtName));
+                    });
+                    /*$(".a_cake:eq(0)").css("color","yellow");
+                    $(".a_mouse:eq(0)").css("color","yellow");*/
+                    if(getUrlParam("ctId")!=null && getUrlParam("ctId")!=''){
+                        ctId=getUrlParam("ctId");
+                    };
+                    $(".a_cake:eq("+ctId+")").css("color","yellow");
+                    $(".a_mouse:eq(0)").css("color","yellow");
+                    select();
+                });
+            })();
+            //根据口味和类型过滤
+			//类型
+			$("#p1").on("click",".a_cake",function () {
+			    $(".a_cake").css("color","");
+				$(this).css("color","yellow");
+				ctId=$(this).data("ctid");select();
+            });
+			//口味
+            $("#p2").on("click",".a_mouse",function () {
+                $(".a_mouse").css("color","");
+                $(this).css("color","yellow");
+                mtId=$(this).data("mtid");select();
+            });
+            //获得类型和口味中的值
+			function select() {
+			    var stringList=[];
+			    stringList.push(ctId);
+			    stringList.push(mtId);
+                $.ajax({
+                    url:'CakeMainServlet/selectCakeInformationByctIdAndmtId',
+                    type:'post',
+					data:JSON.stringify(stringList),
+					contentType:'application/json;charset=utf8'
+                }).done(function (result) {
+                    if(result.length<=0){
+                        layer.msg("暂时没有商品，请期待!");
+					}
+                    console.log(result);
+                    var str="";
+                    $.each(result,function (i,obj) {
+                        str+="<div class='div_Conent_div_Conetent'>";
+                        if(ctId==0 || ctId==1) {
+                            if(obj.ctId==1) {
+                                str+="<a href='goodsinformation.html?cId="+obj.cId+"'>";
+                                str+="<img class='lazy' data-original='../images/"+obj.cPicture+"' src='../images/"+obj.cPicture+"' width='263px' height='230px'/>";
+                                str+="</a>";
+                                str += "<h3>" + obj.cName + "</h3>";
+                                str+="<p class='div_Conent_div_Conetent_p1'>"+obj.cDecription+"</p>";
+                            }else {
+                                str+="<img class='lazy' data-original='../images/"+obj.cPicture+"' src='../images/"+obj.cPicture+"' width='263px' height='230px'/>";
+                                str += "<h3 style='margin-left: 95px'>" + obj.cName + "</h3>";
+                                str+="<p class='div_Conent_div_Conetent_p1' style='text-align: center'>￥10.00/包</p>";
+                            }
+                        }else{
+                            str+="<img class='lazy' data-original='../images/"+obj.cPicture+"' src='../images/"+obj.cPicture+"' width='263px' height='230px'/>";
+                            str += "<h3 style='margin-left: 95px'>" + obj.cName + "</h3>";
+                            str+="<p class='div_Conent_div_Conetent_p1' style='text-align: center'>￥10.00/包</p>";
+						}
+                        if(ctId==0 || ctId==1) {
+                            if(obj.ctId==1) {
+                                str += "<div class='div_Conent_div_Conetent_radiodiv' id='1" + obj.cId + "'>";
+                                $.ajax({
+                                    url: 'CakeMainServlet/selectSmallTypeformationByCId',
+                                    type: 'post',
+                                    data: {cId: obj.cId}
+                                }).done(function (result) {
+                                    var strs = "";
+                                    $.each(result, function (i, obj) {
+                                        strs += "<a href='#'><span>" + obj.smallCakeType.stName + "</span>    ></a>";
+                                    });
+                                    $("#1" + obj.cId).html(strs);
+                                });
+                                str += "</div>";
+                            }
+                        }
+                        str+="<div class='div_Conent_div_Conetent_bottom'>";
+                        str+="<span class='Spec' id='2"+obj.cId+"'></span>";
+                        if(ctId==0 || ctId==1) {
+                            if(obj.ctId==1) {
+                                str += "<a class='insetCar'>加入购物车</a>";
+                            }else{
+                                str += "<i class='layui-icon' style='position: absolute;margin-left: 85px'>&#xe657;</i><a class='insertCar_1' style='display: inline-block;margin-left: 108px'>加入购物车</a>";
+							}
+                        }else{
+                            str += "<i class='layui-icon' style='position: absolute;margin-left: 85px'>&#xe657;</i><a class='insertCar_1' style='display: inline-block;margin-left: 108px'>加入购物车</a>";
+						}
+                        str+="</div>";
+                        if(ctId==0 || ctId==1) {
+                            if(obj.ctId==1) {
+                                str += "<div class='div_Conent_div_Content_display'>";
+                                str += "<div class='div_Conent_div_Content_display_div div_1'>";
+                                str += "<span id='3" + obj.cId + "'></span>";
+                                str += "</div>";
+                                str += "<div class='div_Conent_div_Content_display_div div_2' id='4" + obj.cId + "'>";
+                                $.ajax({
+                                    url: 'CakeMainServlet/selectPricePoundageByCId',
+                                    type: 'post',
+                                    data: {cId: obj.cId}
+                                }).done(function (result) {
+                                    var strs3 = "";
+                                    $.each(result, function (i, obj) {
+                                        strs3 += "<div class='div_2_div'><div><i class='layui-icon'>&#xe605;</i></div><span data-price='" + obj.ppPrice + "'>" + obj.ppPoundage + "磅</span></div>";
+                                    });
+                                    $("#2" + obj.cId).html("¥" + result[0].ppPrice + "/" + result[0].ppPoundage + "磅");
+                                    $("#3" + obj.cId).html("¥" + result[0].ppPrice + "/" + result[0].ppPoundage + "磅");
+                                    $("#4" + obj.cId).html(strs3);
+                                });
+                                str += "</div>";
+                                str += "<div class='div_Conent_div_Content_display_div div_3'>";
+                                str += "<div class='div_3_div div_3_div_input1' data-cId='"+obj.cId+"'>立即购买</div>";
+                                str += "<div class='div_3_div div_3_div_input2' data-cId='"+obj.cId+"'>加入购物车</div>";
+                                str += "</div>";
+                                str += "</div>";
+                            }
+                        }
+                        str+="</div>";
+                    });
+                    $("#div_goods").html(str);
+                });
+            };
+            /*加入购物车动画*/
+            $(".div_Conent_div").on("click",".insetCar",function(){
+                $(".div_Conent_div_Content_display").css("bottom","-121px");
+                $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("bottom","59px");
+                $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("height","148px");
+                $(this).parent().parent().find($(".div_Conent_div_Content_display")).css("overflow","visible");
+                var div2_div=$(this).parent().next().find(".div_2_div")[0];
+                //console.log($(this).parent().next().find(".div_2_div")[0]);
+                $(".div_2_div div").css("display","none");
+                $(".div_2_div").css("border","");
+                $(".div_2_div").css("line-height","30px");
+                $(div2_div).children().css("display","block");
+                $(div2_div).css("border","1px solid red");
+                $(div2_div).css("line-height","10px");
+            });
+            $(".div_Conent_div").on("click",".div_2_div",function(){
+                $(".div_2_div div").css("display","none");
+                $(".div_2_div").css("border","");
+                $(".div_2_div").css("line-height","30px");
+                $(this).children().css("display","block");
+                $(this).css("border","1px solid red");
+                $(this).css("line-height","10px");
+                //console.log($(this).parent().prev().find("span").html("7777"));
+                //console.log($(this).parent().prev().find("span").html());
+                //点击时获取磅数,价格(记住这里的磅数后面带了一个字)
+                var poundage=$(this).find("span").html();//磅数
+                var price=$(this).find("span").data("price");//价格
+                $(this).parent().prev().find("span").html("¥"+price+"/"+poundage);
+            });
+
+            //加入商品到购物车
+			$("#div_goods").on("click",".div_3_div_input2",function () {
+				var cId=$(this).data("cid");
+				var pricePoundage=$(this).parent().prev().prev().children().html();
+				var sPoundage=pricePoundage.split("/")[1].slice(0,1);
+				var sPrice=pricePoundage.split("/")[0].slice(1);
+				$.ajax({
+					url:'UserRegsistMainServlet/insertShopping',
+					type:'post',
+					data:{cId:cId,sPrice:sPrice,sPoundage:sPoundage}
+				}).done(function (result) {
+					layer.msg(result);
+                });
+            });
+            //立即购买
+            $("#div_goods").on("click",".div_3_div_input1",function () {
+                var cId=$(this).data("cid");
+                var pricePoundage=$(this).parent().prev().prev().children().html();
+                var sPoundage=pricePoundage.split("/")[1].slice(0,1);
+                var sPrice=pricePoundage.split("/")[0].slice(1);
+                $.ajax({
+                    url:'UserRegsistMainServlet/insertShopping',
+                    type:'post',
+                    data:{cId:cId,sPrice:sPrice,sPoundage:sPoundage}
+                }).done(function (result) {
+                    layer.msg(result);
+                    location.href="ShoppingCar.html";
+                });
+            });
+            $("#myOrdering").click(function () {
+                location.href="myOrdering.html";
+            });
+		</script>
+	</body>
+</html>

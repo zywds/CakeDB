@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.zhangyuwei.cake.dao.IimageDao"><!--接口名-->
+    <!--查询所有的商品-->
+    <select id="selectCakeInformation" resultType="CakeInformation">
+        select *from cakeInformation where ctId=1
+    </select>
+    <!--查询图片表，根据商品id-->
+    <resultMap id="selectCakePictureResultMap" type="CakePicture">
+        <id property="cpId" column="cpId"></id>
+        <result property="cpPicture" column="cpPicture"></result>
+        <result property="cpTitle" column="cpTitle"></result>
+        <result property="cId" column="cId"></result>
+        <association property="cakeInformation" javaType="CakeInformation">
+            <id property="cId" column="cId"></id>
+            <result property="cName" column="cName"></result>
+            <result property="cNameEnglish" column="cNameEnglish"></result>
+            <result property="cDecription" column="cDecription"></result>
+            <result property="cPicture" column="cPicture"></result>
+            <result property="cState" column="cState"></result>
+            <result property="cDesc" column="cDesc"></result>
+            <result property="ctId" column="ctId"></result>
+            <result property="mtId" column="mtId"></result>
+        </association>
+    </resultMap>
+    <!--查询图片表，根据商品id-->
+    <select id="selectCakePicture" resultMap="selectCakePictureResultMap" parameterType="CakePicture">
+        select *from cakePicture cp inner join cakeInformation c on cp.cId=c.cId
+        <where>
+            <if test="cId !=null and cId !=''">
+                cp.cId=#{cId}
+            </if>
+            <if test="cpPicture !=null and cpPicture !=''">
+                and cp.cpPicture=#{cpPicture}
+            </if>
+        </where>
+    </select>
+    <!--查询图片表中商品对应的图片数量-->
+    <select id="selectCakePictureCount" resultType="int" parameterType="int">
+        select count(*)from cakePicture where cId=#{cId}
+    </select>
+    <!--上传图片单-->
+    <insert id="insertCakePicture" parameterType="CakePicture">
+        insert into cakePicture(cpPicture,cpTitle,cId) values(#{cpPicture},'',#{cId});
+    </insert>
+    <!--上传图片多-->
+    <insert id="insertCakePictureSome" parameterType="java.util.List">
+        insert into cakePicture(cpPicture,cpTitle,cId) values
+        <foreach collection="list" separator="," item="smallList">
+            (#{smallList.cpPicture},'',#{smallList.cId})
+        </foreach>
+    </insert>
+    <!--修改图片-->
+    <update id="updateCakePictureById" parameterType="CakePicture">
+        update cakePicture set cpTitle=#{cpTitle} where cId=#{cId} and cpPicture=#{cpPicture}
+    </update>
+    <!--删除图片-->
+    <delete id="deleteCakePictureById" parameterType="CakePicture">
+        delete from cakePicture where cId=#{cId} and cpPicture=#{cpPicture}
+    </delete>
+</mapper>
+

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品结算</title>
+		<!--头部-->
+		<link rel="stylesheet" href="myjs/maintop.css"/>
+		<!--底部-->
+		<link rel="stylesheet" href="myjs/mianbottom.css"/>
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+		<link rel="icon" href="iconfont/account.png" type="image/x-icon" />
+		<link rel="stylesheet" href="js/artDialog7/css/dialog.css">
+	</head>
+	<style>
+		/*内容部分*/
+		.h2_top{width:1100px;height: 46px;background: red;line-height: 46px;padding-left: 34px;margin: 0 auto;
+		font-size: 13px;margin-top: 100px;background: #FAFAFA;border: 1px solid #E1E1E1;}
+		.div_address{width: 1134px;height: 250px;margin:0 auto;margin-top: 15px;
+		    border: 1px solid #E1E1E1;}
+		.div_address_add{width: 1100px;height: 77px;background: #FDFDFD;border: 1px dashed #E4E4E4;
+   		color: #684029;font-size: 18px;text-align: center;float: left;margin-left: 15px;
+   		cursor: pointer;line-height: 77px;display: block;margin-top: 30px;}
+   		.span_addredd{display: inline-block;line-height: 77px;color: #80695B;}
+   		.div_address_add ul li{margin-top: 5px;width: 100%;height: 14px;
+   		line-height: 14px;}
+   		.div_address_add ul .li1{height: 36px;line-height: 36px;}
+   		.div_address_add ul .li1 .span_name{display: inline-block;float: left;margin-left: 20px;font-weight: 300;
+   		color: #000000;}
+   		.div_address_add ul .li1 .div_catch{float: right;width: 108px;height: 35px;
+   		margin-right: 20px;line-height: 35px;text-align: center;
+   		border: 1px solid #EFEAE5;font-size: 14px;}
+   		.div_address_add ul .li2{margin-top: 8px;}
+   		.div_address_add ul .li2 i{display: inline-block;float: left;margin-left: 20px;}
+   		.div_address_add ul .li2 .span_phone{display: inline-block;float: left;margin-left: 10px;font-size: 12px;}
+   		.div_add_address{width: 110px;height: 14px;float: right;margin-right: 20px;
+   		line-height: 14px;font-size: 13px;text-align: center;color: #80695B;}
+   		.div_add_address span{display: inline-block;margin-left: -18px;}
+   		.div_add_address i{margin-left: -2px;display: inline-block;}
+   		.div_address_add ul .li3 i{display: inline-block;float: left;margin-left: 20px;}
+   		.div_address_add ul .li3 span{display: inline-block;float: left;margin-left: 10px;font-size: 12px;}
+   		.div_time{width: 1100px;height: 40px;float: left;margin-left: 16px;
+   		margin-top: 17px;line-height: 40px;}
+   		.div_time .div_time_span1{margin-left: 20px;display: inline-block;float: left;margin-right: 20px;color: #B3B3B3;}
+   		.div_time .div_time_word{display: inline-block;float: left;margin-left: 15px;color: #D5BFA7;font-size: 12px;}
+   		.div_action{width: 1100px;height: 18px;float: left;margin-left: 16px;
+   		margin-top: 17px;line-height: 18px;}
+   		.div_action .div_action_span1{margin-left: 20px;display: inline-block;float: left;margin-right: 20px;color: #B3B3B3;}
+   		.div_action input{font-size: 12px;color: #684029;}
+   		/*ul开始*/
+   		.thead-ul{background: #FAFAFA;font-size: 13px;width: 1142px;overflow: hidden;line-height: 44px;
+    	border: 1px solid #E1E1E1;list-style: none;margin: 0;padding: 0;margin: 0 auto;margin-top: 30px;}
+    	.thead-ul li{float: left;height: 44px;}
+    	.goods-ti{width: 285px;margin-left: 166px;}
+    	.birthday-card-ti{width: 300px;position: relative;}
+	    .unit-Price{width: 135px;}
+	    .number-ti{width: 150px;}
+	    .money-ti{width: 100px;}
+   		/*table开始*/
+	    .tbody-ul{background: #fff;border: 1px solid #E1E1E1;margin-top: 20px;width: 1142px;/*height: 500px;*/overflow: hidden;
+	    margin: 0 auto;margin-top: 20px;}
+	    /*.tbody-ul .goods-img a{width: 88px;height: 134px;background: red;display: inline-block;margin-left: 58px;}*/
+	    .tbody-ul .goods-img{width: 154px;height: 134px;}
+	    .goods-img-div{width: 100px;height: 113px;margin-left: 54px;margin-top: 21px;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .goods-cake{width: 300px;height: 134px;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .select-birthday-td{width: 289px;height: 134px;text-align: left;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .cart-unit-Price{width: 141px;height: 134px;text-align: left;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .number-li{width: 150px;height: 134px;text-align: left;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .money{width: 124px;height: 134px;text-align: left;border-bottom: 2px dashed #F1F1F1;}
+	    .tbody-ul .delete{width: 77px;height: 134px;text-align: center;}
+	    .goods-img img{width: 80px;height: 80px;border: 1px solid #EFEFEF;display: inline-block;margin-left: -1px;margin-top: 13px;}
+	    .goods-cake h4{font-size: 14px;line-height: 18px;cursor: pointer;}
+	    .cart-title {width: 260px;height: 20px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-top: 10px;}
+	    .goods-cake .size{display: inline-block;height: 20px;font-size: 13px;color: #D5BFA7;}
+	    .goods-laid{display: block;color: #CECECE;height: 35px;margin-top: 10px;font-size: 12px;}
+	    .goods-laid i {display: inline-block;height: 35px;width: 35px;background: url(images-other/icon.png) no-repeat;
+    	background-position: -44px -63px;background-size: 310px 120px;margin-right: 5px;margin-bottom: -6px;}
+		ins {text-decoration: none;}
+		.select-birthday-td select{width: 200px;}
+		.tbody-ul .number-li span{width: 22px;height: 22px;display: inline-block;
+		text-align: center;line-height: 22px;margin-right: -4px;}
+		.tbody-ul .number-li .span_reduce{border-right: none;cursor: pointer;}
+		.tbody-ul .number-li .span_number{border-right: none;width: 50px;}
+		.tbody-ul .number-li .span_add{cursor: pointer;}
+		.delete i:hover{color: lightskyblue;}
+		.div_shopping_tip{width: 1200px;height: 107px;margin: 0 auto;}
+		.div_shopping_tip_show{width: 244px;height: 107px;float: left;margin-left: 51px;margin-top: 20px;}
+		.div_shopping_tip_show div{width: 140px;height: 83px;float: right;margin-right: 10px;margin-top: 12px;}
+		.div_shopping_tip_show img{width:82px;height:82px;display:inline-block;margin-top: 12px;border: 1px solid aquamarine;}
+		.h5_name{margin-left:10px;}
+		.div_peijian{display: inline-block;float: right;margin-top: -19px;margin-right: 17px;padding: 0 10px;background: #D5BFA7;}
+		.span_money{display: inline-block;margin-left: 8px;}
+		.span_icon{width: 30px;height: 30px;display:block;margin-left: 10px;margin-top: 10px;}
+		.span_icon i{display: inline-block;font-size: 23px;color: red;}
+		/*.tbody-ul table tr:last-child td .goods-img-div{border-bottom: 2px solid gainsboro;}
+		.tbody-ul table tr:last-child td:nth-child(2){border-bottom: 2px solid gainsboro;}
+		.tbody-ul table tr:last-child td:nth-child(3){border-bottom: 2px solid gainsboro;}
+		.tbody-ul table tr:last-child td:nth-child(4){border-bottom: 2px solid gainsboro;}
+		.tbody-ul table tr:last-child td:nth-child(5){border-bottom: 2px solid gainsboro;}
+		.tbody-ul table tr:last-child td:nth-child(6){border-bottom: 2px solid gainsboro;}*/
+		.tbody-ul table tr:last-child td{border-bottom:1px solid #E1E1E1;}
+		/*table结束*/
+		.div_shopping_tip .span1{display: inline-block;margin-left: 53px;margin-top: 12px;}
+		/*结算区域*/
+		.div_shopping_Money{width: 1141px;height: 290px;background: #FBFBFB;border: 1px solid #E1E1E1;margin: 0 auto;margin-top: 20px;}
+		.div_shopping_Money ul{margin-top: 20px;display: inline-block;}
+		.div_shopping_Money ul li{width: 1031px;height: 18px;margin-top: 10px;margin-left: 61px;line-height: 18px;}
+		.div_shopping_Money ul .li1{height: 25px;line-height: 25px;}
+		.div_shopping_Money ul .li4{height: 44px;}
+		.div_shopping_Money ul .li5{height: 40px;line-height: 40px;margin-top: 20px;}
+		.li1 .span1{display: inline-block;margin-left: 15px;color: #684029;}
+		.li1 .span2{display: inline-block;float: right;}
+		.li2 .span1{display: inline-block;float: right;}
+		.li3 .span1{display: inline-block;float: right;}
+		.li4 .div_1{width: 232px;height: 44px;float: right;border-top:2px solid #E2E2E2;}
+		.li4 .div_1 .span1,.span2{display: block;margin-top: 8px;height: 10px;float: right;margin-bottom: 5px;}
+		.btnSumMoney{width: 232px;height: 40px;float: right;margin-right: -1px;background: #684029;color: white;}
+		.li4 .div_1 .span2{color: #D5BFA7;}
+		.li6,.li7{font-family: 'PingFang SC','Heiti SC','微软雅黑',Helvetica,Arial;font-size: 12px;color: #684029;}
+		.li6 span,.li7 span{display: inline-block;float: right;}
+		/*弹出框*/
+		#dislogs{
+			display: none;
+		}
+		#dislogs2{
+			display: none;
+		}
+		#dislogs2 ul{
+			float: left;
+		}
+		select{
+			padding:5px 0;
+		}
+		.div_NewUser{
+			width: 305px;
+			height: 100px;
+			border: 1px solid red;
+		}
+		#btnUse{
+			margin-left: 291px;
+			float: left;
+			position: relative;
+			width: 150px;
+			height: 40px;
+			background: darkolivegreen;
+			color: white;
+		}
+	</style>
+	<body>
+		<!--头部-->
+		<div class="div_Main">
+			<div class="header-nav">
+				<a class="header-logo" href="#">
+					<img src="images-other/logo.png" alt="21cake logo" width="100%" height="100%">
+	        	</a>
+	        	<ul class="nav-box">
+	        		<li><a href="Main.html">首页</a></li>
+	                <li><a href="cakeType.html?ctId=1" target="_self">蛋糕</a></li>
+	                <li><a href="cakeType.html?ctId=2" target="_self">冰淇淋</a></li>
+	                <li><a href="cakeType.html?ctId=3" target="_self">咖啡下午茶</a></li>
+	                <li><a href="#" target="_self">咖啡全国送</a></li>
+	                <li><a href="#" target="_self">企业专区</a></li>
+            	</ul>
+            	<div class="nav-box-right">
+            		<a href="#" class="dowload_a">app下载
+            			<div class="dowload_div">
+            				<div class="dowload_div_img">
+            					<img src="images-other/footer-erweima.png" width="100%" height="100%"/>
+            				</div>
+            				<span class="dowload_div_span">下载更多优惠</span>
+            			</div>
+            		</a>
+            		<a href="#" class="city_a">上海<i class="layui-icon layui-icon-triangle-d"></i>
+            			<div class="city_a_div">
+            				<span class="spancity">上海</span>
+            				<span class="spancity">天津</span>
+            				<span class="spancity">北京</span>
+            				<span class="spancity">杭州</span>
+            				<span class="spancity">江西</span>
+            				<span class="spancity">珠海</span>
+            				<span class="spancity">广州</span>
+            			</div>
+            		</a>
+            		<a href="#" class="message_a">消息
+            			<div class="message_a_div">
+							<span class="spanmessage" id="myOrdering">我的订单</span>
+							<span class="spanmessage">我的优惠</span>
+							<span class="spanmessage">活动提示</span>
+            			</div>
+            		</a>
+					<a href="login.html" class="login_a" style="margin-right: -26px;width: 148px">欢迎您  <span id="span_users"></span></a>
+            		<a href="ShoppingCar.html" class="shoppingcar_a"><i class="layui-icon layui-icon-cart"></i></a>
+            	</div>
+        	</div>
+		</div>
+		<!--头部-->
+		<!--内容部分-->
+		<h2 class="h2_top">配送信息</h2>
+		<div class="div_address">
+			<div class="div_address_add" style="" id="div_address_add1">
+				<i class="layui-icon layui-icon-add-circle-fine" style="font-size: 30px; color: #1E9FFF;"></i>  
+				<span class="span_addredd" id="btnAddAdress1">添加新地址</span>
+			</div>
+			<div class="div_address_add" style="border: none;background: none;" id="div_address_add2">
+				<ul>
+					<li class="li1">
+						<span class="span_name" id="nName"></span>
+						<div class="div_catch" id="div_catch">切换地址(<span id="span_catch">3</span>)</div>
+					</li>
+					<li class="li2">
+						<i class="layui-icon layui-icon-cellphone" style="font-size: 10px;"></i>
+						<span class="span_phone" id="nPhone"></span>
+						<div class="div_add_address">
+							<i class="layui-icon layui-icon-add-1" style="font-size: 10px;"></i>
+							<span id="btnAddAdress2">添加新地址</span>
+						</div>
+					</li>
+					<li class="li3">
+						<i class="layui-icon layui-icon-location" style="font-size: 10px;"></i>
+						<span id="nAddress"></span>
+					</li>
+				</ul>
+			</div>
+			<div class="div_time">
+				<span class="div_time_span1">配送时间</span>
+				<form class="layui-form layui-form-pane" action="">
+					  <!--<div class="layui-input-inline" style="float: left;">
+				        <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+				      </div>
+				      <div class="layui-input-block" style="float: left;margin-left: 7px;">
+					      <select name="interest" lay-filter="aihao">
+					        <option value=""></option>
+					        <option value="0">1:00</option>
+					        <option value="1" selected="">2:00</option>
+					        <option value="2">3:00</option>
+					        <option value="3">4:00</option>
+					        <option value="4">5:00</option>
+					      </select>
+					   </div>-->
+					<div class="layui-input-inline" style="float: left;">
+						<input type="text" class="layui-input" id="test5" placeholder="yyyy-MM-dd HH:mm:ss">
+					</div>
+				</form>
+				<span class="div_time_word">配送时间受实时路况影响，会有前后15分钟的误差，请谅解。</span>
+			</div>
+			<div class="div_action">
+				<span class="div_action_span1">配送方式</span>
+				<input type="radio" name="give" value="21cake配送" checked="checked"/> 21cake配送       <input type="radio" name="give" value="站点自提"/> 站点自提
+			</div>
+		</div>
+		<ul class="thead-ul">
+	            <li class="goods-ti">商品</li>
+	            <li class="birthday-card-ti">生日牌</li>
+	            <li class="unit-Price">单价</li>
+	            <li class="number-ti">数量</li>
+	            <li class="money-ti" colspan="2">金额</li>
+        	</ul>
+        	<div class="tbody-ul">
+        		<table id="tableShopping">
+        			<!--<tr>
+        				<td class="goods-img">
+        					<div class="goods-img-div">
+        						<a href="#">
+	        						<img src="image-cakeContent-bottom/1670e3f1102098f21e6ec22009e3f831.png">
+	        					</a>
+        					</div>
+        				</td>
+        				<td class="goods-cake">
+        					<h4 class="cart-title">
+                                <a href="/product-14121.html" target="_blank" style="border: none;">Black and White Chocolate Mousse 黑白巧克力慕斯（千阳号）</a>
+                            </h4>
+                            <span class="size">规格：<span></span>个</span>
+                            <span class="goods-laid" style="display: none;"><i></i>赠送<ins>&nbsp;10&nbsp;</ins>套餐具</span>
+        				</td>
+        				<td class="select-birthday-td">
+        					<form class="layui-form" action="" id="select" style="margin-right: 10px;margin-top: 17px;">
+        					<div class="layui-form-item">
+						    <div class="layui-input-block" style="margin-left: -0px;display: none;">
+						      <select name="city" lay-verify="required">
+						        <option value=""></option>
+						        <option value="0">生日快乐</option>
+						        <option value="1">Happy Birthday</option>
+						        <option value="2">节日快乐</option>
+						        <option value="3">自定义</option>
+						      </select>
+						    </div>
+						  </div>
+						  </form>
+        				</td>
+        				<td class="cart-unit-Price"><span>￥358.00</span></td>
+        				<td class="number-li">
+        					&lt;!&ndash;<span class="span_reduce">-</span>&ndash;&gt;
+        					<span class="span_number">1</span>
+        					&lt;!&ndash;<span class="span_add">+</span>&ndash;&gt;
+        				</td>
+        				<td class="money"><span>￥358.00</span></td>
+        			</tr>
+        			<tr>
+        				<td class="goods-img">
+        					<div class="goods-img-div">
+        						<a href="#">
+	        						<img src="image-cakeContent-bottom/1670e3f1102098f21e6ec22009e3f831.png">
+	        					</a>
+        					</div>
+        				</td>
+        				<td class="goods-cake">
+        					<h4 class="cart-title">
+                                <a href="/product-14121.html" target="_blank" style="border: none;">Black and White Chocolate Mousse 黑白巧克力慕斯（千阳号）</a>
+                            </h4>
+                            <span class="size">规格：<span>2.0磅</span></span>
+                            <span class="goods-laid"><i></i>赠送<ins>&nbsp;10&nbsp;</ins>套餐具</span>
+        				</td>
+        				<td class="select-birthday-td">
+        					<form class="layui-form" action="" id="select" style="margin-right: 10px;margin-top: 17px;">
+        					<div class="layui-form-item">
+						    <div class="layui-input-block" style="margin-left: -0px;">
+						      <select name="city" lay-verify="required">
+						        <option value=""></option>
+						        <option value="0">生日快乐</option>
+						        <option value="1">Happy Birthday</option>
+						        <option value="2">节日快乐</option>
+						        <option value="3">自定义</option>
+						      </select>
+						    </div>
+						  </div>
+						  </form>
+        				</td>
+        				<td class="cart-unit-Price"><span>￥358.00</span></td>
+        				<td class="number-li">
+        					<span class="span_number">1</span>
+        				</td>
+        				<td class="money"><span>￥358.00</span></td>
+        			</tr>
+        			<tr>
+        				<td class="goods-img">
+        					<div class="goods-img-div">
+        						<a href="#">
+	        						<img src="image-cakeContent-bottom/1670e3f1102098f21e6ec22009e3f831.png">
+	        					</a>
+        					</div>
+        				</td>
+        				<td class="goods-cake">
+        					<h4 class="cart-title">
+                                <a href="/product-14121.html" target="_blank" style="border: none;">Black and White Chocolate Mousse 黑白巧克力慕斯（千阳号）</a>
+                            </h4>
+                            <span class="size">规格：<span>2.0磅</span></span>
+                            <span class="goods-laid"><i></i>赠送<ins>&nbsp;10&nbsp;</ins>套餐具</span>
+        				</td>
+        				<td class="select-birthday-td">
+        					<form class="layui-form" action="" id="select" style="margin-right: 10px;margin-top: 17px;">
+        					<div class="layui-form-item">
+						    <div class="layui-input-block" style="margin-left: -0px;display: none;">
+						      <select name="city" lay-verify="required">
+						        <option value=""></option>
+						        <option value="0">生日快乐</option>
+						        <option value="1">Happy Birthday</option>
+						        <option value="2">节日快乐</option>
+						        <option value="3">自定义</option>
+						      </select>
+						    </div>
+						  </div>
+						  </form>
+        				</td>
+        				<td class="cart-unit-Price"><span>￥358.00</span></td>
+        				<td class="number-li">
+        					<span class="span_number">1</span>
+        				</td>
+        				<td class="money"><span>￥358.00</span></td>
+        			</tr>-->
+        		</table>
+        		<div class="div_shopping_tip">
+        			<span class="span1">订单留言</span>
+        			<form class="layui-form layui-form-pane" action="">
+	        			<div class="layui-form-item layui-form-text" style="margin-left: 135px;margin-top: -25px;">
+						    <div class="layui-input-block" >
+						      <textarea placeholder="请留下您对订单或商品的特殊要求，200字以内" class="layui-textarea" style="border: none;color: #BFBFBF;" id="textDesc"></textarea>
+						    </div>
+						</div>
+					</form>
+        		</div>
+        		
+        	</div>
+        	<div class="div_shopping_Money">
+        		<ul>
+        			<li class="li1"><i class="layui-icon layui-icon-chart-screen"></i><span class="span1">支付结算</span>
+        				<span class="span2">商品金额：<span id="sumPrice">￥372.00</span></span>
+        			</li>
+        			<li class="li2"><span class="span1">配送费：<span>￥0.00</span></span></li>
+        			<li class="li3"><span class="span1">活动优惠：<span>￥0.00</span></span></li>
+        			<li class="li4">
+        				<div class="div_1">
+        					<span class="span1">您总共需要支付：<span style="color: #FF714D;font-size: 20px;" id="sumPrice2">￥372.00</span></span>
+        					<span class="span2">订单已满￥100元,享免费配送服务</span>
+        				</div>
+        			</li>
+        			<li class="li5">
+        				<input type="button" value="下单结算" class="btnSumMoney" id="btnSumMoney"/>
+        			</li>
+        			<li class="li6"><span id="bottomPhone"></span><span id="bottomName"></span></li>
+        			<li class="li7"><span id="bottomAdress"></span></li>
+        		</ul>
+        	</div>
+		<!--内容部分-->
+		<!--底部-->
+		<div class="div_bottom">
+			<img class="div_bottom_logo" src="images-other/footer-logo.png" alt="" width="96" height="36">
+			<div class="footer-nav">
+		        <a href="/doc-about-55.html">联系我们</a>
+		        <span>|</span>
+		        <a href="/doc-distribution-40.html">订购帮助</a>
+		        <span>|</span>
+		        <a href="/doc-about-56.html">企业合作</a>
+		        <span>|</span>
+		        <a href="/doc-about-115.html">生产经营资质</a>
+		        <span>|</span>
+		        <a href="/article-company.html">公告专区</a>
+		    </div>
+		    <div class="footer-icon">
+		    	<a href="#"><i class="layui-icon layui-icon-login-weibo"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-wechat"></i></a>
+		    	<a href="#"><i class="layui-icon layui-icon-login-qq"></i></a>
+		    </div>
+		    <div class="footer-text">
+		        <span>订购专线：400 650 2121（服务时间 08:00–22:00）</span>
+		        <span>客服电话：021-23099721（全国） | kefu@21cake.com（邮箱）</span>
+		        <span>杭州/广州：提前5小时预订；北京：提前6小时预订；上海：提前5.5-6小时预订；天津/苏州/无锡/深圳：提前8小时预订（当日22点以后订单，于次日8点开始审核） </span>
+		        <span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
+		        <span>网站注册公司名称: 北京廿一客食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
+		    </div>
+		    <div class="footer-copyright">
+		        <span>Copyright© 21Cake蛋糕官网商城 2007-2018, 版权所有 <a style="color: #9a9a9a" target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备14006254号-1</a></span>
+		    </div>
+		</div>
+		<fieldset id="dislogs" style="width: 675px;height: 325px;border-width: 0;font-family: '微软雅黑'">
+			<p>
+				<label style="display: inline-block;margin-left: 28px;margin-top: 20px">省份:</label>
+				<!--<input type="text" placeholder="请输入姓名" style="width: 280px;height: 31px"/>-->
+				<select style="width: 280px;height: 31px" name="province" id="province">
+					<option value="请选择">请选择</option>
+				</select><br>
+				<label style="display: inline-block;margin-left: 28px;margin-top: 20px">城市:</label>
+				<!--<input type="text" placeholder="请输入姓名" style="width: 280px;height: 31px"/>-->
+				<select style="width: 280px;height: 31px" name="city" id="city">
+					<option value="请选择">请选择</option>
+				</select><br>
+				<label style="display: inline-block;margin-left: 28px;margin-top: 20px">市区:</label>
+				<!--<input type="text" placeholder="请输入位置" style="width: 280px;height: 31px"/>-->
+				<select style="width: 280px;height: 31px" name="town" id="town">
+					<option value="请选择">请选择</option>
+				</select>
+				<br>
+				<label style="display: inline-block;margin-top: 20px">详细地址:</label>
+				<input type="text" placeholder="请输入详细" style="width: 576px;height: 31px" id="nDesc"/><br>
+				<label style="display: inline-block;margin-top: 20px;margin-left: 14px;">收货人:</label>
+				<input type="text" placeholder="收货人" style="width: 247px;height: 31px" id="nNames"/>
+				<label style="display: inline-block;margin-top: 20px;margin-left: 10px;">手机号码:</label>
+				<input type="text" placeholder="手机号码" style="width: 247px;height: 31px" id="nPhones"/><br>
+				<input type="button" value="取消" style="width: 140px;height: 42px;background: white;float: right;margin-right: 32px;margin-top: 40px;border: none;border-radius: 7px;background: whitesmoke;color: black" id="btnCancelAddress"/><input type="button" value="确定" style="width: 140px;height: 42px;background:#ff9999;float: right;margin-right: 15px;margin-top: 40px;border: none;border-radius: 7px;" id="btnSureAddress"/>
+			</p>
+		</fieldset>
+		<fieldset id="dislogs2" style="width: 745px;/*height: 525px;*/overflow: hidden;background: #fafafa;">
+			<div id="div_NewUserMain">
+
+			</div>
+			<input type="button" value="使用" style="margin-bottom: 0px" id="btnUse"/>
+		</fieldset>
+		<!--底部-->
+		<script src="js/layui/layui.all.js"></script>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/unslider.min.js"></script>
+		<script src="js/artDialog7/dist/dialog.js"></script>
+		<!--图片预加载-->
+		<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+		<script src="js/area.js"></script>
+		<script>
+			/*一开始加载进行判断，看看是否是新增还是查询*/
+			function selectIf(){
+                $.ajax({
+                    url:'UserRegsistMainServlet/selectNewUserInformationByNstate2',
+                    type:'post'
+                }).done(function (result) {
+                    if(result.length>1){
+                        $("#div_address_add1").css("display","none");
+                        //查询出用户信息进行渲染
+                        selectNewUserInformationByNstate();
+                    }else if(result.length==0){
+                        $("#div_address_add2").css("display","none");
+                    }else if(result.length==1){
+                        $("#div_address_add1").css("display","none");
+                        $("#div_address_add2").css("display","block");
+                        /*$.ajax({
+                            url:'UserRegsistMainServlet/selectNewUserInformationByNstate',
+                            type:'post'
+                        }).done(function (result) {
+                            selectNewUserInformationByNstate();
+                        });*/
+                        $("#nName").html(result[0].nName);
+                        $("#nPhone").html(result[0].nPhone);
+                        var address=result[0].nSen+result[0].nCity+result[0].nSite+result[0].nDesc;
+                        $("#nAddress").html(address);
+                        $("#bottomPhone").html(result[0].nPhone);
+                        $("#bottomName").html(result[0].nName);
+                        $("#bottomAdress").html(address);
+					}
+                });
+			};
+			selectIf();
+            //查询出用户信息进行渲染
+			function selectNewUserInformationByNstate() {
+				$.ajax({
+					url:'UserRegsistMainServlet/selectNewUserInformationByNstate',
+					type:'post'
+				}).done(function (result) {
+					$("#nName").html(result[0].nName);
+					$("#nPhone").html(result[0].nPhone);
+					var address=result[0].nSen+result[0].nCity+result[0].nSite+result[0].nDesc;
+					$("#nAddress").html(address);
+                    $("#bottomPhone").html(result[0].nPhone);
+                    $("#bottomName").html(result[0].nName);
+                    $("#bottomAdress").html(address);
+                });
+            };
+			/*省县*/
+            var province=$("#province"),city=$("#city"),town=$("#town");
+            for(var i=0;i<provinceList.length;i++){
+                addEle(province,provinceList[i].name);
+            }
+            function addEle(ele,value){
+                var optionStr="";
+                optionStr="<option value="+value+">"+value+"</option>";
+                ele.append(optionStr);
+            }
+            function removeEle(ele){
+                ele.find("option").remove();
+                var optionStar="<option value="+"请选择"+">"+"请选择"+"</option>";
+                ele.append(optionStar);
+            }
+            var provinceText,cityText,cityItem;
+            province.on("change",function(){
+                provinceText=$(this).val();
+                $.each(provinceList,function(i,item){
+                    if(provinceText == item.name){
+                        cityItem=i;
+                        return cityItem
+                    }
+                });
+                removeEle(city);
+                removeEle(town);
+                $.each(provinceList[cityItem].cityList,function(i,item){
+                    addEle(city,item.name)
+                })
+            });
+            city.on("change",function(){
+                cityText=$(this).val();
+                removeEle(town);
+                $.each(provinceList,function(i,item){
+                    if(provinceText == item.name){
+                        cityItem=i;
+                        return cityItem
+                    }
+                });
+                $.each(provinceList[cityItem].cityList,function(i,item){
+                    if(cityText == item.name){
+                        for(var n=0;n<item.areaList.length;n++){
+                            addEle(town,item.areaList[n])
+                        }
+                    }
+                });
+            });
+			/**/
+			layui.use(['form', 'layedit', 'laydate'], function(){
+			  var form = layui.form
+			  ,layer = layui.layer
+			  ,layedit = layui.layedit
+			  ,laydate = layui.laydate;
+                laydate.render({
+                    elem: '#test5'
+                    ,type: 'datetime'
+                });
+			});
+			//电话号码
+            $.ajax({
+                url:'UserRegsistMainServlet/getPhone',
+                type:'get'
+            }).done(function (result) {
+                $("#span_users").html(result);
+            });
+            //渲染数据
+            function selectShopping() {
+                $.ajax({
+                    url:'UserRegsistMainServlet/selectShoppingByCidAndSstate',
+                    type:'post',
+                    contentType:'application/json;charset=utf8'
+                }).done(function (result) {
+                    var str="";
+                    $.each(result,function (i,obj) {
+                        str+="<tr>";
+                        str+="<td class='goods-img'>";
+                        str+="<div class='goods-img-div'>";
+                        str+="<a>";
+                        str+="<img src='../images/"+obj.cakeInformation.cPicture+"'>";
+                        str+="</a>";
+                        str+="</div>";
+                        str+="</td>";
+                        str+="<td class='goods-cake'>";
+                        str+="<h4 class='cart-title'>";
+                        str+="<a target='_blank' style='border: none;'>"+obj.cakeInformation.cNameEnglish+obj.cakeInformation.cName+"</a>";
+                        str+="</h4>";
+                        str+="<span class='size'>规格：<span>"+obj.sPoundage+"磅</span></span>";
+                        str+="<span class='goods-laid'><i></i>赠送<ins>&nbsp;<span id='1"+obj.sId+"' class='span_pda'></span>&nbsp;</ins>套餐具</span>";
+                        var tableWare;
+                        /*str+="<span class='goods-laid'><i></i>赠送<ins>&nbsp;<span id='1"+obj.sId+"'></span>&nbsp;</ins>套餐具</span>";*/
+                        //查询出餐具
+                        $.ajax({
+                            url:'UserRegsistMainServlet/selectPricePoundageByCidAndPoundage',
+                            type:'post',
+                            data:{cId:obj.cId,sPoundage:obj.sPoundage}
+                        }).done(function (result) {
+                            tableWare=result;
+                            $("#1"+obj.sId).html(result);
+                        });
+                        str+="</td>";
+                        str+="<td class='select-birthday-td'>";
+                        str+="<form class='layui-form' action='' style='margin-right: 10px;margin-top: 17px;'>";
+                        str+="<div class='layui-form-item'>";
+                        str+="<div class='layui-input-block' style='margin-left: -0px;'>";
+                        str+="<select name='city' lay-verify='required' id='selectSBoard'>";
+                        str+="<option value=''></option>";
+                        str+="<option value='生日快乐' selected='selected'>生日快乐</option>";
+                        str+="<option value='Happy Birthday'>Happy Birthday</option>";
+                        str+="<option value='节日快乐'>节日快乐</option>";
+                        str+="</select>";
+                        str+="</div>";
+                        str+="</div>";
+                        str+="</form>";
+                        str+="</td>";
+                        str+="<td class='cart-unit-Price'><span>"+obj.sPrice+"</span></td>";
+                        str+="<td class='number-li'>";
+                        //str+="<span class='span_reduce' data-sId='"+obj.sId+"'>-</span>";
+                        str+="<span class='span_number'>"+obj.sNumber+"</span>";
+                        //str+="<span class='span_add' data-sId='"+obj.sId+"'>+</span>";
+                        str+="</td>";
+                        str+="<td class='money' data-odPrice='"+obj.sPrice+"' data-odPoundage='"+obj.sPoundage+"' data-odTableWare='1' data-odSumPrice='"+obj.sSumPrice+"' data-odNumber='"+obj.sNumber+"' data-cId='"+obj.cakeInformation.cId+"'><span>￥<span>"+obj.sSumPrice+"</span></span></td>";
+                        //str+="<td class='money'><span>￥<span>"+obj.sSumPrice+"</span></span></td>";
+                        //str+="<td class='delete' data-sId='"+obj.sId+"'>";
+                        //str+="<i class='layui-icon layui-icon-close'></i>";
+                        //str+="</td>";
+                        str+="</tr>";
+                    });
+                    $("#tableShopping").html(str);
+                });
+            };
+            selectShopping();
+            //查询总价
+            function selectSumPrice() {
+                $.ajax({
+                    url:'UserRegsistMainServlet/selectShoppingSumPrice',
+                    type:'post'
+                }).done(function (result) {
+                    $("#sumPrice").html("￥"+result);
+                    $("#sumPrice2").html("￥"+result);
+                });
+            };selectSumPrice();
+
+            //新增用户地址点击时
+			$("#btnSureAddress").click(function () {
+				var nSen=$("#province").val();var nCity=$("#city").val();
+				var nSite=$("#town").val();var nDesc=$("#nDesc").val();
+				var nName=$("#nNames").val();var nPhone=$("#nPhones").val();
+				if(nSen=="" || nCity=="" || nSite=="" || nDesc=="" || nName=="" || nPhone==""){
+				    layer.msg("部分信息为空，请补全！");return false;
+				}
+				$.ajax({
+					url:'UserRegsistMainServlet/insertNewUserInformation',
+					type:'post',
+					data:{nSen:nSen,nCity:nCity,nSite:nSite,nDesc:nDesc,nName:nName,nPhone:nPhone}
+				}).done(function (result) {
+					layer.msg(result);selectIf();showNewUser();
+                    dialogAgu.close();
+                });
+            });
+			//取消新增用户地址点击时
+			$("#btnCancelAddress").click(function () {
+                dialogAgu.close();
+            });
+            //弹出框
+            var dialogAgu;var dialogAdd;
+            //点击添加用户时，弹出框
+			$("#btnAddAdress1,#btnAddAdress2").click(function () {
+                dialogAgu=dialog({
+                    title:"添加新地址",
+                    modal:true,
+                    backdropOpacity:0.2,
+                    width:'700px',
+                    height:'350px',
+                    content:$("#dislogs")
+                });
+				dialogAgu.show();
+            });
+			var nId="";
+			//查询所有用户
+			function showNewUser(){
+			  $.ajax({
+				  url:'UserRegsistMainServlet/selectNewUserInformation',
+				  type:'post'
+			  }).done(function (result) {
+				  var str="";
+				  var count=0;
+				  $.each(result,function (i,obj) {
+					  str+="<ul class='div_NewUser' style='background: white;border: 1px solid #E1E1E1;padding: 12px 20px;margin: 10px;' data-nId='"+obj.nId+"'>";
+                      str+="<li class='li1'>";
+                      str+="<span class='span_name'>"+obj.nName+"</span>";
+                      str+="</li>";
+                      str+="<li class='li2'>";
+                      str+="<i class='layui-icon layui-icon-cellphone' style='font-size: 10px;'></i>";
+                      str+="<span class='span_phone'>"+obj.nPhone+"</span>";
+                      str+="</li>";
+                      str+="<li class='li3'>";
+                      str+="<i class='layui-icon layui-icon-location' style='font-size: 10px;'></i>";
+                      str+="<span>"+obj.nSen+obj.nCity+obj.nSite+obj.nDesc+"</span>";
+                      str+="</li>";
+                      str+="</ul>";
+                      count++;
+                  });
+				  $("#span_catch").html(count);
+				  $("#div_NewUserMain").html(str);
+              });
+			};
+			//选择用户框被点击时
+			$("#div_NewUserMain").on("click",".div_NewUser",function () {
+			    $(".div_NewUser").css("border","1px solid #E1E1E1");
+				$(this).css("border","1px solid red");
+				nId=$(this).data("nid");
+            });
+			//切换地址
+            $("#div_catch").click(function () {
+                dialogAdd=dialog({
+                    title:"请选择收获地址",
+                    modal:true,
+                    backdropOpacity:0.2,
+                    width:'770px',
+                    /*height:'550px',*/
+                    overflow:'hidden',
+                    content:$("#dislogs2")
+                });
+                dialogAdd.show();
+            });
+            showNewUser();
+            //修改新增用户状态
+			function updateNewUserInformation(){
+			    $.ajax({
+					url:'UserRegsistMainServlet/updateNewUserInformation2',
+					type:'post'
+				}).done(function (result) {
+                    $.ajax({
+                        url:'UserRegsistMainServlet/updateNewUserInformation',
+                        type:'post',
+						data:{nId:nId}
+                    }).done(function (result) {
+                        layer.msg(result);
+                        selectNewUserInformationByNstate();
+                    });
+                });
+			};
+            //用户选择确定后
+			$("#btnUse").click(function () {
+				updateNewUserInformation();
+            });
+			//点击下单时
+			$("#btnSumMoney").click(function () {
+			    var opTime=$("#test5").val();
+			    if(opTime=="" || opTime==null){
+			        layer.msg("请选择时间！");return false;
+				}
+                var tdValues=$(".money");
+                if(tdValues.length>0) {
+                    var ordingList = new Array();
+                    var oAction = $("input[type=radio]:checked").val();
+                    ordingList.push({
+                        oPTime: new Date($("#test5").val()),
+						oAddress:$("#nAddress").html(),
+                        oAction: oAction,
+                        oDesc: $("#textDesc").val(),
+                        oName: $("#nName").html(),
+                        oPhone: $("#nPhone").html()
+                    });
+                    $.ajax({
+                        url: 'OrderingServlet/insertOrding',
+                        type: 'post',
+                        data: JSON.stringify(ordingList),
+                        contentType: 'application/json;charset=utf8'
+                    }).done(function (result) {
+                        var oId = result;
+                        var ordingList = new Array();
+                        var tdValue = $(".money");
+                        var spanPda = $(".span_pda");
+                        for (var i = 0; i < tdValue.length; i++) {
+                            var odPrice = $(tdValue[i]).data("odprice");
+                            var odPoundage = $(tdValue[i]).data("odpoundage");
+                            var odTableWare = $(spanPda[i]).html();
+                            var odSumPrice = $(tdValue[i]).data("odsumprice");
+                            var odNumber = $(tdValue[i]).data("odnumber");
+                            var cId = $(tdValue[i]).data("cid");
+                            ordingList.push({
+                                odPrice: odPrice,
+                                odPoundage: odPoundage,
+                                odTableWare: odTableWare,
+                                odSumPrice: odSumPrice,
+                                odNumber: odNumber,
+                                cId: cId,
+                                oId: oId
+                            });
+                        }
+                        $.ajax({
+                            url: 'OrderingServlet/insertOrdingDesc',
+                            type: 'post',
+                            data: JSON.stringify(ordingList),
+                            contentType: 'application/json;charset=utf8'
+                        }).done(function (result) {
+                            layer.msg(result);
+                            setTimeout(function () {
+								window.location.href="moneyAction.html?oId="+oId+"&odSumPrice="+$("#sumPrice").html();
+                            },1000);
+                        });
+
+                    });
+                }else{
+                    layer.msg("购物车空空如也！");
+				}
+            });
+            $("#myOrdering").click(function () {
+                location.href="myOrdering.html";
+            });
+		</script>
+	</body>
+</html>

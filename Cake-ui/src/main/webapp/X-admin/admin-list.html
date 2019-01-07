@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <style>
+    .layui-row input{
+      width: 150px;
+      float: left;
+      padding-left: 10px;margin-right: 5px;margin-bottom: 21px;
+    }
+    .layui-row a{
+      float: right;margin-right: 6px;margin-top:11px;
+    }
+  </style>
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <!--<form class="layui-form layui-col-md12 x-so">-->
+          <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end">
+          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" id="raName">
+          <button class="layui-btn"  id="btnSerach"><i class="layui-icon">&#xe615;</i></button>
+          <a href="CakeServlet/joinxml">导出xml</a>
+        <!--</form>-->
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" id="btnAddAdmin" onclick="x_admin_show('添加用户','./admin-add.html',900,350)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：<span id="span_number"></span> 条</span>
+      </xblock>
+      <table class="layui-table" id="dataTable">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>登录名</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>角色</th>
+            <th>注册时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      <!--分页-->
+      <div id="demo11"></div>
+    </div>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+      //parent.layui.table.reload($("#dataTable"));
+      /*----------------------------------------*/
+      //分页
+      //var pages="";/*var limits="";*/
+      function selectRegsistAdmir() {
+          /*alert($("#raName").val());*/
+                /*查询所有*/
+                var number = "";
+                $.ajax({
+                    url:'CakeServlet/selectAdminCount',
+                    type:'post',
+                    data:{raName:$("#raName").val()}
+                    //contentType: 'application/json;charset=UTF-8'
+                }).done(function (result) {
+                    number=result;
+                    $("#span_number").html(number);
+                    /*分页查询*/
+                    layui.use(['laypage', 'layer'], function() {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'demo11'
+                            , count: number //数据总数
+                            , limit: 4
+                            , curr: location.hash.replace('#!fenye=','')//获取起始页
+                            ,hash:'fenye'
+                            , jump: function (objs) {
+                                page = objs.curr;
+                                limit = objs.limit;
+                                var objectList = [];
+                                objectList.push(page);
+                                objectList.push(limit);
+                                objectList.push($("#raName").val());
+                                /*得到返回结果*/
+                                /*先清除数据*/
+                                $("tbody tr").remove();
+                                $.ajax({
+                                    url: 'CakeServlet/selectAdminByPage',
+                                    type: 'post',
+                                    data: JSON.stringify(objectList),
+                                    contentType: 'application/json;charset=UTF-8'
+                                }).done(function (result) {
+                                    var str = "";
+                                    /*alert(result[0].raId+","+result.raName+","+result.raPhone+","+result.raEmail+","+
+                                    result.raRole+","+result.raBirthday+","+result.raState);*/
+                                    var u=0;
+                                    $.each(result, function (i, obj) {
+                                        u++;
+                                        str += "<tr>";
+                                        str += "<td>";
+                                        str += "<div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div>";
+                                        str += "</td>";
+                                        str += "<td>" + obj.raId + "</td>";
+                                        str += "<td>" + obj.raName + "</td>";
+                                        str += "<td>" + obj.raPhone + "</td>";
+                                        str += "<td>" + obj.raEmail + "</td>";
+                                        str += "<td>" + obj.raRole + "</td>";
+                                        str += "<td>" + new Date(obj.raBirthday).toLocaleString() + "</td>";
+                                        str += "<td class='td-status'>";
+                                        var raStates = "";
+                                        var raStates2 = "";
+                                        if (obj.raState == 0) {
+                                            raStates = "注销";
+                                            raStates2 = "启用";
+                                        } else {
+                                            raStates = "存在";
+                                            raStates2 = "注销";
+                                        }
+                                        str += "<span class='layui-btn layui-btn-normal layui-btn-mini'>" + raStates + "</span></td>";
+                                        str += "<td class='td-manage'>";
+
+                                        str += "<a onclick='member_stop(this," + obj.raId + ")' href='javascript:;'  title='" + raStates2 + "'>";
+                                        str += "<i class='layui-icon'>&#xe601;</i>";
+                                        str += "</a>";
+                                        str += "<a title='编辑'  onclick=\"x_admin_show('编辑','admin-edit.html?raId=" + obj.raId + "&raName=" + obj.raName + "&raPhone=" + obj.raPhone + "&raEmail=" + obj.raEmail + "&raRole=" + obj.raRole + "',900,350)\" href='javascript:;'>";
+                                        str += "<i class='layui-icon'>&#xe642;</i>";
+                                        str += "</a>";
+                                        str+="<a onclick='x_admin_show(\"修改密码\",\"admin-password.html\",600,400)' title='修改密码' href='javascript:;'>";
+                                        str+="<i class='layui-icon'>&#xe631;</i>";
+                                        str+="</a>";
+                                        str += "<a title='重置密码' onclick='member_del(this," + obj.raId + ")' href='javascript:;'>";
+                                        str += "<i class='layui-icon'>&#xe640;</i>";
+                                        str += "</a>";
+                                        str += "</td>";
+                                        str += "</tr>";
+                                    });
+                                    if(u<2){
+                                        $("#btnSerach").prop("disabled",true);
+                                        $("#btnAddAdmin").prop("disabled",true);
+                                    }
+                                    $("tbody").html(str);
+                                });
+                            }
+                        });
+                    });
+                });
+      }
+      /*-----------------------------------------*/
+      selectRegsistAdmir();
+      /*-----------------------------------------*/
+      /*搜索*/
+      $("#btnSerach").click(function () {
+         selectRegsistAdmir();
+          /*alert("d");*/
+      });
+      /*-----------------------------------------*/
+       /*用户-注销*/
+      function member_stop(obj,id){
+          var share="确定要"+$(obj).attr('title')+"吗?";
+          layer.confirm(share,function(index){
+              var raState="";
+              if($(obj).attr('title')=="注销"){
+                  raState=0;
+              }else{
+                  raState=1;
+              }
+              $.ajax({
+                  url:'CakeServlet/updateState',
+                  type:'post',
+                  data:{raId:id,raState:raState}
+              }).done(function (result) {
+                  layer.msg(result);
+                  selectRegsistAdmir();
+              });
+          });
+      }
+      /*-----------------------------------------*/
+      /*用户-重置密码*/
+      function member_del(obj,id){
+          layer.confirm('确认要重置密码吗？',function(index){
+              //发异步删除数据
+              var integerList=[];
+              integerList.push(id);
+              $.ajax({
+                  url:'CakeServlet/updateRegsistAdminPassword',
+                  type:'post',
+                  data:JSON.stringify(integerList),
+                  contentType:'application/json;charset=utf8'
+              }).done(function (result) {
+                  layer.msg(result);
+              });
+
+          });
+      }
+      /*-----------------------------------------*/
+      function delAll (argument) {
+
+        var data = tableCheck.getData();
+  
+        layer.confirm('确认要重置密码吗？',function(index){
+            //捉到所有被选中的，发异步进行删除
+            /*layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();*/
+            alert(data);
+        });
+      }
+      /*-----------------------------------------*/
+    </script>
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();</script>
+  </body>
+
+</html>
